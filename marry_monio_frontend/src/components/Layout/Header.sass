@@ -1,0 +1,90 @@
+@use "src/index" as *
+
+
+:root
+  --main-bg-color: 2vh
+
+@media (max-width: 700px)
+  .header-div
+    height: auto
+    width:  100%
+    background-color: white
+    position: fixed
+    bottom: 0
+    font-size: small
+  
+  li a
+    --size-navbutton-padding: 1.5vh
+    --size-navbutton-margin-left: 0.2vh
+    --size-navbutton-margin-right: 0.2vh
+  
+  #logo-container
+    display: none
+  #orange
+    display: none
+
+  #green
+    display: none
+
+li.nav-item a
+  color: white
+  padding-left: var(--size-navbutton-padding, 2h)
+  padding-right: var(--size-navbutton-padding, 2vh)
+  padding-top: var(--size-navbutton-padding, 2vh)
+  padding-bottom: var(--size-navbutton-padding, 2vh)
+  margin-left: var(--size-navbutton-margin-left, 3vh)
+  margin-right: var(--size-navbutton-margin-right, 3vh)
+
+
+ul.nav-list
+  list-style-type: none
+  margin: 0
+  padding: 0
+  overflow: hidden
+  background-color: $secoundary-bg-color
+  display: flex
+
+
+
+    
+li.nav-item
+  display: flex
+  float: left
+  flex: 1
+  justify-content: center
+  align-content: center
+
+ul.nav-list :first-child
+  float: left
+  flex: 0.5
+
+ul.nav-list :last-child
+  float: left
+  flex: 0.5
+
+
+li a:hover 
+  background-color: $primary-dark-color
+  color: black
+
+
+
+.small-logo
+  width: 3em
+  height: 3em
+  padding-left: 2vh
+  padding-right: 0px
+
+@media (min-width: 700px)
+  #logo-container
+    display: flex
+    align-content: center
+    justify-content: center
+
+    
+
+  #orange
+    color: $primary-light-color
+
+  #green
+    color: $secoundary-light-color
