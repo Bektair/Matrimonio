@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
-import {getPosts, selectPosts } from '../../redux/slices/postSlice'
+import {getAllPostsInWedding, getPosts, selectPosts } from '../../redux/slices/postSlice'
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
 import { postsSetAction } from '../../redux/actions/postActions';
 import { store } from '../../redux/store';
 import { IPost } from '../../models/IPost';
+import GetPostsAction from '../../components/API/GetPosts';
 
 
 function posts() {
@@ -12,12 +13,13 @@ function posts() {
 
   let {weddingId} = useParams()
   let posts = useAppSelector(selectPosts)
-  let postState = store.getState().post_slice.posts.length
+  let postState = store.getState().posts.posts.length
   
   useEffect(()=>{
     let wedding_id = weddingId?.toString();
      if(wedding_id != undefined){
-       dispatch(getPosts("weddingId")) //Dispatch Event
+
+       dispatch(getAllPostsInWedding(Number(wedding_id))) //Dispatch Event
        console.log("Test TEST -----------")
       }
      

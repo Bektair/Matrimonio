@@ -1,34 +1,42 @@
 import { ActionCreatorWithPayload, PayloadAction } from "@reduxjs/toolkit";
 import { Action, Middleware, UnknownAction, isAction } from "redux";
 import { RequestsEnum, RootState } from "../store";
-import { getPosts } from "../slices/postSlice";
-import { useAppDispatch } from "../Hooks/hooks";
+import { IPostResponse, fetchPosts } from "../../components/API/GetPosts";
 
+//BEFORE IT REACHES THE REDUCER
 
-
-export const loggerMiddleware : Middleware = storeAPI => next => (action) => {
-    const dispatch = useAppDispatch()
+export const loggermiddleware : Middleware<{}, RootState> = storeAPI => next => async (action) => {
     console.log('dispatching', action)
+    var modifiedAction = action;
     
     if(isAction(action)){
         console.log("is an action")
         var unknownAction  = action as UnknownAction;
+
         switch(unknownAction.type){
-            case("set-posts"): {
+
+            case("post_slice/getPosts"): {
                 var payloadAction = unknownAction as PayloadAction<string>
                 console.log("Setting posts")
+                var posts  = await fetchPosts({weddingId: payloadAction.payload});
+                console.log(posts)
+                modifiedAction = {
+                    type: unknownAction.type,
+                    payload: posts
+                } as PayloadAction<IPostResponse[]>
                 break;
             }
             default: { 
-                console.log("other / default action")
+                console.log("other / default action" + unknownAction.type)
             }
         }
+        
+            
     }
-
 
         //storeApi.dispatch(RequestStarted(requestName));
     
-    let result = next(action)
+    let result = next(modifiedAction)
     console.log('next state', storeAPI.getState())
     
 

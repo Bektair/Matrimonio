@@ -1,6 +1,6 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { Action, PayloadAction, ThunkDispatch, UnknownAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { IPost } from "../../models/IPost"
-import { IPostResponse } from "../../components/API/GetPosts"
+import { IPostResponse, fetchPosts } from "../../components/API/GetPosts"
 import type { RootState } from '../store'
 import posts from "../../pages/Posts/posts"
 
@@ -13,54 +13,70 @@ import posts from "../../pages/Posts/posts"
     posts: []
   }
   
+
+
   const postSlice = createSlice({
-    name: 'post_slice',
+    name: 'posts',
     // `createSlice` will infer the state type from the `initialState` argument
     initialState: initialState,
+    // Reducer Rules:
+    // They should only calculate the new state value based on the state and action arguments
+    // They are not allowed to modify the existing state. Instead, they must make immutable updates, by copying the existing state and making changes to the copied values.
+    // They must not do any asynchronous logic, calculate random values, or cause other "side effects"
     reducers: {
-      //All the different types of api requests we can have in this case
-      //I payload action Ipostresponse
-      //PayloadAction = Object + string
-      getPosts: (state, action: PayloadAction<string>) => {
-        let posts =[ { 
-          id: 1,
-          author_id: 1,
-          body: action.payload,
-          title: "asdd",
-          wedding_id: 1
-        }] as IPost[]
+      getPosts:  (state, action: PayloadAction<IPostResponse[]>) => {
+        let posts = action.payload.map(post => {
+          return {
+            id: post.id,
+            title: post.title,
+            body: post.body,
+            wedding_id: post.weddingId,
+            author_id: post.authorId
+          } 
+        })
+
         return {
          ...state, posts
         }
-      }
+      },
+    
     },
+    extraReducers: (builder) => {
+      builder.addCase(getAllPostsInWedding.fulfilled, (state, action)=>{
+        let posts = action.payload.map(post => {
+          return {
+            id: post.id,
+            title: post.title,
+            body: post.body,
+            wedding_id: post.weddingId,
+            author_id: post.authorId
+          } 
+        })
+        state.posts = posts;
+      })
+    }
   });
   
-
-//   let posts = action.payload
-//   .map<IPost>(postResponse => {
-//       return {
-//           id: postResponse.id,
-//           author_id: postResponse.authorId,
-//           body: postResponse.body,
-//           title: postResponse.title,
-//           wedding_id: postResponse.weddingId
-//       };
-//   });
-// return {
-//   ...state,
-//    posts
-// }
+// Thunk creator
+  export const getAllPostsInWedding = createAsyncThunk(
+    'posts/setPosts',
+    //Inside thunk function
+    async (wedding_id : number)=> {
+        try {
+          const posts = await fetchPosts({weddingId: wedding_id.toString()});
+          return posts;
+        }catch (err){
+          return [];
+        }
+    }
+  )
 
   
   
   export const { getPosts } = postSlice.actions
   
-  // Other code such as selectors can use the imported `RootState` type
-  //export const selectCount = (state: RootState) => state.counter.value
-  // Other code such as selectors can use the imported `RootState` type
-// Other code such as selectors can use the imported `RootState` type
+
 export const selectPosts = (state: RootState) => {
-  return state.post_slice.posts;
+  return state.posts.posts;
 }
   export default postSlice.reducer
