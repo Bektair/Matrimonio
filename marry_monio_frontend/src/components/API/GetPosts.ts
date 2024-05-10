@@ -4,6 +4,7 @@ import { RequestsEnum, RootState } from "../../redux/store";
 import postSlice from "../../redux/slices/postSlice";
 import { error } from "console";
 import { REQUEST_ACTION_TYPE, RequestPayload, sideEffect } from "../../redux/middleware/requestMiddleware";
+import getAuthHeaders from "./SetAuthHeaders";
 //import getAuthHeaders from "./setAuthHeaders"; For authentication
 
 interface IParams {
@@ -24,8 +25,10 @@ export async function fetchPosts({ weddingId }: IParams ) : Promise<IPostRespons
     //const headers = await getAuthHeaders(); For Authentication
     console.log("wedding id passed to middleware=" + weddingId)
 
+    const headers = await getAuthHeaders();
+
     let response = await fetch(`${API_URL}/api/Post?$filter=weddingId eq ${Number(weddingId)}`, {
-       // headers
+       headers
     })
     if(!response.ok)
         throw new Error(await response.text() || response.statusText);
