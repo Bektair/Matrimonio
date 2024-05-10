@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import Page404 from './components/Layout/Page404'
 import routes from "./components/route"
+import { ReactKeycloakProvider } from '@react-keycloak/web'
+import keycloak from '../keycloak'
 
 function App() {
 

@@ -1,5 +1,4 @@
 import { applyMiddleware, combineReducers, configureStore } from '@reduxjs/toolkit'
-import counterReducer from '../features/counter/counterSlice'
 import { postReducer } from './reducers/postReducer'
 import {loggermiddleware } from './middleware/loggermiddleware'
 import postSlice from './slices/postSlice'

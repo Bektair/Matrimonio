@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-keycloak/web": "^3.4.0",
     "@reduxjs/toolkit": "^2.2.3",
     "@types/react-redux": "^7.1.33",
     "axios": "^1.6.8",
+    "keycloak-js": "^24.0.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
