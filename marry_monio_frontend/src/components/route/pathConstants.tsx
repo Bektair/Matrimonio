@@ -1,5 +1,5 @@
 const PathConstants = {
-    Login: "/login",
+Login: "/login",
     Register: "/register",
     Home: ":weddingId/home",
     RSVP: ":weddingId/rsvp",
