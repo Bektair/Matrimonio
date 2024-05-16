@@ -6,6 +6,7 @@ import PathConstants from './components/route/pathConstants'
 
 import routes from './components/route'
 import NotFound from './pages/Errorpages/NotFound'
+import Auth0ProviderWithNavigate from './features/Auth/auth-WITH-navigate'
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      element: <Layout />,
+      element: <Auth0ProviderWithNavigate />,
       errorElement: <NotFound></NotFound>,
       children: routes,
     }
