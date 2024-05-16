@@ -1,8 +1,12 @@
 import React from 'react'
+import Layout from '../../components/Layout/Layout'
 
 function rsvp() {
   return (
-    <div>rsvp</div>
+    <Layout>
+      <div>rsvp</div>
+    </Layout>
+
   )
 }
 

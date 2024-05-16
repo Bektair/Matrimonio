@@ -1,8 +1,12 @@
 import React from 'react'
+import Layout from '../../components/Layout/Layout'
 
 function reception() {
   return (
-    <div>reception</div>
+    <Layout>
+      <div>reception</div>
+    </Layout>
+
   )
 }
 

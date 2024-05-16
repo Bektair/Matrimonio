@@ -10,7 +10,7 @@ const RSVP = React.lazy(() => import("../../pages/RSVP/rsvp"))
 const Register = React.lazy(() => import("../../pages/Auth/register"))
 
 const routes = [
-    // { path: PathConstants.Login, element: <Login /> },
+    { path: PathConstants.Login, element: <Login /> },
     { path: PathConstants.Register, element: <Register /> },
     { path: PathConstants.Home, element: <Home /> },
     { path: PathConstants.Ceremony, element: <Ceremony /> },

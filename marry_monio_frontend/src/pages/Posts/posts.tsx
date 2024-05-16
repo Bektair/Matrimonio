@@ -6,6 +6,7 @@ import { postsSetAction } from '../../redux/actions/postActions';
 import { store } from '../../redux/store';
 import { IPost } from '../../models/IPost';
 import GetPostsAction from '../../components/API/GetPosts';
+import Layout from '../../components/Layout/Layout';
 
 
 function posts() {
@@ -41,11 +42,13 @@ function posts() {
   };
 
   return (
-    <div>posts length of postsarray  {postState} {posts.length}
-        <ul>
-          {renderPost()}
-        </ul>
-     </div>
+    <Layout>
+      <div>posts length of postsarray  {postState} {posts.length}
+          <ul>
+            {renderPost()}
+          </ul>
+      </div>
+    </Layout>
 
   )
 }
