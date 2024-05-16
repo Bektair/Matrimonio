@@ -9,9 +9,7 @@ function Home() {
 console.log("OK loading Home")
 
   return (
-    // <Layout>
         <div>home {weddingId}</div>
-    // </Layout>
   )
 }
 

@@ -42,13 +42,11 @@ function posts() {
   };
 
   return (
-    <Layout>
       <div>posts length of postsarray  {postState} {posts.length}
           <ul>
             {renderPost()}
           </ul>
       </div>
-    </Layout>
 
   )
 }
