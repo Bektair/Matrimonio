@@ -6,7 +6,10 @@ function Navbar() {
   return (
     <nav className="navbar">
         <ul className="nav-list">
-            <li className= "nav-item" id='logo-container'><img className="small-logo" src="/src/assets/logo.svg"></img><p id="orange">Marry</p><p id="green">Monio</p></li>
+            <li className= "nav-item"><Link to={PathConstants.Menu} id='logo-container'>
+              <div className='logo-img'><img className="small-logo" src="/src/assets/logo.svg"></img></div>
+              <div className="logo-text"><span id="orange">Marry</span><span id="green">Monio</span></div>
+            </Link></li>
             <li className="nav-item"><Link to={PathConstants.Home}>Home</Link></li>
             <li className="nav-item"><Link to={PathConstants.RSVP}>RSVP</Link></li>
             <li className="nav-item"><Link to={PathConstants.Ceremony}>Ceremony</Link></li>

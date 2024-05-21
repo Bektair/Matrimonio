@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '../../components/Layout/Layout'
 import { audience, clientId, domain, redirectUri } from '../../constants/environment'
 
-function rsvp() {
+function Rsvp() {
 
 
 
@@ -13,4 +13,4 @@ function rsvp() {
   )
 }
 
-export default rsvp
+export default Rsvp

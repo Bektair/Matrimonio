@@ -2,19 +2,26 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './_index.sass'
-import { BrowserRouter } from 'react-router-dom';
-import { Auth0ProviderWithNavigate } from "./features/Auth/auth0-provider-with-navigate";
+import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from './redux/store'
+import Layout from './components/Layout/Layout.tsx';
+import NotFound from './pages/Errorpages/NotFound.tsx';
+import routes from './components/route/index.tsx';
+import { Auth0Provider } from "@auth0/auth0-react";
+import { audience, clientId, domain, redirectUri } from './constants/environment.ts';
+import { store } from './redux/store.ts';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
+
+
+
 
   root.render(
     <React.StrictMode>
         <Provider store={store}>
-          {/* <Auth0ProviderWithNavigate> */}
+
               <App></App>
-          {/* </Auth0ProviderWithNavigate> */}
+
           </Provider>
     </React.StrictMode>
   );

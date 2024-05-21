@@ -17,9 +17,7 @@
     --size-navbutton-padding: 1.5vh
     --size-navbutton-margin-left: 0.2vh
     --size-navbutton-margin-right: 0.2vh
-  
-  #logo-container
-    display: none
+
   #orange
     display: none
 
@@ -34,6 +32,8 @@ li.nav-item a
   padding-bottom: var(--size-navbutton-padding, 2vh)
   margin-left: var(--size-navbutton-margin-left, 3vh)
   margin-right: var(--size-navbutton-margin-right, 3vh)
+  justify-content: center
+  align-content: center
 
 
 ul.nav-list
@@ -54,12 +54,13 @@ li.nav-item
   justify-content: center
   align-content: center
 
-ul.nav-list :first-child
-  float: left
-  flex: 0.5
+ul.nav-list:first-child
+  flex: 1
 
-ul.nav-list :last-child
-  float: left
+
+  
+
+ul.nav-list:last-child
   flex: 0.5
 
 
@@ -74,6 +75,23 @@ li a:hover
   height: 3em
   padding-left: 2vh
   padding-right: 0px
+
+  
+#logo-container
+  display: flex
+  align-items: center
+  justify-content: center
+
+#logo-text
+  display: flex
+
+#logo-text :first-child
+  flex:15
+
+#logo-text :last-child
+  flex:1
+
+
 
 @media (min-width: 700px)
   #logo-container

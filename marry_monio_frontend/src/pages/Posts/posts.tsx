@@ -9,7 +9,7 @@ import GetPostsAction from '../../components/API/GetPosts';
 import Layout from '../../components/Layout/Layout';
 
 
-function posts() {
+function Posts() {
    const dispatch = useAppDispatch()
 
   let {weddingId} = useParams()
@@ -51,4 +51,4 @@ function posts() {
   )
 }
 
-export default posts
+export default Posts
