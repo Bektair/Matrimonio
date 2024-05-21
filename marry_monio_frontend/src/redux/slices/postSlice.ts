@@ -1,8 +1,7 @@
-import { Action, PayloadAction, ThunkDispatch, UnknownAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { IPost } from "../../models/IPost"
 import { IPostResponse, fetchPosts } from "../../components/API/GetPosts"
 import type { RootState } from '../store'
-import Posts from "../../pages/Posts/Posts"
 
   
   type sliceState = {
@@ -24,21 +23,21 @@ import Posts from "../../pages/Posts/Posts"
     // They are not allowed to modify the existing state. Instead, they must make immutable updates, by copying the existing state and making changes to the copied values.
     // They must not do any asynchronous logic, calculate random values, or cause other "side effects"
     reducers: {
-      getPosts:  (state, action: PayloadAction<IPostResponse[]>) => {
-        let posts = action.payload.map(post => {
-          return {
-            id: post.id,
-            title: post.title,
-            body: post.body,
-            wedding_id: post.weddingId,
-            author_id: post.authorId
-          } 
-        })
+      // getPosts:  (state, action: PayloadAction<IPostResponse[]>) => {
+      //   let posts = action.payload.map(post => {
+      //     return {
+      //       id: post.id,
+      //       title: post.title,
+      //       body: post.body,
+      //       wedding_id: post.weddingId,
+      //       author_id: post.authorId
+      //     } 
+      //   })
 
-        return {
-         ...state, posts
-        }
-      },
+      //   return {
+      //    ...state, posts
+      //   }
+      // },
     
     },
     extraReducers: (builder) => {
@@ -58,25 +57,26 @@ import Posts from "../../pages/Posts/Posts"
   });
   
 // Thunk creator
-  export const getAllPostsInWedding = createAsyncThunk(
-    'posts/setPosts',
-    //Inside thunk function
-    async (wedding_id : number)=> {
-        try {
-          const posts = await fetchPosts({weddingId: wedding_id.toString()});
-          return posts;
-        }catch (err){
-          return [];
-        }
-    }
-  )
+export const getAllPostsInWedding = createAsyncThunk(
+  'posts/setPosts',
+  //Inside thunk function
+  async (wedding_id : number)=> {
+      try {
+        const posts = await fetchPosts({weddingId: wedding_id.toString()});
+        return posts;
+      }catch (err){
+        return [];
+      }
+  }
+)
 
   
   
-  export const { getPosts } = postSlice.actions
+// export const { getPosts } = postSlice.actions
   
 
 export const selectPosts = (state: RootState) => {
   return state.posts.posts;
 }
-  export default postSlice.reducer
+
+export default postSlice.reducer

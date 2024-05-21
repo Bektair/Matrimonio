@@ -1,18 +1,20 @@
 import { applyMiddleware, combineReducers, configureStore } from '@reduxjs/toolkit'
-import { postReducer } from './reducers/postReducer'
 import {loggermiddleware } from './middleware/loggermiddleware'
 import postSlice from './slices/postSlice'
+import weddingsSlice from './slices/weddingsSlice'
+import weddingSlice from './slices/weddingSlice'
 
 export enum RequestsEnum {
   GetPosts="post_slice/getPosts"
 }
 
-const middlewareEnhancer = applyMiddleware(loggermiddleware)
 
 //These keys define the final statevalue
 //Splitting the state into slicereducers
 const rootReducer = combineReducers({
-  posts :  postSlice
+  posts :  postSlice,
+  weddings: weddingsSlice,
+  wedding: weddingSlice,
 })
 
 //Has autoamtic combineredusers now.
