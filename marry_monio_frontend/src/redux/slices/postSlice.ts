@@ -2,7 +2,7 @@ import { Action, PayloadAction, ThunkDispatch, UnknownAction, createAsyncThunk, 
 import { IPost } from "../../models/IPost"
 import { IPostResponse, fetchPosts } from "../../components/API/GetPosts"
 import type { RootState } from '../store'
-import posts from "../../pages/Posts/posts"
+import Posts from "../../pages/Posts/Posts"
 
   
   type sliceState = {

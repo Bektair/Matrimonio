@@ -1,8 +1,0 @@
-{
-  "realm": "marryMonio",
-  "auth-server-url": "https://localhost:8443",
-  "ssl-required": "external",
-  "resource": "marryMonioFrontend",
-  "public-client": true,
-  "confidential-port": 0
-}

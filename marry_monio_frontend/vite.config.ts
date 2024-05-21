@@ -9,6 +9,6 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env.REACT_APP_API_URL': JSON.stringify(env.REACT_APP_API_URL)
     },
-    plugins: [react()],
+    plugins: [react()], server: {port: 5200}
   } 
 })

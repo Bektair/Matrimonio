@@ -1,24 +1,59 @@
 
 import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Layout from './components/Layout/Layout'
-import Page404 from './components/Layout/Page404'
-import routes from "./components/route"
-import { ReactKeycloakProvider } from '@react-keycloak/web'
-import keycloak from '../keycloak'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import {Home} from './pages/Home/home'
+import Login from './pages/Auth/login'
+import {Register} from './pages/Auth/register'
+import { Auth0Provider } from "@auth0/auth0-react";
+import { audience, clientId, domain, redirectUri } from './constants/environment.ts';
+import Layout from './components/Layout/Layout.tsx'
+import PathConstants from './components/route/pathConstants.tsx'
+import Ceremony from './pages/Ceremony/Ceremony.tsx'
+import Rsvp from './pages/RSVP/Rsvp.tsx'
+import Reception from './pages/Reception/Reception.tsx'
+import Profile from './pages/Profile/Profile.tsx'
+import Create from './pages/Create/create.tsx'
+import Weddingsmenu from './pages/WeddingsMenu/Weddingsmenu.tsx'
 
-function App() {
+export const App : React.FC = () => {
 
-  const router = createBrowserRouter([
-    {
-      element: <Layout />,
-      errorElement: <Page404></Page404>,
-      children: routes
-    }
-  ])
+
+
+
+
 
   return (
-    <RouterProvider router={router}></RouterProvider>
+    <BrowserRouter>
+        <Auth0Provider
+              domain={domain}
+              clientId={clientId}
+              authorizationParams={{
+                audience: audience,
+                redirect_uri: redirectUri,
+              }
+
+            }
+            >
+        <Routes>
+          <Route element={<Layout/>}> 
+            <Route path={PathConstants.Home} element={<Home/>} />
+            <Route path={PathConstants.Login} element={<Login/>} />
+            <Route path={PathConstants.Menu} element={<Weddingsmenu/>} />
+            <Route path={PathConstants.Register} element={<Register/>} />
+            <Route path={PathConstants.Ceremony} element={<Ceremony/>} />
+            <Route path={PathConstants.RSVP} element={<Rsvp/>} />
+            <Route path={PathConstants.Reception} element={<Reception/>} />
+            <Route path={PathConstants.Profile} element={<Profile/>} />
+            <Route path={PathConstants.Create} element={<Create/>} />
+          </Route>
+
+        </Routes>
+        </Auth0Provider>
+      </BrowserRouter>
+      
+
+
+
   )
 }
 

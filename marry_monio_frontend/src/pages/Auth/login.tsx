@@ -1,28 +1,17 @@
-import { useKeycloak } from '@react-keycloak/web';
-import React, { useEffect } from 'react'
-import { Outlet } from 'react-router-dom';
-import keycloak from '../../../keycloak';
 
+import { useAuth0 } from "@auth0/auth0-react";
+import { LoginButton } from "../../components/buttons/login-button";
 
-function Login() {
-
-
-
-  useEffect(()=>{
-
-
-    const login = async () => {
-     await keycloak.login()
-    }
-
-    if(!keycloak.authenticated){
-      login()
-      .catch(console.error)
-    }
-  }, [])
-
-
-  return <div>login</div>
+const Login = () => {
+  
+  console.log("trying to laod app")
+  const { isLoading, user, logout, getIdTokenClaims } = useAuth0();
+  
+  if (isLoading) {
+    return <span>loading...</span>;
+  }
+  return <LoginButton></LoginButton>
+   
   
 }
 
