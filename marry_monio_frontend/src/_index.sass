@@ -1,3 +1,5 @@
+/* The following line can be included in a src/App.scss */
+@import 'customBootstrap'
 $main-bg-color: #D3D3D3
 $secoundary-bg-color: #161622
 $primary-dark-color: #FF8C00
@@ -5,19 +7,27 @@ $primary-light-color: #FFA300
 $secoundary-dark-color: #0C9200
 $secoundary-light-color: #11D400
 
+
 :root 
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
+  --secoundary-bg-color: #d3d3d391
+  --primary-bg-color: #16131391
+  --font-color-main: #fed3e3
+  --font-color-secoundary: #d84444
+  --font-main: Helvetica, Inter, system-ui, Avenir, Arial, sans-serif, Tangerine
+  --font-secound: Arial, Helvetica, Inter, system-ui, Avenir, Helvetica, sans-serif, Tangerine
+  --main-bg-image: url('https://res.cloudinary.com/dgegmm2pt/image/upload/v1716388605/love_sunmoon_by_nitramx_dgbmbof-fullview_tmxius.jpg')
+  font-family: var(--font-main)
   line-height: 1.5
   font-weight: 400
-
+  font-size: large
+  text-shadow: #000000 0.5px 0.5px 1px
   color-scheme: light dark
-  color: rgba(255, 255, 255, 0.87)
-  background-color: $main-bg-color
 
   font-synthesis: none
   text-rendering: optimizeLegibility
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
+
 
 
   
@@ -28,6 +38,12 @@ $secoundary-light-color: #11D400
   margin: 0px
   min-width: 320px
   max-width: 100%
+  color: var(--font-color-main)
+  background-image: var(--main-bg-image)
+  background-size: cover
+  background-repeat: no-repeat
+  background-attachment: fixed
+  min-height: 100%
 
 a 
   font-weight: 500
@@ -50,16 +66,18 @@ body
   display: flex
   place-items: top
   min-width: 320px
-  min-height: 100vh
+  min-height: 200vh
   text-align: center
 
 
 h1 
   font-size: 3.2em
+  font-family: var(--font-secound)
   line-height: 1.1
 
 
 button 
+  color: var(--font-color-main)
   border-radius: 8px
   border: 1px solid transparent
   padding: 0.6em 1.2em
@@ -78,8 +96,6 @@ button:focus-visible
   outline: 4px auto -webkit-focus-ring-color
 
 
-
-
 @media (prefers-color-scheme: light) 
   :root 
     color: #213547
@@ -92,3 +108,14 @@ button:focus-visible
     background-color: #f9f9f9
   
 
+//fonts
+.tangerine-regular 
+  font-family: "Tangerine", cursive
+  font-weight: 400
+  font-style: normal
+
+
+.tangerine-bold
+  font-family: "Tangerine", cursive
+  font-weight: 700
+  font-style: normal

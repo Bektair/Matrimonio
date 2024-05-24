@@ -17,8 +17,8 @@ export async function createWedding({ weddingRequest } : IParams) {
 
     let response = await fetch(`${API_URL}/api/Wedding`, {
         method: "POST",
-       headers,
-       body: JSON.stringify(weddingRequest)
+        headers,
+        body: JSON.stringify(weddingRequest)
     })
     if(!response.ok)
         throw new Error(await response.text() || response.statusText);

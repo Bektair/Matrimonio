@@ -1,4 +1,3 @@
-import React from 'react'
 import { IWedding } from '../../models/IWedding'
 import { IReception } from '../../models/IReception'
 import { IReligiousCeremony } from '../../models/IReligiousCeremony'
@@ -6,11 +5,8 @@ import { IParticipant } from '../../models/IParticipant'
 import { IRSVP } from '../../models/IRSVP'
 import { IPost } from '../../models/IPost'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { IWeddingResponse, fetchWedding } from '../../components/API/GetWeddings'
+import { fetchWedding } from '../../components/API/GetWeddings'
 import { RootState } from '../store'
-import { IWeddingRequest, createWedding } from '../../components/API/CreateWedding'
-import { useAppDispatch } from '../Hooks/hooks'
-import { addWedding } from './weddingsSlice'
 
 
 interface sliceState  {
@@ -31,6 +27,8 @@ const initialState: sliceState = {
     posts: [],
 }
 
+var defaultPrimaryColor = "#d147ab"
+var defaultSecoundaryColor = "#203ab5"
 
 
 const weddingSlice = createSlice( {
@@ -41,13 +39,25 @@ const weddingSlice = createSlice( {
             let wedding : IWedding =  {
                 id: action.payload.id,
                 description: action.payload.description,
-                dresscode: action.payload.dresscode
+                dresscode: action.payload.dresscode,
+                primaryColor: defaultPrimaryColor,
+                secoundaryColor: defaultSecoundaryColor,
+                backgroundImage: "ok"
             } 
 
             return {
             ...state, wedding
             }
         },
+        changeSecondaryColor: (state, action: PayloadAction<string>) => {
+            var updatedWedding = state.wedding;
+            if(updatedWedding!=undefined){
+                updatedWedding.secoundaryColor=action.payload;
+            }
+
+            state.wedding=updatedWedding;
+
+        }
     },
     extraReducers: (builder) =>  {
         builder.addCase(getAWedding.fulfilled, (state, action)=>{
@@ -57,22 +67,10 @@ const weddingSlice = createSlice( {
                 let wedding : IWedding =  {
                     id: payload.id,
                     description: payload.description,
-                    dresscode: payload.dresscode
-                } 
-
-                state.wedding = wedding;
-            } else{
-                state.wedding = undefined;
-            }
-        }),
-        builder.addCase(createAWedding.fulfilled, (state, action)=>{
-
-            var payload = action.payload;
-            if(payload!=undefined){
-                let wedding : IWedding =  {
-                    id: payload.id,
-                    description: payload.description,
-                    dresscode: payload.dresscode
+                    dresscode: payload.dresscode,
+                    primaryColor: defaultPrimaryColor,
+                    secoundaryColor: defaultSecoundaryColor,
+                    backgroundImage: "ok"
                 } 
 
                 state.wedding = wedding;
@@ -82,7 +80,7 @@ const weddingSlice = createSlice( {
         })
     }
 })
-export const { setWedding } = weddingSlice.actions
+export const { setWedding, changeSecondaryColor } = weddingSlice.actions
 
 export const getAWedding = createAsyncThunk(
     'weddings/setWedding',
@@ -97,18 +95,7 @@ export const getAWedding = createAsyncThunk(
     }
 )
 
-export const createAWedding = createAsyncThunk(
-    'weddings/createWedding',
-    //Inside thunk function
-    async (weddingRequest : IWeddingRequest)=> {
-        try {
-          const wedding = await createWedding({weddingRequest});
-          return wedding;
-        }catch (err){
-          return undefined;
-        }
-    }
-)
+
 
 
 export const selectWedding = (state: RootState) => {

@@ -1,11 +1,11 @@
 import React from 'react'
 import Layout from '../../components/Layout/Layout'
 
-function reception() {
+function Reception() {
   return (
       <div>reception</div>
 
   )
 }
 
-export default reception
+export default Reception

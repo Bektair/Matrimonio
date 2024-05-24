@@ -7,13 +7,14 @@ import { IWeddingRequest, createWedding } from '../../components/API/CreateWeddi
 
 type sliceState = {
     weddings: IWedding[]
-
 }
 
 const initialState: sliceState = {
     weddings: []
 }
 
+var defaultPrimaryColor = "#d147ab"
+var defaultSecoundaryColor = "#203ab5"
 
 const weddingsSlice = createSlice( {
     name: "weddings",
@@ -21,7 +22,7 @@ const weddingsSlice = createSlice( {
     reducers:{
         addWedding: (state, action: PayloadAction<IWedding>) => {
             state.weddings.push(action.payload)
-        }
+        },
     },
     extraReducers: (builder) =>  {
         builder.addCase(getAllWeddings.fulfilled, (state, action)=>{
@@ -29,7 +30,10 @@ const weddingsSlice = createSlice( {
                 return { 
                     id: wedding.id,
                     description: wedding.description,
-                    dresscode: wedding.dresscode
+                    dresscode: wedding.dresscode,
+                    primaryColor: defaultPrimaryColor,
+                    secoundaryColor: defaultSecoundaryColor,
+                    backgroundImage: "ok"
                 }
             }) 
 
@@ -42,14 +46,15 @@ const weddingsSlice = createSlice( {
                 let wedding : IWedding =  {
                     id: payload.id,
                     description: payload.description,
-                    dresscode: payload.dresscode
+                    dresscode: payload.dresscode,
+                    primaryColor: defaultPrimaryColor,
+                    secoundaryColor: defaultSecoundaryColor,
+                    backgroundImage: "ok"
                 } 
-
 
                 return {
                     ...state,
                     weddings: [...state.weddings, wedding],
-                // state.weddings.push(wedding);
                 }
             } else{
             }
@@ -86,5 +91,7 @@ export const getAllWeddings = createAsyncThunk(
 export const selectWeddings = (state: RootState) => {
     return state.weddings.weddings;
 }
+
+
 
 export default weddingsSlice.reducer
