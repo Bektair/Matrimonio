@@ -12,8 +12,7 @@ function Navbar() {
             </Link></li>
             <li className="nav-item"><Link to={PathConstants.Home}>Home</Link></li>
             <li className="nav-item"><Link to={PathConstants.RSVP}>RSVP</Link></li>
-            <li className="nav-item"><Link to={PathConstants.Ceremony}>Ceremony</Link></li>
-            <li className="nav-item"><Link to={PathConstants.Reception}>Reception</Link></li>
+            <li className="nav-item"><Link to={PathConstants.Schedule}>Scedule</Link></li>
             <li className="nav-item"><Link to={PathConstants.Posts}>Posts</Link></li>
             <li className="nav-item"><Link to={PathConstants.Profile}>Profile</Link></li>
         </ul>

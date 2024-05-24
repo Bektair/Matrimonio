@@ -4,9 +4,9 @@ import Login from "../../pages/Auth/login";
 import Register from "../../pages/Auth/register";
 import Home from "../../pages/Home/home";
 
-import Reception from "../../pages/Reception/Reception";
+import Reception from "../../pages/Schedule/Reception/Reception";
 import Rsvp from "../../pages/RSVP/Rsvp";
-import Ceremony from "../../pages/Ceremony/Ceremony";
+import Ceremony from "../../pages/Schedule/Ceremony/Ceremony";
 import Posts from "../../pages/Posts/Posts";
 
 // const Home = React.lazy(() => import("../../pages/Home/home"))

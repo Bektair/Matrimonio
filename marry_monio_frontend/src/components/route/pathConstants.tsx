@@ -5,6 +5,7 @@ const PathConstants = {
     Menu: "/menu",
     Home: "/",
     RSVP: "/rsvp",
+    Schedule: "/schedule",
     Ceremony: "/ceremony",
     Reception: "/reception",
     Posts: "/posts",
