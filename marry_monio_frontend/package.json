@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
+    "@floating-ui/react": "^0.26.16",
     "@react-keycloak/web": "^3.4.0",
     "@reduxjs/toolkit": "^2.2.5",
     "@types/react-redux": "^7.1.33",
     "axios": "^1.6.8",
+    "bootstrap": "^5.3.3",
     "keycloak-js": "^24.0.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",

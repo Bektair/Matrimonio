@@ -4,9 +4,14 @@
 :root
   --main-bg-color: 2vh
 
+header
+  margin-right: 15%
+  margin-left: 15%
+
+
 @media (max-width: 700px)
   .header-div
-    height: auto
+    height: 5%
     width:  100%
     background-color: white
     position: fixed
@@ -25,7 +30,6 @@
     display: none
 
 li.nav-item a
-  color: white
   padding-left: var(--size-navbutton-padding, 2h)
   padding-right: var(--size-navbutton-padding, 2vh)
   padding-top: var(--size-navbutton-padding, 2vh)
@@ -41,7 +45,7 @@ ul.nav-list
   margin: 0
   padding: 0
   overflow: hidden
-  background-color: $secoundary-bg-color
+  background-color: var(--primary-bg-color)
   display: flex
 
 
@@ -65,9 +69,11 @@ ul.nav-list:last-child
 
 
 li a:hover 
-  background-color: $primary-dark-color
-  color: black
+  background-color: var(--secoundary-bg-color)
+  color: var(--font-color-secoundary)
 
+li a
+  color:  var(--font-color-main)
 
 
 .small-logo

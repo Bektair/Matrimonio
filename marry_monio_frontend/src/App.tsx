@@ -14,13 +14,9 @@ import Reception from './pages/Reception/Reception.tsx'
 import Profile from './pages/Profile/Profile.tsx'
 import Create from './pages/Create/create.tsx'
 import Weddingsmenu from './pages/WeddingsMenu/Weddingsmenu.tsx'
+import Posts from './pages/Posts/Posts.tsx'
 
 export const App : React.FC = () => {
-
-
-
-
-
 
   return (
     <BrowserRouter>
@@ -45,6 +41,8 @@ export const App : React.FC = () => {
             <Route path={PathConstants.Reception} element={<Reception/>} />
             <Route path={PathConstants.Profile} element={<Profile/>} />
             <Route path={PathConstants.Create} element={<Create/>} />
+            <Route path={PathConstants.Posts} element={<Posts/>} />
+
           </Route>
 
         </Routes>

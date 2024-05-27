@@ -1,23 +1,22 @@
-import React, { useEffect } from 'react'
-import {getAllPostsInWedding, getPosts, selectPosts } from '../../redux/slices/postSlice'
-import { useParams } from 'react-router-dom';
+import { useEffect } from 'react'
+import {getAllPostsInWedding, selectPosts } from '../../redux/slices/postSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { postsSetAction } from '../../redux/actions/postActions';
 import { store } from '../../redux/store';
 import { IPost } from '../../models/IPost';
-import GetPostsAction from '../../components/API/GetPosts';
-import Layout from '../../components/Layout/Layout';
+import { selectWedding } from '../../redux/slices/weddingSlice';
+
 
 
 function Posts() {
-   const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
-  let {weddingId} = useParams()
+  let currentWedding = useAppSelector(selectWedding);
   let posts = useAppSelector(selectPosts)
   let postState = store.getState().posts.posts.length
+
   
   useEffect(()=>{
-    let wedding_id = weddingId?.toString();
+    let wedding_id = currentWedding?.id.toString();
      if(wedding_id != undefined){
 
        dispatch(getAllPostsInWedding(Number(wedding_id))) //Dispatch Event
