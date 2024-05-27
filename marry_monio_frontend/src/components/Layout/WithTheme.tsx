@@ -11,7 +11,7 @@ const withTheme = <P extends object>(Component: React.ComponentType<P>) => {
             return <Component {...props as P}></Component>
         }
     };
-
+    return WithTheme;
 }
 
 export default withTheme

@@ -1,6 +1,6 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { fetchPosts } from "../../API/GetPosts"
 import { IPost } from "../../models/IPost"
-import { IPostResponse, fetchPosts } from "../../components/API/GetPosts"
 import type { RootState } from '../store'
 
   

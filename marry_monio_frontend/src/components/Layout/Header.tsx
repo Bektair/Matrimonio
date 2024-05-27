@@ -1,4 +1,3 @@
-import React from 'react'
 
 import './Header.sass'
 import Navbar from './Navbar'

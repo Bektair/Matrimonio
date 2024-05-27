@@ -5,11 +5,16 @@ import { LoginButton } from "../../components/buttons/login-button";
 const Login = () => {
   
   console.log("trying to laod app")
-  const { isLoading, user, logout, getIdTokenClaims } = useAuth0();
+  const { isLoading } = useAuth0();
   
+
+
   if (isLoading) {
     return <span>loading...</span>;
   }
+
+
+
   return <LoginButton></LoginButton>
    
   

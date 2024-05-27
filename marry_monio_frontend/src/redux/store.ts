@@ -1,8 +1,8 @@
-import { applyMiddleware, combineReducers, configureStore } from '@reduxjs/toolkit'
-import {loggermiddleware } from './middleware/loggermiddleware'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { loggermiddleware } from './middleware/loggermiddleware'
 import postSlice from './slices/postSlice'
-import weddingsSlice from './slices/weddingsSlice'
 import weddingSlice from './slices/weddingSlice'
+import weddingsSlice from './slices/weddingsSlice'
 
 export enum RequestsEnum {
   GetPosts="post_slice/getPosts"

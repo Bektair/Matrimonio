@@ -1,4 +1,4 @@
-import { API_URL } from "../../constants/environment";
+import { API_URL } from "../constants/environment";
 import getAuthHeaders from "./SetAuthHeaders";
 
 

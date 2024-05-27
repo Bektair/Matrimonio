@@ -1,13 +1,12 @@
-import React from "react"
-import PathConstants from "./pathConstants"
 import Login from "../../pages/Auth/login";
 import Register from "../../pages/Auth/register";
 import Home from "../../pages/Home/home";
+import PathConstants from "./pathConstants";
 
-import Reception from "../../pages/Reception/Reception";
-import Rsvp from "../../pages/RSVP/Rsvp";
-import Ceremony from "../../pages/Ceremony/Ceremony";
 import Posts from "../../pages/Posts/Posts";
+import Rsvp from "../../pages/RSVP/Rsvp";
+import Ceremony from "../../pages/Schedule/Ceremony/Ceremony";
+import Reception from "../../pages/Schedule/Reception/Reception";
 
 // const Home = React.lazy(() => import("../../pages/Home/home"))
 // const Login = React.lazy(() => import("../../pages/Auth/login"))

@@ -1,5 +1,5 @@
-import React, { DOMElement, ReactNode, useRef, useState } from 'react'
-import { useAppDispatch } from '../../redux/Hooks/hooks'
+import { ReactNode, useRef, useState } from 'react';
+import { useAppDispatch } from '../../redux/Hooks/hooks';
 import { createAWedding } from '../../redux/slices/weddingsSlice';
 
 function CreateWeddingForm() {

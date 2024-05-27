@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import PathConstants from '../route/pathConstants';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { selectWeddings } from '../../redux/slices/weddingsSlice';
-import { setWedding } from '../../redux/slices/weddingSlice';
 import { IWedding } from '../../models/IWedding';
-import './weddinglist.sass'
+import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
+import { setWedding } from '../../redux/slices/weddingSlice';
+import { selectWeddings } from '../../redux/slices/weddingsSlice';
+import PathConstants from '../route/pathConstants';
+import './weddinglist.sass';
 
 
 
@@ -13,7 +13,7 @@ function Weddinglist()  {
   const navigate = useNavigate();
   const dispatch = useAppDispatch()
   let weddings = useAppSelector(selectWeddings);
-  const [pagesize, setPagesize] = useState(10)
+  const [pagesize] = useState(10)
   
   const [currentPage, setCurrentPage] = useState(0)
 

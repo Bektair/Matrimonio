@@ -1,10 +1,9 @@
 
-import { audience, clientId, domain, redirectUri } from '../../constants/environment';
 import { Auth0Provider } from "@auth0/auth0-react";
-import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import { audience, clientId, domain, redirectUri } from '../../constants/environment';
 
-export const Auth0ProviderWithNavigate = ({ children } : any) => {
+export const Auth0ProviderWithNavigate = () => {
   const navigate = useNavigate();
 
     const onRedirectCallback = (appState : any) => {
