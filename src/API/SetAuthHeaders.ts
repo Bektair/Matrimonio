@@ -8,4 +8,4 @@ async function getAuthHeaders(): Promise<HeadersInit> {
     }
 }
 
-export default getAuthHeaders;
+export default getAuthHeaders;  

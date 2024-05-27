@@ -1,4 +1,4 @@
-import { IUserCreateRequest, createUser } from '../../../API/ManagementAPI/CreateUser';
+import { IUserCreateRequest, createUser } from '../../../../marry_monio_frontend/src/API/ManagementAPI/CreateUser';
 
 
 
