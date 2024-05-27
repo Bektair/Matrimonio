@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import CreateWeddingForm from '../../../../marry_monio_frontend/src/components/forms/create-wedding-form'
-import WeddingUpdate from '../../../../marry_monio_frontend/src/components/forms/weddingUpdate'
-import Weddinglist from '../../../../marry_monio_frontend/src/components/lists/weddinglist'
-import { useAppDispatch } from '../../../../marry_monio_frontend/src/redux/Hooks/hooks'
-import { getAllWeddings } from '../../../../marry_monio_frontend/src/redux/slices/weddingsSlice'
+import CreateWeddingForm from '../../../components/forms/create-wedding-form'
+import WeddingUpdate from '../../../components/forms/weddingUpdate'
+import Weddinglist from '../../../components/lists/weddinglist'
+import { useAppDispatch } from '../../../redux/Hooks/hooks'
+import { getAllWeddings } from '../../../redux/slices/weddingsSlice'
 import './weddingsmenu.sass'
 
 function Weddingsmenu() {

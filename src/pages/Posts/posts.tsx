@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import {getAllPostsInWedding, selectPosts } from '../../../marry_monio_frontend/src/redux/slices/postSlice'
-import { useAppDispatch, useAppSelector } from '../../../marry_monio_frontend/src/redux/Hooks/hooks';
-import { store } from '../../../marry_monio_frontend/src/redux/store';
-import { IPost } from '../../../marry_monio_frontend/src/models/IPost';
-import { selectWedding } from '../../../marry_monio_frontend/src/redux/slices/weddingSlice';
+import {getAllPostsInWedding, selectPosts } from '../../redux/slices/postSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
+import { store } from '../../redux/store';
+import { IPost } from '../../models/IPost';
+import { selectWedding } from '../../redux/slices/weddingSlice';
 
 
 

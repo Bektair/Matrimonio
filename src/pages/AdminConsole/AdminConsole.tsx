@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import PathConstants from '../../../marry_monio_frontend/src/components/route/pathConstants'
+import PathConstants from '../../components/route/pathConstants'
 import './adminConsole.sass'
 
 function AdminConsole() {

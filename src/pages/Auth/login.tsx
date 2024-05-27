@@ -1,6 +1,6 @@
 
 import { useAuth0 } from "@auth0/auth0-react";
-import { LoginButton } from "../../../marry_monio_frontend/src/components/buttons/login-button";
+import { LoginButton } from "../../components/buttons/login-button";
 
 const Login = () => {
   
