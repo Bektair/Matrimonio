@@ -1,12 +1,11 @@
-import React from 'react'
 import { Link } from "react-router-dom"
-import PathConstants  from '../route/pathConstants'
+import PathConstants from '../route/pathConstants'
 
 function Navbar() {
   return (
     <div className="navbar-custom">
         <ul className="nav-list">
-            <li className= "nav-item"><Link to={PathConstants.Menu} id='logo-container'>
+            <li className= "nav-item"><Link to={PathConstants.Admin} id='logo-container'>
               <div className='logo-img'><img className="small-logo" src="/src/assets/logo.svg"></img></div>
               <div className="logo-text"><span id="orange">Marry</span><span id="green">Monio</span></div>
             </Link></li>

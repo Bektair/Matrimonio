@@ -1,4 +1,4 @@
-import { PayloadAction, UnknownAction, isAction } from "@reduxjs/toolkit"
+import { PayloadAction, isAction } from "@reduxjs/toolkit"
 import { IPost } from "../../models/IPost"
 
 const initialState = { posts: [] }

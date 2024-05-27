@@ -1,8 +1,8 @@
 import { IWedding } from '../../models/IWedding'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { fetchWeddings } from '../../components/API/GetWeddings'
+import { fetchWeddings } from '../../API/GetWeddings'
 import { RootState } from '../store'
-import { IWeddingRequest, createWedding } from '../../components/API/CreateWedding'
+import { IWeddingRequest, createWedding } from '../../API/CreateWedding'
 
 
 type sliceState = {

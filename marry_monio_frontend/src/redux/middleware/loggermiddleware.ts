@@ -1,7 +1,7 @@
-import { ActionCreatorWithPayload, PayloadAction } from "@reduxjs/toolkit";
-import { Action, Middleware, UnknownAction, isAction } from "redux";
-import { RequestsEnum, RootState } from "../store";
-import { IPostResponse, fetchPosts } from "../../components/API/GetPosts";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { Middleware, UnknownAction, isAction } from "redux";
+import { IPostResponse, fetchPosts } from "../../API/GetPosts";
+import { RootState } from "../store";
 
 //BEFORE IT REACHES THE REDUCER
 

@@ -1,4 +1,4 @@
-import { API_URL } from "../../constants/environment";
+import { API_URL } from "../constants/environment";
 import { IWeddingResponse } from "./GetWeddings";
 import getAuthHeaders from "./SetAuthHeaders";
 

@@ -5,7 +5,7 @@ import { IParticipant } from '../../models/IParticipant'
 import { IRSVP } from '../../models/IRSVP'
 import { IPost } from '../../models/IPost'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { fetchWedding } from '../../components/API/GetWeddings'
+import { fetchWedding } from '../../API/GetWeddings'
 import { RootState } from '../store'
 
 

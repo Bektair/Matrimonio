@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { API_URL } from "../../constants/environment";
+import { API_URL } from "../constants/environment";
 import getAuthHeaders from "./SetAuthHeaders";
 //import getAuthHeaders from "./setAuthHeaders"; For authentication
 

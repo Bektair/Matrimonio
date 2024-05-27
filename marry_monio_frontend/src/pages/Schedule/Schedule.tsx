@@ -1,6 +1,5 @@
-import React from 'react'
-import Reception from './Reception/Reception'
 import Ceremony from './Ceremony/Ceremony'
+import Reception from './Reception/Reception'
 
 function Schedule() {
   return (
