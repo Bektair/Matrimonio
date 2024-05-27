@@ -3,8 +3,8 @@ import Register from "../../pages/Auth/register";
 import Home from "../../pages/Home/home";
 import PathConstants from "./pathConstants";
 
-import Posts from "../../pages/Posts/Posts";
-import Rsvp from "../../pages/RSVP/Rsvp";
+import Posts from "../../pages/Posts/posts";
+import Rsvp from "../../pages/RSVP/rsvp";
 import Ceremony from "../../pages/Schedule/Ceremony/Ceremony";
 import Reception from "../../pages/Schedule/Reception/Reception";
 
