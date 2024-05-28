@@ -40,7 +40,6 @@ const weddingsSlice = createSlice( {
             state.weddings = weddings;
         }),
         builder.addCase(createAWedding.fulfilled, (state, action)=>{
-
             var payload = action.payload;
             if(payload!=undefined){
                 let wedding : IWedding =  {
@@ -67,9 +66,7 @@ export const getAllWeddings = createAsyncThunk(
     'weddings/setWeddings',
     //Inside thunk function
     async ()=> {
-
         try {
-        
           const posts = await fetchWeddings();
           return posts;
         }catch (err){
@@ -82,7 +79,6 @@ export const getAllWeddings = createAsyncThunk(
     'weddings/createWedding',
     //Inside thunk function
     async (weddingRequest : IWeddingRequest)=> {
-
         try {
           const wedding = await createWedding({weddingRequest});
           return wedding;
