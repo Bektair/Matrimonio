@@ -1,4 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { API_URL } from "../../constants/environment";
 interface sentProps{
   className: string
 }
@@ -10,7 +11,7 @@ export const LoginButton = (props: sentProps) => {
     await loginWithRedirect({
       
       appState: {
-        returnTo: "http://localhost:5200/profile",
+        returnTo: `${API_URL}/RSVP`,
       },
       authorizationParams:{
         scope: "read:users",
