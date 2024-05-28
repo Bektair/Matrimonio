@@ -7,6 +7,11 @@ import { LogoutButton } from "../buttons/logout-button"
 
 function Navbar() {
   const {isAuthenticated, isLoading} = useSelector(selectAuth)
+
+
+  console.log("AUTHENTICATION REDUX" + isAuthenticated)
+  console.log("Loading REDUX" + isLoading)
+
   return (
     <div className="navbar-custom">
         <ul className="nav-list">
