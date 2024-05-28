@@ -1,6 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
+interface sentProps{
+  className: string
+}
 
-export const LoginButton = () => {
+export const LoginButton = (props: sentProps) => {
   const { loginWithRedirect } = useAuth0();
 
   const handleLogin = async () => {
@@ -16,7 +19,7 @@ export const LoginButton = () => {
   };
 
   return (
-    <button className="button__login" onClick={handleLogin}>
+    <button className={props.className} onClick={handleLogin}>
       Log In
     </button>
   );

@@ -13,6 +13,11 @@ export interface IWeddingResponse {
 }
 
 export async function fetchWeddings() : Promise<IWeddingResponse[]> {
+
+    console.log("TRYING TO FETCH")
+    
+
+
     const headers = await getAuthHeaders();
 
     let response = await fetch(`${API_URL}/api/Wedding`, {

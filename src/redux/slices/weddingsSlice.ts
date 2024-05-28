@@ -1,8 +1,8 @@
-import { IWedding } from '../../models/IWedding'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { fetchWeddings } from '../../API/GetWeddings'
-import { RootState } from '../store'
 import { IWeddingRequest, createWedding } from '../../API/CreateWedding'
+import { fetchWeddings } from '../../API/GetWeddings'
+import { IWedding } from '../../models/IWedding'
+import { RootState } from '../store'
 
 
 type sliceState = {
@@ -67,7 +67,9 @@ export const getAllWeddings = createAsyncThunk(
     'weddings/setWeddings',
     //Inside thunk function
     async ()=> {
+
         try {
+        
           const posts = await fetchWeddings();
           return posts;
         }catch (err){
@@ -80,6 +82,7 @@ export const getAllWeddings = createAsyncThunk(
     'weddings/createWedding',
     //Inside thunk function
     async (weddingRequest : IWeddingRequest)=> {
+
         try {
           const wedding = await createWedding({weddingRequest});
           return wedding;

@@ -7,11 +7,15 @@ import { getAllWeddings } from '../../../redux/slices/weddingsSlice'
 import './weddingsmenu.sass'
 
 function Weddingsmenu() {
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
+  
 
 
     useEffect(()=> {
-        dispatch(getAllWeddings())
+       
+
+        
+
     }, [])
     
     
@@ -22,6 +26,7 @@ function Weddingsmenu() {
     return (
         <div>
             <h1>Weddingsmenu</h1>
+            <button onClick={function() {dispatch(getAllWeddings())}}>clickme</button>
             <Weddinglist></Weddinglist>
             <CreateWeddingForm></CreateWeddingForm>
             <WeddingUpdate></WeddingUpdate>

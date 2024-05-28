@@ -1,38 +1,28 @@
 
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import {Home} from './pages/Home/home'
-import Login from './pages/Auth/login'
-import {Register} from './pages/Auth/register'
-import { Auth0Provider } from "@auth0/auth0-react";
-import { audience, clientId, domain, redirectUri } from './constants/environment.ts';
 import Layout from './components/Layout/Layout.tsx'
 import PathConstants from './components/route/pathConstants.tsx'
-import Ceremony from './pages/Schedule/Ceremony/Ceremony.tsx'
-import Rsvp from './pages/RSVP/rsvp.tsx'
-import Reception from './pages/Schedule/Reception/Reception.tsx'
-import Profile from './pages/Profile/Profile.tsx'
-import Create from './pages/Create/create.tsx'
-import Weddingsmenu from './pages/AdminConsole/WeddingsMenu/Weddingsmenu.tsx'
-import Posts from './pages/Posts/posts.tsx'
-import Schedule from './pages/Schedule/Schedule.tsx'
 import AdminConsole from './pages/AdminConsole/AdminConsole.tsx'
 import UserCreationMenu from './pages/AdminConsole/UserCreationMenu/UserCreationMenu.tsx'
+import Weddingsmenu from './pages/AdminConsole/WeddingsMenu/Weddingsmenu.tsx'
+import Login from './pages/Auth/login'
+import ProtectedRoute from './pages/Auth/protectedRoute.tsx'
+import { Register } from './pages/Auth/register'
+import useAuthListener from './pages/Auth/useAuthListener.tsx'
+import Create from './pages/Create/create.tsx'
+import { Home } from './pages/Home/home'
+import Posts from './pages/Posts/posts.tsx'
+import Profile from './pages/Profile/Profile.tsx'
+import Rsvp from './pages/RSVP/rsvp.tsx'
+import Ceremony from './pages/Schedule/Ceremony/Ceremony.tsx'
+import Reception from './pages/Schedule/Reception/Reception.tsx'
+import Schedule from './pages/Schedule/Schedule.tsx'
 
 export const App : React.FC = () => {
+  const auth = useAuthListener()
 
   return (
-    <BrowserRouter>
-        <Auth0Provider
-              domain={domain}
-              clientId={clientId}
-              authorizationParams={{
-                audience: audience,
-                redirect_uri: redirectUri,
-              }
-
-            }
-            >
         <Routes>
           <Route element={<Layout/>}> 
             <Route path={PathConstants.Home} element={<Home/>} />
@@ -45,19 +35,12 @@ export const App : React.FC = () => {
             <Route path={PathConstants.Profile} element={<Profile/>} />
             <Route path={PathConstants.Create} element={<Create/>} />
             <Route path={PathConstants.Posts} element={<Posts/>} />
-            <Route path={PathConstants.Admin} element={<AdminConsole/>} />
+            <Route path={PathConstants.Admin} element={<ProtectedRoute auth={auth}><AdminConsole/></ProtectedRoute>} />
             <Route path={PathConstants.WeddingMenu} element={<Weddingsmenu/>} />
             <Route path={PathConstants.User} element={<UserCreationMenu/>} />
 
           </Route>
-
         </Routes>
-        </Auth0Provider>
-      </BrowserRouter>
-      
-
-
-
   )
 }
 

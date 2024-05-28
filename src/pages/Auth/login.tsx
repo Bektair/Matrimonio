@@ -15,7 +15,7 @@ const Login = () => {
 
 
 
-  return <LoginButton></LoginButton>
+  return <LoginButton className=""></LoginButton>
    
   
 }
