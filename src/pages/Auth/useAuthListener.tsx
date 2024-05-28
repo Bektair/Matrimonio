@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { setAuthState } from "../../redux/slices/authSlice"
-// import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 
 
 
@@ -14,7 +14,7 @@ function useAuthListener() {
 
     const getToken = (async () => {
       var token = await getAccessTokenSilently()
-      // Cookies.set('token', token, { expires: 7, secure: true})
+      Cookies.set('token', token, { expires: 7, secure: true})
       dispatch(setAuthState({isAuthenticated, user, isLoading}))
 
       return token;

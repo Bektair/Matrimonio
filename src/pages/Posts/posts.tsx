@@ -16,6 +16,9 @@ function Posts() {
 
   
   useEffect(()=>{
+
+
+    
     let wedding_id = currentWedding?.id.toString();
      if(wedding_id != undefined){
 
