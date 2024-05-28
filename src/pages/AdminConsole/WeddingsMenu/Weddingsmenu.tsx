@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import CreateWeddingForm from '../../../../../forms/create-wedding-form'
-import WeddingUpdate from '../../../../../forms/weddingUpdate'
+import CreateWeddingForm from '../../../components/forms/create-wedding-form'
+import WeddingUpdate from '../../../components/forms/weddingUpdate'
 import Weddinglist from '../../../components/lists/weddinglist'
 import { useAppDispatch } from '../../../redux/Hooks/hooks'
 import { getAllWeddings } from '../../../redux/slices/weddingsSlice'
