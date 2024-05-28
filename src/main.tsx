@@ -14,7 +14,6 @@ console.log("DOMANINNNNNNNNNNN" + process.env.NODE_ENV +  domain)
 console.log("VueVariabel" + import.meta.env.VITE_APP_AUTH0_DOMAIN)
 console.log("ReactVariabel" + process.env.REACT_APP_API_URL)
 
-//export const domain = process.env.NODE_ENV=="development" ? import.meta.env.VITE_APP_AUTH0_DOMAIN : process.env.REACT_APP_API_URL;
 
 
   root.render(

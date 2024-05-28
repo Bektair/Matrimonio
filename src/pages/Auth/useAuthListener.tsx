@@ -15,11 +15,12 @@ function useAuthListener() {
     const getToken = (async () => {
       var token = await getAccessTokenSilently()
       Cookies.set('token', token, { expires: 7, secure: true})
+
       dispatch(setAuthState({isAuthenticated, user, isLoading}))
 
       return token;
     })
-    console.log("I AM AUTHENTICATED yes" + isAuthenticated)
+    console.log("I AM AUTHENTICATED!!!!!!!!! :" + isAuthenticated)
     if(isAuthenticated){
       getToken();
     } else {
