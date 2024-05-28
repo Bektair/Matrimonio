@@ -1,9 +1,10 @@
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 
 
 
 async function getAuthHeaders(): Promise<HeadersInit> {
-    const token = Cookies.get('token');
+    // const token = Cookies.get('token');
+    var token = ""
 
     console.log("GETTING TOKEN_------------------" + token)
     
