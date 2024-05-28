@@ -8,15 +8,13 @@ import { LogoutButton } from "../buttons/logout-button"
 function Navbar() {
   const {isAuthenticated, isLoading} = useSelector(selectAuth)
 
-
-  console.log("AUTHENTICATION REDUX" + isAuthenticated)
-  console.log("Loading REDUX" + isLoading)
+console.log("public url" + process.env.PUBLIC_URL)
 
   return (
     <div className="navbar-custom">
         <ul className="nav-list">
             <li className= "nav-item"><Link to={PathConstants.Admin} id='logo-container'>
-              <div className='logo-img'><img className="small-logo" src="/src/assets/logo.svg"></img></div>
+              <div className='logo-img'><img className="small-logo" src={"/logo.svg"}></img></div>
               <div className="logo-text"><span id="orange">Marry</span><span id="green">Monio</span></div>
             </Link></li>
             <li className="nav-item"><Link to={PathConstants.Home}>Home</Link></li>
