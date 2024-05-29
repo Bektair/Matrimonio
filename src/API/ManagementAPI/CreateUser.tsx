@@ -55,3 +55,26 @@ export async function createUser(userRequest : IUserCreateRequest){
         throw new Error(await response.text() || response.statusText);
     return await response.text();
 }
+
+export interface IPasswordresetRequest{
+    "client_id": string,
+    "connection_id": string,
+    "email": string,
+    "ttl_sec": number,
+    "mark_email_as_verified": boolean,
+    "includeEmailInRedirect": boolean
+  }
+
+export async function getResetPasswordLink(request : IPasswordresetRequest){
+    const headers = await getManagementAuthHeaders();
+    let response = await fetch(`https://${domain}/api/v2/tickets/password-change`, {
+        method:"POST",    
+        headers,
+        body: JSON.stringify(request),
+        redirect: 'follow'
+
+    })
+    if(!response.ok)
+        throw new Error(await response.text() || response.statusText);
+    return await response.text();
+}

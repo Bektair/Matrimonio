@@ -4,3 +4,4 @@ export const clientId = import.meta.env.VITE_APP_AUTH0_CLIENT_ID
 export const redirectUri = import.meta.env.VITE_APP_AUTH0_CALLBACK_URL
 export const audience = import.meta.env.VITE_APP_AUTH0_AUDIENCE
 export const management_auth_token = import.meta.env.VITE_APP_AUTH0_MANAGEMENT_API_TOKEN 
+export const app_name = import.meta.env.VITE_APP_APP_NAME

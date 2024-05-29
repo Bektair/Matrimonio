@@ -11,7 +11,7 @@ export const LoginButton = (props: sentProps) => {
     await loginWithRedirect({
       
       appState: {
-        returnTo: `${redirectUri}/RSVP`,
+        returnTo: `${redirectUri}`,
       },
       authorizationParams:{
         scope: "read:users",
