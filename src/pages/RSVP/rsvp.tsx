@@ -15,7 +15,9 @@ function Rsvp() {
 
   return (
     <>
-      <h1>RSVP</h1>
+      <h1>Hello {user?.name}!</h1>
+      <div>Noen må lage RSVP</div>
+      
       
     </>
 

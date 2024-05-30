@@ -1,7 +1,12 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IPasswordresetRequest, IUserCreateRequest, createUser, getResetPasswordLink } from '../../../API/ManagementAPI/CreateUser';
 import { app_name } from '../../../constants/environment';
-
+import './UserCreationMenu.sass'
+import { useAppDispatch, useAppSelector } from '../../../redux/Hooks/hooks';
+import { getAllUsers, selectUsers } from '../../../redux/slices/usersSlice';
+import List from '../../../components/lists/genericlist';
+import { IUser } from '../../../models/IUser';
+import CreateRsvpForm from '../../../components/forms/createRsvpForm';
   
 
 
@@ -41,6 +46,16 @@ function UserCreationMenu() {
   const name = useRef<HTMLInputElement>(null);
   const [passwordLink, setPasswordLink] = useState("")
   const [inviteLink, setInviteLink] = useState("")
+  const dispatch = useAppDispatch();
+  let users = useAppSelector(selectUsers);
+  const [selectedUser, setSelectedUser] = useState<IUser>()
+
+
+  useEffect(()=> {
+    setTimeout(function() {dispatch(getAllUsers());}, 500)
+     
+
+ }, [])
 
   async function sendRequest(event: any){
     if(emailRef.current!=null && name.current !=null) {
@@ -54,21 +69,16 @@ function UserCreationMenu() {
   }
 
   async function setPasswordRequest (event: any)  {
-    if(emailRef.current!=null)
-      PasswordRequest.email = emailRef.current?.value;
-    console.log("pw reset request sent" + event.target.value)
+    if(selectedUser!=null)
+      PasswordRequest.email = selectedUser.email;
+    
     var passwordLinkTemp = await getResetPasswordLink(PasswordRequest);
     var regex = /https.*#/;
     var link = passwordLinkTemp.match(regex);
     if(link!=null)  
       setPasswordLink(link[0]);
   }
-
-  async function sendPasswordRequest(event: any){
-
-
-  } 
-
+  
   
   async function sendInviteRequest(event: any){
     var inviteLink = passwordLink +"type=invite#app="+app_name
@@ -76,20 +86,38 @@ function UserCreationMenu() {
 
   } 
 
+  console.log(users)
+  async function selectUserClick(selectedItem : IUser) {
+    
+    setSelectedUser(selectedItem);
+
+  }
+
 
   return (
     <>
-        <h1>userCreationMenu</h1>
-        <button onClick={sendRequest}>createUser</button>
-        <input type='text' ref={emailRef} placeholder='email@email.com'></input>
-        <input type='text' ref={name} placeholder='John Smith'></input>
-        <button onClick={setPasswordRequest}>setPasswordRequest</button>
-        <div>PWLink: {passwordLink}</div>
-        <button onClick={sendInviteRequest}>sendInviteRequest</button>
-        <button onClick={sendPasswordRequest}>sendPasswordRequest</button>
-        <div>Invite Link:</div>
-        <div>{inviteLink}</div>
+      <h1>userCreationMenu</h1>
+      <div id='userCreationMenu'>
+          <input type='text' ref={emailRef} placeholder='email@email.com'></input>
+          <input type='text' ref={name} placeholder='John Smith'></input>
+          <button onClick={sendRequest}>createUser</button>
+      </div>
+      <div id='userSelectionMenu'>
+        {users.length > 0 && <List name='users' listItems={users} propNames={["name", "email", "picture"]} listItemFormat=' ${name} ${email} ${picture}' onclickEvent={selectUserClick}></List>  }
+      </div>
 
+      <div id='passwordAndInviteLinks'>
+        <div id='passwordlinks'>
+          <button onClick={setPasswordRequest}>PasswordRequest</button>
+          <div>{passwordLink}</div>
+        </div>
+        <div id='invitelinks'>
+          <button onClick={sendInviteRequest}>InviteRequest</button>
+          <div>{inviteLink}</div>
+        </div>
+      </div>
+      { selectedUser &&
+      <CreateRsvpForm user={selectedUser}></CreateRsvpForm>}
     </>
   )
 }

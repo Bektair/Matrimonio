@@ -67,8 +67,8 @@ export const getAllWeddings = createAsyncThunk(
     //Inside thunk function
     async ()=> {
         try {
-          const posts = await fetchWeddings();
-          return posts;
+          const weddings = await fetchWeddings();
+          return weddings;
         }catch (err){
           return [];
         }

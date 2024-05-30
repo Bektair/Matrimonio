@@ -1,5 +1,5 @@
 
-export interface IUser {
+export interface IUserResponse {
     "email": string,
     "email_verified": boolean,
     "username": string,
@@ -29,6 +29,7 @@ export interface IUser {
     "logins_count": number,
     "blocked": boolean,
     "given_name": string,
-    "family_name": string,
-    "id": number
+    "family_name": string
+
+      
 }

@@ -1,5 +1,6 @@
 import getManagementAuthHeaders from "./SetManagementAuthHeaders"
 import { domain } from "../../constants/environment";
+import { IUserResponse } from "../../models/IUserResponse";
 
 export interface IUserCreateRequest {
     "email": string,
@@ -41,6 +42,21 @@ interface userMetadata {
 //     updated_at : string
 // }
 
+export async function GetUsers() : Promise<IUserResponse[]>{
+    const headers = await getManagementAuthHeaders();
+    let response = await fetch(`https://${domain}/api/v2/users`,{
+        method: "GET",
+        headers,
+        redirect: 'follow'
+    })
+    if(!response.ok){
+        throw new Error(await response.text() || response.statusText);  
+    }
+
+    let data = await response.json() as IUserResponse[];
+    return data;
+
+}
 
 export async function createUser(userRequest : IUserCreateRequest){
     const headers = await getManagementAuthHeaders();

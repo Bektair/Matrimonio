@@ -6,7 +6,7 @@ $primary-dark-color: #FF8C00
 $primary-light-color: #FFA300
 $secoundary-dark-color: #0C9200
 $secoundary-light-color: #11D400
-
+$line-height: 1.5
 
 :root 
   --secoundary-bg-color: #d3d3d391
@@ -16,8 +16,9 @@ $secoundary-light-color: #11D400
   --font-main: Helvetica, Inter, system-ui, Avenir, Arial, sans-serif, Tangerine
   --font-secound: Arial, Helvetica, Inter, system-ui, Avenir, Helvetica, sans-serif, Tangerine
   --main-bg-image: url('https://res.cloudinary.com/dgegmm2pt/image/upload/v1716388605/love_sunmoon_by_nitramx_dgbmbof-fullview_tmxius.jpg')
+  --line-height: 1.5
   font-family: var(--font-main)
-  line-height: 1.5
+  line-height: var(--line-height)
   font-weight: 400
   font-size: large
   text-shadow: #000000 0.5px 0.5px 1px
@@ -59,12 +60,11 @@ html
 
 
 body 
-  margin: 0
-  padding: 0
+  margin: 0px
+  padding: 0px
   width: 100%
   height: 100%
   display: flex
-  place-items: top
   min-width: 320px
   min-height: 200vh
   text-align: center
