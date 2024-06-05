@@ -30,5 +30,5 @@ export interface IUser {
     "blocked": boolean,
     "given_name": string,
     "family_name": string,
-    "id": number
+    "id": string
 }

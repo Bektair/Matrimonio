@@ -1,16 +1,15 @@
-import { Link } from "react-router-dom"
-import PathConstants from '../route/pathConstants'
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 import { selectAuth } from "../../redux/slices/authSlice"
 import { LoginButton } from "../buttons/login-button"
 import { LogoutButton } from "../buttons/logout-button"
+import PathConstants from '../route/pathConstants'
 
 function Navbar() {
   const {isAuthenticated, isLoading} = useSelector(selectAuth)
+ 
 
 
-  console.log("AUTHENTICATION REDUX" + isAuthenticated)
-  console.log("Loading REDUX" + isLoading)
 
   return (
     <div className="navbar-custom">

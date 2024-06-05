@@ -1,11 +1,13 @@
-import { IUser } from "./IUser"
+import { IUserReadDTO } from "../API/GetRSVP"
 
 export interface IRSVP{
     id: string
     body: string
-    deadline: Date
+    deadline: number
     status: string
     numberOfGuests: number
-    dietaryRequirements: string
-    Signer: IUser
+    OtherDietaryRequirements: string
+    Signer: IUserReadDTO
+    ChoosenDinnerId: number | null
+    ChoosenDessertId: number | null
 }

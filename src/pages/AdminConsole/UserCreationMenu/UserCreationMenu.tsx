@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { IPasswordresetRequest, IUserCreateRequest, createUser, getResetPasswordLink } from '../../../API/ManagementAPI/CreateUser';
+import CreateRsvpForm from '../../../components/forms/createRsvpForm';
+import List from '../../../components/lists/genericlist';
 import { app_name } from '../../../constants/environment';
-import './UserCreationMenu.sass'
+import { IUser } from '../../../models/IUser';
 import { useAppDispatch, useAppSelector } from '../../../redux/Hooks/hooks';
 import { getAllUsers, selectUsers } from '../../../redux/slices/usersSlice';
-import List from '../../../components/lists/genericlist';
-import { IUser } from '../../../models/IUser';
-import CreateRsvpForm from '../../../components/forms/createRsvpForm';
-  
+import { getCeremony, selectWedding } from '../../../redux/slices/weddingSlice';
+import './UserCreationMenu.sass';
+
 
 
   const UserRequest : IUserCreateRequest = {
@@ -16,13 +17,13 @@ import CreateRsvpForm from '../../../components/forms/createRsvpForm';
     "blocked": false,
     "email_verified": false,
     "app_metadata": {},
-    "given_name": "stri",
-    "family_name": "strin",
+    "given_name": "string",
+    "family_name": "string",
     "name": "Testyman",
     "nickname": "mantest",
     "picture": "https://no.wikipedia.org/wiki/Fil:Male_gorilla_in_SF_zoo.jpg",
     "user_id": "user_",
-    "connection": "Username-Password-Authentication",
+    "connection": "MatrimonioPostgres",
     "password": "1001Spill+",
     "verify_email": false
   }
@@ -44,16 +45,18 @@ import CreateRsvpForm from '../../../components/forms/createRsvpForm';
 function UserCreationMenu() {
   const emailRef = useRef<HTMLInputElement>(null);
   const name = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
   const [passwordLink, setPasswordLink] = useState("")
   const [inviteLink, setInviteLink] = useState("")
   const dispatch = useAppDispatch();
   let users = useAppSelector(selectUsers);
   const [selectedUser, setSelectedUser] = useState<IUser>()
-
+  const wedding = useAppSelector(selectWedding);
 
   useEffect(()=> {
     setTimeout(function() {dispatch(getAllUsers());}, 500)
-     
+    if(wedding!=undefined)
+      dispatch(getCeremony(wedding.id))
 
  }, [])
 
@@ -61,6 +64,7 @@ function UserCreationMenu() {
     if(emailRef.current!=null && name.current !=null) {
       UserRequest.email = emailRef.current.value;
       UserRequest.name = name.current.value;
+      UserRequest.password = password.current?.value ?? "test";
       UserRequest.user_id += name.current.value
     }
     var test = await createUser(UserRequest);
@@ -86,7 +90,6 @@ function UserCreationMenu() {
 
   } 
 
-  console.log(users)
   async function selectUserClick(selectedItem : IUser) {
     
     setSelectedUser(selectedItem);
@@ -100,6 +103,7 @@ function UserCreationMenu() {
       <div id='userCreationMenu'>
           <input type='text' ref={emailRef} placeholder='email@email.com'></input>
           <input type='text' ref={name} placeholder='John Smith'></input>
+          <input type='text' ref={password} placeholder='password' defaultValue={"test"}></input>
           <button onClick={sendRequest}>createUser</button>
       </div>
       <div id='userSelectionMenu'>
@@ -117,7 +121,7 @@ function UserCreationMenu() {
         </div>
       </div>
       { selectedUser &&
-      <CreateRsvpForm user={selectedUser}></CreateRsvpForm>}
+      <CreateRsvpForm user={selectedUser} wedding={wedding}></CreateRsvpForm>}
     </>
   )
 }

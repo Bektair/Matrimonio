@@ -1,8 +1,10 @@
 import { ILocation } from "./ILocation";
+import { IMenuOption } from "./IMenuOption";
 
 export interface IReception{
     id: number,
-    date: Date,
+    date: number,
     description: string,
-    location: ILocation
+    location: ILocation,
+    menuOptions: IMenuOption[]
 }

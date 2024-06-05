@@ -1,18 +1,22 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from '../store';
+import { User } from "@auth0/auth0-react";
 
 
 type sliceState = {
     isAuthenticated: boolean,
     isLoading: boolean,
-    user: object | undefined
+    user: User | undefined,
+    id: string | undefined
 }
+
 
 
 const initialState: sliceState = {
     isAuthenticated: false,
     isLoading: true,
     user: undefined,
+    id: undefined
 }
 
 export const authSlice = createSlice({
@@ -23,6 +27,7 @@ export const authSlice = createSlice({
             state.user = action.payload.user;
             state.isAuthenticated = action.payload.isAuthenticated;
             state.isLoading = action.payload.isLoading;
+            state.id = action.payload.id;
         }
     }
 })

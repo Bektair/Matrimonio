@@ -1,0 +1,22 @@
+.dietary-item > img
+    width: 2rem
+    height: 2rem
+    place-self: center
+
+.dietary-item
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+    justify-content: center
+    align-items: center
+    align-content: center
+
+.dietary-item:nth-child(even)
+    background-color: var(--secoundary-bg-color)
+
+.dietary-item:nth-child(odd)
+    background-color: var(--primary-bg-color)
+
+.selected-dish-item
+    color: var(--font-color-secoundary)
+    border: 1px solid var(--font-color-secoundary)
+

@@ -21,7 +21,7 @@ function List<P extends IModel>(props : IPropsList<P> )  {
   const [pagesize] = useState(10)
   const [selectedItem, setSelectedItem] = useState<HTMLLIElement>()  
   const [currentPage, setCurrentPage] = useState(0)
-  const listItems = document.getElementsByClassName('generic-list-item')
+  const listItems = document.getElementsByClassName('generic_list_item')
 
 
   
@@ -29,12 +29,13 @@ function List<P extends IModel>(props : IPropsList<P> )  {
   //Select må ha en dispatch
   function onListItemClick(event : any) {
     var id = event?.target.id;
-    id = id.split("-")[1] //Skal bare ha id biten, ikke det før - 
+    id = id.split("_")[1] //Skal bare ha id biten, ikke det før - 
+    console.log(id)
     let selectedItemById = props.listItems.filter(item => item.id == id)[0]
     if(selectedItemById != undefined){
       for (let index = 0; index < listItems.length; index++)
-        listItems[index].classList.remove('generic-list-item-focus');
-      event?.target.classList.add('generic-list-item-focus');
+        listItems[index].classList.remove('generic_list_item_focus');
+      event?.target.classList.add('generic_list_item_focus');
       setSelectedItem(event?.target)
       props.onclickEvent(selectedItemById); //I want to select from the dict of all weddings the one with correct id
     }else{
@@ -52,13 +53,13 @@ function List<P extends IModel>(props : IPropsList<P> )  {
       }
     });
     const {id} = value || {}
-    var className = 'generic-list-item'
+    var className = 'generic_list_item'
     if(selectedItem!=undefined){
-      if(selectedItem.id.split("-")[1] === id)
-        className+= ' generic-list-item-focus'
+      if(selectedItem.id.split("_")[1] === id)
+        className+= ' generic_list_item_focus'
     }
     var element = <li className={className} key={id} id={`${props.name}-${id}`} onClick={onListItemClick}>
-    <span id={"listId-"+id}>{id}</span><span id={"listContent-"+id}>{changeableFormat}</span></li>
+    <span id={"listId_"+id}>{id}</span><span id={"listContent_"+id}>{changeableFormat}</span></li>
     
     return element
   }
@@ -69,6 +70,7 @@ function List<P extends IModel>(props : IPropsList<P> )  {
     var count = 0;
     
     if(props.listItems.length > 0){
+      console.log(props.listItems)
       var page = props.listItems.slice(currentPage*pagesize, (currentPage+1)*pagesize);
       
       page.map((item : P, index) => (
@@ -81,7 +83,7 @@ function List<P extends IModel>(props : IPropsList<P> )  {
     
     if(props.listItems.length > currentPage*pagesize)
       while(count < currentPage*pagesize){
-        elements[props.listItems.length+count] = <li className={'generic-list-item'} key={`filler-${count}`}>Filler</li>
+        elements[props.listItems.length+count] = <li className={'generic_list_item'} key={`filler-${count}`}>Filler</li>
         count++;
       }
 
@@ -106,7 +108,6 @@ function List<P extends IModel>(props : IPropsList<P> )  {
       tabs[i] = <label className={className} id={"tabList-" + i.toString()} key={i} onClick={onPageClick}>{i}</label> 
       
     }
-
     return tabs;
   }
 
