@@ -9,11 +9,13 @@ import {
 import { MutableRefObject, useState } from "react";
 import { createPortal } from "react-dom";
 import './fontdropdown.sass'
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 
 interface sentProps{
   cssVariable: string
   btnName: string
+  register: UseFormRegister<FieldValues>
 }
 
 
@@ -121,6 +123,7 @@ function setLanguage(fontfamily : string, value : string){
             {menuRefs.floating && getComputedStyle(menuRefs.floating)}    
         </div>, document.body
       )}
+      <label {...sentProps.register("activeFont"+sentProps.btnName)}>{activeFont?.innerHTML}</label>
     </>
   );
 }

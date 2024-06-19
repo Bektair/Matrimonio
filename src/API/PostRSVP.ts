@@ -1,7 +1,5 @@
-import getAuthHeaders from "./SetAuthHeaders";
 import { API_URL } from "../constants/environment";
-import { IRSVP } from "../models/IRSVP";
-import { IUser } from "../models/IUser";
+import getAuthHeaders from "./SetAuthHeaders";
 
 
 export interface IRSVPCreate {

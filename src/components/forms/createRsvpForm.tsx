@@ -1,13 +1,13 @@
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { IRSVPCreate } from '../../API/PostRSVP';
 import '../../_index.sass';
 import { IUser } from '../../models/IUser';
-import { createRSVPThunk, getAWedding, selectCeremony } from '../../redux/slices/weddingSlice';
-import './createRsvpForm.sass';
-import { useAppDispatch } from '../../redux/Hooks/hooks';
 import { IWedding } from '../../models/IWedding';
+import { useAppDispatch } from '../../redux/Hooks/hooks';
+import { createRSVPThunk, selectCeremony } from '../../redux/slices/weddingSlice';
+import './createRsvpForm.sass';
 
 interface IProps {
     user: IUser | undefined

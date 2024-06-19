@@ -12,6 +12,7 @@ import { IWedding } from '../../models/IWedding'
 import { RootState } from '../store'
 import { IRSVPUpdate, patchRSVP } from '../../API/UpdateRSVP'
 import { fetchReception } from '../../API/GetReception'
+import { IWeddingUpdate, patchWedding } from '../../API/UpdateWedding'
 
 
 interface sliceState  {
@@ -32,8 +33,8 @@ const initialState: sliceState = {
     posts: [],
 }
 
-var defaultPrimaryColor = "#d147ab"
-var defaultSecoundaryColor = "#203ab5"
+// var defaultPrimaryColor = "#d147ab"
+// var defaultSecoundaryColor = "#203ab5"
 
 
 const weddingSlice = createSlice( {
@@ -41,13 +42,19 @@ const weddingSlice = createSlice( {
     initialState: initialState,
     reducers:{
         setWedding:  (state, action: PayloadAction<IWedding>) => {
+            var payload = action.payload;
+
             let wedding : IWedding =  {
-                id: action.payload.id,
-                description: action.payload.description,
-                dresscode: action.payload.dresscode,
-                primaryColor: defaultPrimaryColor,
-                secoundaryColor: defaultSecoundaryColor,
-                backgroundImage: "ok"
+                id: payload.id,
+                primaryColor: payload.primaryColor,
+                secoundaryColor: payload.secoundaryColor,
+                primaryFontColor: payload.primaryFontColor,
+                secoundaryFontColor: payload.secoundaryFontColor,
+                backgroundImage: payload.backgroundImage,
+                bodyFont: payload.bodyFont,
+                headingFont: payload.headingFont,   
+                description: payload.description,
+                dresscode: payload.dresscode
             } 
 
             return {
@@ -71,16 +78,46 @@ const weddingSlice = createSlice( {
             if(payload!=undefined){
                 let wedding : IWedding =  {
                     id: payload.id,
+                    primaryColor: payload.primaryColor,
+                    secoundaryColor: payload.secoundaryColor,
+                    primaryFontColor: payload.primaryFontColor,
+                    secoundaryFontColor: payload.secoundaryFontColor,
+                    backgroundImage: payload.backgroundImage,
+                    bodyFont: payload.bodyFont,
+                    headingFont: payload.headingFont,   
                     description: payload.description,
-                    dresscode: payload.dresscode,
-                    primaryColor: defaultPrimaryColor,
-                    secoundaryColor: defaultSecoundaryColor,
-                    backgroundImage: "ok"
+                    dresscode: payload.dresscode
                 } 
 
                 state.wedding = wedding;
             } else{
                 state.wedding = undefined;
+            }
+        }),
+        builder.addCase(updateWeddingThunk.fulfilled, (state, action)=>{
+            console.log("updated Wedding")
+            var payload = action.payload;
+            console.log("payload: " + payload)
+            if(payload!=undefined){
+                console.log("smarty: ")
+
+                var updatedWedding : IWedding = {
+                    primaryColor: payload.PrimaryColor,
+                    secoundaryColor: payload.SecoundaryColor,
+                    primaryFontColor: payload.PrimaryFontColor,
+                    secoundaryFontColor: payload.SecoundaryFontColor,
+                    backgroundImage: payload.BackgroundImage,
+                    bodyFont: payload.BodyFont,
+                    headingFont: payload.HeadingFont,   
+                    id: payload.Id.toString(),
+                    description: payload.Description,
+                    dresscode: payload.Dresscode
+                } 
+                var indexToChange = state.wedding?.id;
+                if(indexToChange == updatedWedding.id){
+                    state.wedding = updatedWedding;
+                }
+                
             }
         }),
         builder.addCase(getCeremony.fulfilled, (state, action)=>{
@@ -107,13 +144,16 @@ const weddingSlice = createSlice( {
                 state.ceremony = undefined;
             }
         }),
-        builder.addCase(createRSVPThunk.fulfilled, (state, action)=>{
+        builder.addCase(createRSVPThunk.fulfilled, ()=>{
             console.log("Created RSVP")
         }),
         builder.addCase(updateRSVPThunk.fulfilled, (state, action)=>{
             console.log("updated RSVP")
             var payload = action.payload;
+            console.log("payload: " + payload)
             if(payload!=undefined){
+                console.log("smarty: ")
+
                 var updatedRSVP : IRSVP = {
                     body: payload.body,
                     ChoosenDessertId: payload.choosenDessertId,
@@ -128,6 +168,10 @@ const weddingSlice = createSlice( {
                 var indexToChange = state.rsvps.findIndex((rsvp)=> rsvp.id == updatedRSVP.id);
                 var copy = state.rsvps.slice()
                 copy[indexToChange] = updatedRSVP;
+                console.log(state.rsvps)
+                console.log("COPY")
+                console.log(copy)
+
                 state.rsvps = copy;
             }
 
@@ -215,6 +259,24 @@ export const getAWedding = createAsyncThunk(
     }
 )
 
+export interface IUpdateWeddingThunk{
+    RSVP : IWeddingUpdate, 
+    id : string
+}
+
+export const updateWeddingThunk = createAsyncThunk(
+    'wedding/patchWedding',
+    //Inside thunk function
+    async (updateWeddingThunk : IUpdateWeddingThunk)=> {
+        try {
+          return await patchWedding(updateWeddingThunk.RSVP, updateWeddingThunk.id);
+        }catch (err){
+          console.log(err)
+          return undefined;
+        }
+    }
+)
+
 export const getCeremony = createAsyncThunk(
     'wedding/setCeremony',
     //Inside thunk function
@@ -255,12 +317,17 @@ export const createRSVPThunk = createAsyncThunk(
     }
 )
 
+export interface IUpdateRSVPThunk{
+    RSVP: IRSVPUpdate, 
+    id : string
+}
+
 export const updateRSVPThunk = createAsyncThunk(
     'wedding/patchRSVP',
     //Inside thunk function
-    async (RSVP : IRSVPUpdate)=> {
+    async (updateRSVPthunk : IUpdateRSVPThunk)=> {
         try {
-          return await patchRSVP(RSVP);
+          return await patchRSVP(updateRSVPthunk.RSVP, updateRSVPthunk.id);
         }catch (err){
           console.log(err)
           return undefined;
@@ -313,6 +380,15 @@ export const selectCeremony = (state: RootState) => {
 
 export const selectRSVPS = (state: RootState) => {
     return state.wedding.rsvps;
+}
+
+export const selectRSVPByAuthId = (state: RootState, AuthId: string | undefined) => {
+    if(!AuthId)
+        return undefined;
+    var index = state.wedding.rsvps.findIndex((rsvp)=>rsvp.Signer.id == AuthId)
+    if(index < 0)
+        return undefined
+    return state.wedding.rsvps[index];
 }
 
 export const selectReception = (state: RootState) => {

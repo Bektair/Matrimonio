@@ -1,10 +1,13 @@
 import React, { useEffect, useRef } from 'react'
-import { useAppSelector } from '../../redux/Hooks/hooks';
-import { selectWedding } from '../../redux/slices/weddingSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
+import { selectWedding, updateWeddingThunk } from '../../redux/slices/weddingSlice';
 import './weddingUpdate.sass'
 import FontDropdown from '../lists/fontDropdown';
+import { useForm } from 'react-hook-form';
+import { IWeddingUpdate } from '../../API/UpdateWedding';
 
 function WeddingUpdate() {
+    const { register, handleSubmit } = useForm();
     let wedding = useAppSelector(selectWedding);
     const mainColor = useRef<HTMLInputElement>(null);
     const secoundColor = useRef<HTMLInputElement>(null);
@@ -14,7 +17,8 @@ function WeddingUpdate() {
     const backgroundImageInput = useRef<HTMLInputElement>(null);
     const mainRangeInput = useRef<HTMLInputElement>(null);
     const secoundaryRangeInput = useRef<HTMLInputElement>(null);
-    
+    const dispatch = useAppDispatch()
+
     
     
 
@@ -71,27 +75,63 @@ function WeddingUpdate() {
         document.documentElement.style.setProperty('--main-bg-image', `url(${backgroundImageInput.current?.value})`)
     }
 
+    async function updateWedding (formData : any){
+        console.log("UpdateWedding!")
+        console.log(formData)
+        console.log(formData.mainColor)
+        console.log(formData.mainColorRange)
+        console.log(formData.secoundaryColor)
+        console.log(formData.secoundaryColorRange)
+        console.log(formData.backgroundImage)
+        console.log(formData.fontColorMain)
+        console.log(formData.fontColorSecound)
+        console.log(formData.activeFontbody)
+        console.log(formData.activeFontheading)
+        if(wedding != undefined){
 
+            var colorMain = formData.mainColor + formData.mainColorRange;
+            var colorSecoundary = formData.secoundaryColor + formData.secoundaryColorRange;
+
+            console.log(formData.numberOfGuests)
+            var Wedding = {
+                MainColor: colorMain,
+                SecoundaryColor: colorSecoundary,
+                MainFontColor: formData.fontColorMain,
+                SecoundaryFontColor: formData.fontColorSecound,
+                BackgroundImage: formData.backgroundImage,
+                BodyFont: formData.activeFontbody,
+                HeadingFont: formData.activeFontheading            
+            } as IWeddingUpdate
+            console.log("WeddingUpdate:")
+            console.log(JSON.stringify(Wedding))
+
+            dispatch(updateWeddingThunk({ id: wedding.id.toString(), RSVP: Wedding}))
+        }
+
+
+      }
   return (
-    <div id='weddingUpdateComponent'>
+    <form id='weddingUpdateComponent' onSubmit={handleSubmit(updateWedding)}>
         <label ref={weddingSelectedLabel}>You have wedding: {wedding?.id} selected</label>
         <div id='customWeddingUpdates'>
             <div className='griditem-wedding'><label>MainColor</label></div>
-            <div className='griditem-wedding'><input type='color' defaultValue="#161313" ref={mainColor} id='maincolor'></input></div>
-            <div className='griditem-wedding'><input type="range" onChange={alphaChangeHandler('--primary-bg-color', mainColor)} ref={mainRangeInput} min="0" max="255" step="1" defaultValue="100"></input></div>
+            <div className='griditem-wedding' ><input type='color' {...register("mainColor")}  defaultValue="#161313" ref={mainColor} id='maincolor'></input></div>
+            <div className='griditem-wedding'><input type="range" {...register("mainColorRange")} onChange={alphaChangeHandler('--primary-bg-color', mainColor)} ref={mainRangeInput} min="0" max="255" step="1" defaultValue="100"></input></div>
             <div className='griditem-wedding'><label>SecoundaryColor</label></div>
-            <div className='griditem-wedding'><input type='color' defaultValue="#d3d3d3" ref={secoundColor}></input></div>
-            <div className='griditem-wedding'><input type="range" onChange={alphaChangeHandler('--secoundary-bg-color', secoundColor)} ref={secoundaryRangeInput} min="0" max="255" step="1" defaultValue="100"></input></div>
+            <div className='griditem-wedding'><input type='color' {...register("secoundaryColor")} defaultValue="#d3d3d3" ref={secoundColor}></input></div>
+            <div className='griditem-wedding'><input type="range" {...register("secoundaryColorRange")} onChange={alphaChangeHandler('--secoundary-bg-color', secoundColor)} ref={secoundaryRangeInput} min="0" max="255" step="1" defaultValue="100"></input></div>
             <div className='griditem-wedding'><label>BackgroundImage</label></div>
-            <div className='griditem-wedding'><input type='text' placeholder='link to image' ref={backgroundImageInput} onSubmit={backgroundImageChange}></input></div>
+            <div className='griditem-wedding'><input type='text' {...register("backgroundImage")} placeholder='link to image' ref={backgroundImageInput} onSubmit={backgroundImageChange}></input></div>
             <div className='griditem-wedding'><label></label></div>
             <div className='griditem-wedding'><label>FontColor</label></div>
-            <div className='griditem-wedding'><div><input type='color' ref={fontColorMain} defaultValue="#fed3e3"></input>
-                                                    <input type='color' ref={fontColorSecound} defaultValue="#d84444"></input></div></div>
-            <div className='griditem-wedding'><div><FontDropdown cssVariable="--font-main" btnName="body"></FontDropdown><FontDropdown btnName="heading" cssVariable="--font-secound"></FontDropdown></div></div>
+            <div className='griditem-wedding'><div><input type='color' {...register("fontColorMain")} ref={fontColorMain} defaultValue="#fed3e3"></input>
+                                                    <input type='color'{...register("fontColorSecound")}  ref={fontColorSecound} defaultValue="#d84444"></input></div></div>
+            <div className='griditem-wedding'><div>
+            <FontDropdown register={register} cssVariable="--font-main" btnName="body"></FontDropdown>
+            <FontDropdown register={register}  btnName="heading" cssVariable="--font-secound"></FontDropdown></div></div>
         </div>
-        <button onClick={backgroundImageChange}>Submit</button> 
-    </div>
+        <button  type='submit'>Submit</button> 
+    </form>
   )
 }
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { getAWedding, getCeremony, getReception, selectCeremony, selectReception, selectWedding, setWedding } from '../../redux/slices/weddingSlice';
-import { getAllWeddings, selectWeddings } from '../../redux/slices/weddingsSlice';
 import { selectAuth } from '../../redux/slices/authSlice';
+import { getCeremony, getReception, selectCeremony, selectReception, selectWedding, setWedding } from '../../redux/slices/weddingSlice';
+import { getAllWeddings, selectWeddings } from '../../redux/slices/weddingsSlice';
 
 
 function AdminSideBar() {

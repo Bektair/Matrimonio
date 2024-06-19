@@ -1,5 +1,5 @@
 import getPropertyValue from 'get-property-value';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import '../../_index.sass';
 import './genericlist.sass';
 

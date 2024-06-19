@@ -26,16 +26,26 @@ const weddingsSlice = createSlice( {
     },
     extraReducers: (builder) =>  {
         builder.addCase(getAllWeddings.fulfilled, (state, action)=>{
+
+
             let weddings = action.payload.map(wedding => {
-                return { 
+                var test  : IWedding =  { 
                     id: wedding.id,
+                    primaryColor: wedding.primaryColor,
+                    secoundaryColor: wedding.secoundaryColor,
+                    primaryFontColor: wedding.primaryFontColor,
+                    secoundaryFontColor: wedding.secoundaryFontColor,
+                    backgroundImage: wedding.backgroundImage,
+                    bodyFont: wedding.bodyFont,
+                    headingFont: wedding.headingFont,   
                     description: wedding.description,
-                    dresscode: wedding.dresscode,
-                    primaryColor: defaultPrimaryColor,
-                    secoundaryColor: defaultSecoundaryColor,
-                    backgroundImage: "ok"
+                    dresscode: wedding.dresscode
                 }
-            }) 
+                console.log(test) 
+                return test;
+            })
+            
+
 
             state.weddings = weddings;
         }),
@@ -48,7 +58,11 @@ const weddingsSlice = createSlice( {
                     dresscode: payload.dresscode,
                     primaryColor: defaultPrimaryColor,
                     secoundaryColor: defaultSecoundaryColor,
-                    backgroundImage: "ok"
+                    backgroundImage: "ok",
+                    bodyFont: "ok",
+                    headingFont: "ok",
+                    primaryFontColor: "ok",
+                    secoundaryFontColor: "ok"
                 } 
 
                 return {

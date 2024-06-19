@@ -7,10 +7,6 @@ import AdminSideBar from './AdminSideBar'
 
 
 export default function Layout() {
-
-
-    
-
     return (
         <>
             <Header />
@@ -19,7 +15,10 @@ export default function Layout() {
                         <Outlet></Outlet>
                     </Suspense>
             </main>
-            <AdminSideBar></AdminSideBar>
+            {
+                process.env.NODE_ENV === 'development' &&
+                <AdminSideBar></AdminSideBar>
+            }
             <Footer />
         </>
     )

@@ -1,27 +1,29 @@
-import { useRef, useState } from "react"
-import { useForm } from "react-hook-form"
-import './DietaryItem.sass'
 import '../../_index.sass'
+import './DietaryItem.sass'
 
 interface IDietaryItem {
     image : string
     name : string
     allergens: string[]
     tags: string[]
+    id: number
+    selected: boolean
 }
 
 
 
 function DietaryItem(item : IDietaryItem) {
-
+const IsDinner = item.tags.find((tag) => tag.match("Dinner"));
+const IsDessert = item.tags.find((tag) => tag.match("Dessert"));
+const selectedItem = !item.selected ? "" : IsDinner ? "selected-dish-item":"selected-dessert-item";
 
 
 function setAllergens(){
     var alergensCsv = ""
     for(let i = 0; i<item.allergens.length; i++){
-        alergensCsv+=item.tags[i]+","
+        alergensCsv+=item.allergens[i]+","
     }
-    var element = <div  key={`tags`}>{alergensCsv.substring(0, alergensCsv.length-1)}</div>
+    var element = <div  key={`allergens`}>{alergensCsv.substring(0, alergensCsv.length-1)}</div>
     return element
 }
 
@@ -36,7 +38,7 @@ function setTags(){
     return element
 }
 
-function radioIsSelected(event : any){
+function dinnerRadioSelected(event : any){
     console.log(event.target.value);
     
     console.log(event.target.parentElement)
@@ -49,12 +51,32 @@ function radioIsSelected(event : any){
     parent.classList.add('selected-dish-item')
 }
 
+function dessertRadioSelected(event : any){
+    console.log(event.target.value);
+    
+    console.log(event.target.parentElement)
+    var parent = event.target.parentElement;
+    var allDishItems = document.getElementsByClassName("dietary-item");
+    for(let i = 0; i < allDishItems.length; i++){
+        console.log(allDishItems[i])
+        allDishItems[i].classList.remove('selected-dessert-item')
+    }
+    parent.classList.add('selected-dessert-item')
+}
+
+
+
 
 return (
-    <label className="dietary-item"> 
+
+
+    <label className={`dietary-item ${selectedItem}`}  id={item.id.toString()} key={item.id.toString()+"-"+item.name}> 
         <img src={item.image}></img>
         <div>{item.name}</div>
-        <input type="radio" name="isSelected" onChange={radioIsSelected}></input>
+        { IsDinner &&
+        <input type="radio" name="isSelectedDinner" onChange={dinnerRadioSelected} defaultChecked={item.selected}></input>}
+        { IsDessert &&
+        <input type="radio" name="isSelectedDessert"  onChange={dessertRadioSelected} defaultChecked={item.selected}></input>}
         <div>
             <div>Alergens:</div>
             {

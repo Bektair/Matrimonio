@@ -9,7 +9,7 @@ function Navbar() {
   const {isAuthenticated, isLoading} = useSelector(selectAuth)
  
 
-
+  console.log("NODEENV" + process.env.NODE_ENV)
 
   return (
     <div className="navbar-custom">

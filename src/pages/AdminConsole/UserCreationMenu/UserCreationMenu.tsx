@@ -72,7 +72,7 @@ function UserCreationMenu() {
     console.log(event.target.value)
   }
 
-  async function setPasswordRequest (event: any)  {
+  async function setPasswordRequest ()  {
     if(selectedUser!=null)
       PasswordRequest.email = selectedUser.email;
     
@@ -84,7 +84,7 @@ function UserCreationMenu() {
   }
   
   
-  async function sendInviteRequest(event: any){
+  async function sendInviteRequest(){
     var inviteLink = passwordLink +"type=invite#app="+app_name
     setInviteLink(inviteLink);
 

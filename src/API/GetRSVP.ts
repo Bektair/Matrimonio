@@ -1,6 +1,5 @@
 import { API_URL } from "../constants/environment"
-import { IUser } from "../models/IUser"
-import { IUserResponse } from "../models/IUserResponse"
+import { RSVPStatus } from "../models/IRSVP"
 import getAuthHeaders from "./SetAuthHeaders"
 
 
@@ -15,7 +14,7 @@ export interface IRSVPResponse {
     id: number
     body: string
     deadline: string
-    status: string
+    status: RSVPStatus
     numberOfGuests: number
     OtherDietaryRequirements: string
     signer: IUserReadDTO
@@ -23,6 +22,8 @@ export interface IRSVPResponse {
     choosenDessertId: number | null
     
 }
+
+
 
 export interface IUserReadDTO {
     id: string
@@ -38,7 +39,7 @@ export interface IUserReadDTO {
 export async function fetchRSVPWedding(weddingId : string) : Promise<IRSVPResponse[]> {
     console.log("TRYING TO FETCH RSVP")
     const headers = await getAuthHeaders();
-    
+
     let response = await fetch(`${API_URL}/api/RSVP/${weddingId}`, {
        headers
     })

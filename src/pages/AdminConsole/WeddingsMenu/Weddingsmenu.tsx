@@ -17,7 +17,9 @@ function Weddingsmenu() {
 
     useEffect(()=> {
        setTimeout(function() {dispatch(getAllWeddings());}, 10)
-        
+       console.log("RERENDERED :(")
+       console.log("NODEENV" + process.env.NODE_ENV)
+
 
     }, [])
     
