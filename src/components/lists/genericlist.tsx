@@ -42,14 +42,20 @@ function List<P extends IModel>(props : IPropsList<P> )  {
     }
   }
 
-  const ListItem = ({ value } : any) => {
-
+  function GetPropertyValue(obj1 : any, dataToRetrieve : any) {
+    return dataToRetrieve
+      .split('.') // split string based on `.`
+      .reduce(function(o : any, k : any) {
+        return o && o[k]; // get inner property if `o` is defined else get `o` and return
+      }, obj1) // set initial value as object
+  }
     
+
+  const ListItem = ({ value } : any) => {
 
     var changeableFormat = props.listItemFormat;
     props.propNames.forEach(prop => {
-      // var propertyValue = getPropertyValue(value, prop);
-      var propertyValue = "";
+      var propertyValue = GetPropertyValue(value, prop);
       if(typeof propertyValue === 'string' || typeof propertyValue === 'number'){
         changeableFormat =changeableFormat.replace("${" + prop + "}", propertyValue.toString())
       }
