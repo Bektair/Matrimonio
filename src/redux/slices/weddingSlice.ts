@@ -9,7 +9,6 @@ import { IRSVP } from '../../models/IRSVP'
 import { IReception } from '../../models/IReception'
 import { IReligiousCeremony as ICeremony } from '../../models/IReligiousCeremony'
 import { IWedding } from '../../models/IWedding'
-import { RootState } from '../store'
 import { IRSVPUpdate, patchRSVP } from '../../API/UpdateRSVP'
 import { fetchReception } from '../../API/GetReception'
 import { IWeddingUpdate, patchWedding } from '../../API/UpdateWedding'
@@ -369,31 +368,7 @@ export const getRSVPbyWeddingAndSigner = createAsyncThunk(
     }
 )
 
-export const selectWedding = (state: RootState) => {
-    return state.wedding.wedding;
-}
 
-
-export const selectCeremony = (state: RootState) => {
-    return state.wedding.ceremony;
-}
-
-export const selectRSVPS = (state: RootState) => {
-    return state.wedding.rsvps;
-}
-
-export const selectRSVPByAuthId = (state: RootState, AuthId: string | undefined) => {
-    if(!AuthId)
-        return undefined;
-    var index = state.wedding.rsvps.findIndex((rsvp)=>rsvp.Signer.id == AuthId)
-    if(index < 0)
-        return undefined
-    return state.wedding.rsvps[index];
-}
-
-export const selectReception = (state: RootState) => {
-    return state.wedding.reception;
-}
 
 
 export default weddingSlice.reducer

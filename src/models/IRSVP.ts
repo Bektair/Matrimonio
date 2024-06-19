@@ -1,4 +1,4 @@
-import { IUserReadDTO } from "../API/GetRSVP"
+import { IUserReadDTO } from './IUser'
 
 export interface IRSVP{
     id: string

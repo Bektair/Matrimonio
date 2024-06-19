@@ -2,7 +2,6 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { IWeddingRequest, createWedding } from '../../API/CreateWedding'
 import { fetchWeddings } from '../../API/GetWeddings'
 import { IWedding } from '../../models/IWedding'
-import { RootState } from '../store'
 
 
 type sliceState = {
@@ -101,9 +100,7 @@ export const getAllWeddings = createAsyncThunk(
         }
     }
 )
-export const selectWeddings = (state: RootState) => {
-    return state.weddings.weddings;
-}
+
 
 
 

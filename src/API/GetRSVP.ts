@@ -1,5 +1,6 @@
 import { API_URL } from "../constants/environment"
 import { RSVPStatus } from "../models/IRSVP"
+import { IUserReadDTO } from "../models/IUser"
 import getAuthHeaders from "./SetAuthHeaders"
 
 
@@ -25,16 +26,6 @@ export interface IRSVPResponse {
 
 
 
-export interface IUserReadDTO {
-    id: string
-    firstName: string
-    lastName: string
-    profilePicture:string
-    email: string
-    nickname: string
-    password:string
-    email_Verified:boolean
-}
 
 export async function fetchRSVPWedding(weddingId : string) : Promise<IRSVPResponse[]> {
     console.log("TRYING TO FETCH RSVP")

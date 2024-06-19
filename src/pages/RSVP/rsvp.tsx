@@ -24,7 +24,10 @@ function Rsvp() {
   const dispatch = useAppDispatch();
   const currentRSVP = useAppSelector(state => selectRSVPByAuthId(state, Auth ? Auth.id : undefined))
 
-  
+  const mode = import.meta.env.MODE;
+  console.log("MODE")
+  console.log(mode)
+
   useEffect(()=>{
     //TODO fjern, kun for testing
 

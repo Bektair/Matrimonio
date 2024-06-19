@@ -1,16 +1,14 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { Middleware, UnknownAction, isAction } from "redux";
 import { IPostResponse, fetchPosts } from "../../API/GetPosts";
-import { RootState } from "../store";
 
 //BEFORE IT REACHES THE REDUCER
 
-export const loggermiddleware : Middleware<{}, RootState> = storeAPI => next => async (action) => {
+export const loggermiddleware : Middleware<{}, any> = storeAPI => next => async (action) => {
     console.log('dispatching', action)
     var modifiedAction = action;
     
     if(isAction(action)){
-        console.log("is an action")
         var unknownAction  = action as UnknownAction;
 
         switch(unknownAction.type){

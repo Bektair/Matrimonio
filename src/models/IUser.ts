@@ -32,3 +32,14 @@ export interface IUser {
     "family_name": string,
     "id": string
 }
+
+export interface IUserReadDTO {
+    id: string
+    firstName: string
+    lastName: string
+    profilePicture:string
+    email: string
+    nickname: string
+    password:string
+    email_Verified:boolean
+}

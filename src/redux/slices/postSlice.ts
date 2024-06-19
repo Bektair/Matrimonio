@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { fetchPosts } from "../../API/GetPosts"
 import { IPost } from "../../models/IPost"
-import type { RootState } from '../store'
 
   
   type sliceState = {
@@ -75,8 +74,6 @@ export const getAllPostsInWedding = createAsyncThunk(
 // export const { getPosts } = postSlice.actions
   
 
-export const selectPosts = (state: RootState) => {
-  return state.posts.posts;
-}
+
 
 export default postSlice.reducer
