@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { selectAuth } from "../../redux/slices/authSlice"
+import { selectAuth } from "../../redux/selectors/selectAuth"
 import { LoginButton } from "../buttons/login-button"
 import { LogoutButton } from "../buttons/logout-button"
 import PathConstants from '../route/pathConstants'
@@ -9,7 +9,6 @@ function Navbar() {
   const {isAuthenticated, isLoading} = useSelector(selectAuth)
  
 
-  console.log("NODEENV" + process.env.NODE_ENV)
 
   return (
     <div className="navbar-custom">

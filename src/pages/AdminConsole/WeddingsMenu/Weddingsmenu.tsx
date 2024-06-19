@@ -7,8 +7,10 @@ import PathConstants from '../../../components/route/pathConstants'
 import { IWedding } from '../../../models/IWedding'
 import { useAppDispatch, useAppSelector } from '../../../redux/Hooks/hooks'
 import { setWedding } from '../../../redux/slices/weddingSlice'
-import { getAllWeddings, selectWeddings } from '../../../redux/slices/weddingsSlice'
+import { getAllWeddings } from '../../../redux/slices/weddingsSlice'
+
 import './weddingsmenu.sass'
+import { selectWeddings } from '../../../redux/selectors/selectWeddingsSlice'
 
 function Weddingsmenu() {
     const dispatch = useAppDispatch();

@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
-import {getAllPostsInWedding, selectPosts } from '../../redux/slices/postSlice'
+import {getAllPostsInWedding } from '../../redux/slices/postSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
 import { store } from '../../redux/store';
 import { IPost } from '../../models/IPost';
-import { selectWedding } from '../../redux/slices/weddingSlice';
+import { selectWedding } from '../../redux/selectors/selectWeddingSlice';
+import { selectPosts } from '../../redux/selectors/selectPosts';
 
 
 

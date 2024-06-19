@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { selectWedding, updateWeddingThunk } from '../../redux/slices/weddingSlice';
+import {  updateWeddingThunk } from '../../redux/slices/weddingSlice';
 import './weddingUpdate.sass'
 import FontDropdown from '../lists/fontDropdown';
 import { useForm } from 'react-hook-form';
 import { IWeddingUpdate } from '../../API/UpdateWedding';
+import { selectWedding } from '../../redux/selectors/selectWeddingSlice';
 
 function WeddingUpdate() {
     const { register, handleSubmit } = useForm();

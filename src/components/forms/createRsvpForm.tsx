@@ -6,8 +6,9 @@ import '../../_index.sass';
 import { IUser } from '../../models/IUser';
 import { IWedding } from '../../models/IWedding';
 import { useAppDispatch } from '../../redux/Hooks/hooks';
-import { createRSVPThunk, selectCeremony } from '../../redux/slices/weddingSlice';
+import { createRSVPThunk } from '../../redux/slices/weddingSlice';
 import './createRsvpForm.sass';
+import { selectCeremony } from '../../redux/selectors/selectWeddingSlice';
 
 interface IProps {
     user: IUser | undefined

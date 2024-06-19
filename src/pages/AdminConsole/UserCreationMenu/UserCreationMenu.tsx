@@ -5,9 +5,11 @@ import List from '../../../components/lists/genericlist';
 import { app_name } from '../../../constants/environment';
 import { IUser } from '../../../models/IUser';
 import { useAppDispatch, useAppSelector } from '../../../redux/Hooks/hooks';
-import { getAllUsers, selectUsers } from '../../../redux/slices/usersSlice';
-import { getCeremony, selectWedding } from '../../../redux/slices/weddingSlice';
+import { getAllUsers } from '../../../redux/slices/usersSlice';
+import { getCeremony } from '../../../redux/slices/weddingSlice';
 import './UserCreationMenu.sass';
+import { selectUsers } from '../../../redux/selectors/selectUsers';
+import { selectWedding } from '../../../redux/selectors/selectWeddingSlice';
 
 
 

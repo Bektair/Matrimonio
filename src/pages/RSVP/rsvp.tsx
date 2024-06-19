@@ -2,9 +2,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
 import { IRSVP, RSVPStatus } from '../../models/IRSVP';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { selectAuth } from '../../redux/slices/authSlice';
-import { IWeddingAndSigner, getRSVPbyWeddingAndSigner, getReception, selectRSVPByAuthId, selectRSVPS, selectWedding } from '../../redux/slices/weddingSlice';
-import { getAllWeddings, selectWeddings } from '../../redux/slices/weddingsSlice';
+import { IWeddingAndSigner, getRSVPbyWeddingAndSigner, getReception  } from '../../redux/slices/weddingSlice';
+import { getAllWeddings } from '../../redux/slices/weddingsSlice';
 import RSVPAllreadyAccepted from './RSVPAllreadyAccepted';
 import RSVPAllreadyAcceptedPastDue from './RSVPAllreadyAcceptedPastDue';
 import RSVPDeclined from './RSVPDeclined';
@@ -13,6 +12,9 @@ import RSVPDietaryMenu from './RSVPDietaryMenu';
 import RSVPExpiredInvite from './RSVPExpiredInvite';
 import RSVPPending from './RSVPPending';
 import './rsvp.sass';
+import { selectRSVPByAuthId, selectRSVPS, selectWedding } from '../../redux/selectors/selectWeddingSlice';
+import { selectAuth } from '../../redux/selectors/selectAuth';
+import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
 function Rsvp() {
 
   const { user, isAuthenticated } = useAuth0();
