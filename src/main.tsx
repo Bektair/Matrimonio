@@ -10,9 +10,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { audience, clientId, domain, redirectUri } from './constants/environment.ts';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
-console.log("DOMANINNNNNNNNNNN" + process.env.NODE_ENV +  domain)
-console.log("VueVariabel" + import.meta.env.VITE_APP_AUTH0_DOMAIN)
-console.log("ReactVariabel" + process.env.REACT_APP_API_URL)
 
 
 

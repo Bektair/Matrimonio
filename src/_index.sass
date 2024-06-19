@@ -6,18 +6,23 @@ $primary-dark-color: #FF8C00
 $primary-light-color: #FFA300
 $secoundary-dark-color: #0C9200
 $secoundary-light-color: #11D400
-
+$line-height: 1.5
 
 :root 
   --secoundary-bg-color: #d3d3d391
   --primary-bg-color: #16131391
   --font-color-main: #fed3e3
-  --font-color-secoundary: #d84444
+  --font-color-secoundary: #d84444 
+  // https://codepen.io/sosuke/pen/Pjoqqp for filtering colors into filters
+  --font-inverted-color-main: invert(83%) sepia(11%) saturate(552%) hue-rotate(290deg) brightness(104%) contrast(99%)
+  --font-inverted-color-secoundary: invert(34%) sepia(71%) saturate(1258%) hue-rotate(328deg) brightness(89%) contrast(92%)
+  --popup-bg-color: #474242
   --font-main: Helvetica, Inter, system-ui, Avenir, Arial, sans-serif, Tangerine
   --font-secound: Arial, Helvetica, Inter, system-ui, Avenir, Helvetica, sans-serif, Tangerine
   --main-bg-image: url('https://res.cloudinary.com/dgegmm2pt/image/upload/v1716388605/love_sunmoon_by_nitramx_dgbmbof-fullview_tmxius.jpg')
+  --line-height: 1.5
   font-family: var(--font-main)
-  line-height: 1.5
+  line-height: var(--line-height)
   font-weight: 400
   font-size: large
   text-shadow: #000000 0.5px 0.5px 1px
@@ -59,12 +64,11 @@ html
 
 
 body 
-  margin: 0
-  padding: 0
+  margin: 0px
+  padding: 0px
   width: 100%
   height: 100%
   display: flex
-  place-items: top
   min-width: 320px
   min-height: 200vh
   text-align: center

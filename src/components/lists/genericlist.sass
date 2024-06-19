@@ -1,0 +1,92 @@
+@use "src/index" as *
+
+:root
+  --space-from-table: 0.2rem
+
+    
+.generic-list-tabs
+    margin-top: var(--space-from-table)
+    display: grid
+    grid-template-columns: repeat(10, 2rem)
+   
+.generic-list-tab
+    padding-left: 0.5rem
+    padding-right: 0.5rem
+    border: 0.1rem dashed white
+    color: var(--font-color-main)
+    margin-bottom: 1rem
+
+.generic-list-tab:hover
+  background-color: orange
+  opacity: 50%
+
+
+.generic-list-tab-focus
+  background-color: var(--font-color-secoundary)
+  opacity: 100%
+  border: 0.1rem dashed white
+
+ul.full-generic-list
+  list-style: none
+  padding-left: 0px
+  display: grid
+  grid-template-columns: 1fr
+  margin-bottom: 0px
+
+.generic_list_item
+  display: grid
+  grid-template-columns: 10rem auto
+
+.generic_list_item:hover
+  background-color: orange
+  font-weight: bold
+  color: var(--font-color-secoundary)
+
+.generic_list_item_focus
+  color: var(--font-color-secoundary)
+  font-weight: bold
+  border: solid 2px var(--font-color-secoundary)
+
+.generic_list_item > span
+  margin-top: 0px
+  margin-bottom: 0px
+
+
+li:nth-child(odd).generic_list_item
+    background-color: var(--primary-bg-color)
+
+li:nth-child(even).generic_list_item
+    background-color: var(--secoundary-bg-color)
+
+
+
+
+.list-loader
+  background-image: url(https://res.cloudinary.com/dgegmm2pt/image/upload/v1716980421/Vector_zplwjr.svg)
+  height: calc(var(--line-height) * 10rem)
+  background-repeat: no-repeat
+  background-size: contain
+  background-position: center center
+  animation: loading 3s linear infinite
+  @keyframes loading
+    0%
+      transform: rotate(0)
+    100%
+      transform: rotate(360deg)
+      
+#passwordAndInviteLinks
+  display: grid
+  gap: 1rem
+  
+
+#passwordlinks
+  display: grid
+  grid-template-columns: 1fr 6fr
+  background-color: var(--primary-bg-color)
+
+
+#invitelinks
+  display: grid
+  grid-template-columns: 1fr 6fr
+  background-color: var(--primary-bg-color)
+

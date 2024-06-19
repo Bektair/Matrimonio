@@ -1,11 +1,22 @@
-import { IUser } from "./IUser"
+import { IUserReadDTO } from "../API/GetRSVP"
 
 export interface IRSVP{
     id: string
     body: string
-    deadline: Date
-    status: string
+    deadline: number
+    status: RSVPStatus
     numberOfGuests: number
-    dietaryRequirements: string
-    Signer: IUser
+    OtherDietaryRequirements: string
+    Signer: IUserReadDTO
+    ChoosenDinnerId: number | null
+    ChoosenDessertId: number | null
+}
+
+
+export enum RSVPStatus {
+    Pending =  "Pending",
+    Accepted ="Accepted",
+    Declined ="Declined",
+    PastDeadline ="PastDeadline",
+    AcceptedCeremony ="AcceptedCeremony"
 }

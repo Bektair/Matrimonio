@@ -4,6 +4,7 @@ import postSlice from './slices/postSlice'
 import weddingSlice from './slices/weddingSlice'
 import weddingsSlice from './slices/weddingsSlice'
 import authSlice from './slices/authSlice'
+import usersSlice from './slices/usersSlice'
 
 export enum RequestsEnum {
   GetPosts="post_slice/getPosts"
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   posts :  postSlice,
   weddings: weddingsSlice,
   wedding: weddingSlice,
-  auth: authSlice
+  auth: authSlice,
+  users: usersSlice
 })
 
 //Has autoamtic combineredusers now.

@@ -2,7 +2,7 @@ import { ILocation } from "./ILocation";
 
 export interface IReligiousCeremony{
     id: number,
-    date: Date,
+    date: number,
     description: string,
     location: ILocation
 }

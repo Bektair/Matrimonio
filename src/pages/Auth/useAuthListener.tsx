@@ -13,18 +13,21 @@ function useAuthListener() {
   useEffect(()=>{
 
     const getToken = (async () => {
+      
+      var id = user?.sub?.split("|")[1];
+      console.log("postingToken" + id)
       var token = await getAccessTokenSilently()
       Cookies.set('token', token, { expires: 7, secure: true})
-
-      dispatch(setAuthState({isAuthenticated, user, isLoading}))
+      dispatch(setAuthState({isAuthenticated, user, isLoading, id}))
 
       return token;
     })
-    console.log("I AM AUTHENTICATED!!!!!!!!! :" + isAuthenticated)
     if(isAuthenticated){
+      console.log("allreadyAuthenticated")
       getToken();
     } else {
-      dispatch(setAuthState({isAuthenticated, user, isLoading}))
+      var id = user?.sub?.split("|")[1];
+      dispatch(setAuthState({isAuthenticated, user, isLoading, id}))
     }
 
 

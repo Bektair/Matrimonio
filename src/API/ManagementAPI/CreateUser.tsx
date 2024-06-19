@@ -1,5 +1,6 @@
 import getManagementAuthHeaders from "./SetManagementAuthHeaders"
 import { domain } from "../../constants/environment";
+import { IUserResponse } from "../../models/IUserResponse";
 
 export interface IUserCreateRequest {
     "email": string,
@@ -41,6 +42,21 @@ interface userMetadata {
 //     updated_at : string
 // }
 
+export async function GetUsers() : Promise<IUserResponse[]>{
+    const headers = await getManagementAuthHeaders();
+    let response = await fetch(`https://${domain}/api/v2/users`,{
+        method: "GET",
+        headers,
+        redirect: 'follow'
+    })
+    if(!response.ok){
+        throw new Error(await response.text() || response.statusText);  
+    }
+
+    let data = await response.json() as IUserResponse[];
+    return data;
+
+}
 
 export async function createUser(userRequest : IUserCreateRequest){
     const headers = await getManagementAuthHeaders();
@@ -48,6 +64,29 @@ export async function createUser(userRequest : IUserCreateRequest){
         method:"POST",    
         headers,
         body: JSON.stringify(userRequest),
+        redirect: 'follow'
+
+    })
+    if(!response.ok)
+        throw new Error(await response.text() || response.statusText);
+    return await response.text();
+}
+
+export interface IPasswordresetRequest{
+    "client_id": string,
+    "connection_id": string,
+    "email": string,
+    "ttl_sec": number,
+    "mark_email_as_verified": boolean,
+    "includeEmailInRedirect": boolean
+  }
+
+export async function getResetPasswordLink(request : IPasswordresetRequest){
+    const headers = await getManagementAuthHeaders();
+    let response = await fetch(`https://${domain}/api/v2/tickets/password-change`, {
+        method:"POST",    
+        headers,
+        body: JSON.stringify(request),
         redirect: 'follow'
 
     })

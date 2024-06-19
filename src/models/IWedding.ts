@@ -6,4 +6,8 @@ export interface IWedding {
     primaryColor: string,
     secoundaryColor: string
     backgroundImage: string
+    primaryFontColor: string | undefined
+    secoundaryFontColor: string | undefined
+    bodyFont: string | undefined
+    headingFont: string | undefined
 }

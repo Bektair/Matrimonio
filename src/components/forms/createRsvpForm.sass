@@ -1,0 +1,22 @@
+#userCreateRSVP
+    margin-top: 2rem
+    border: thick double var(--secoundary-bg-color)
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr
+    gap: 1rem
+
+#userCreateRSVP > button
+    grid-column-start: 2
+    margin-bottom: 1rem
+
+#userCreateRSVPBody
+    grid-row-start: 2
+    grid-row-end: span 2 //Should just allways fill completely the height of the grid
+    grid-column-end: span 3
+
+#userCreateRSVPBody > textarea
+    min-height: 5rem
+    min-width: 90%
+    margin-right: 1rem
+    margin-left: 1rem
+    text-align: center

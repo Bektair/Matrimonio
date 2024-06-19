@@ -21,6 +21,7 @@ import Schedule from './pages/Schedule/Schedule.tsx'
 
 export const App : React.FC = () => {
   const auth = useAuthListener()
+  
 
   return (
         <Routes>
@@ -29,7 +30,7 @@ export const App : React.FC = () => {
             <Route path={PathConstants.Login} element={<Login/>} />
             <Route path={PathConstants.Register} element={<Register/>} />
             <Route path={PathConstants.Ceremony} element={<Ceremony/>} />
-            <Route path={PathConstants.RSVP} element={<Rsvp/>} />
+            <Route path={PathConstants.RSVP} element={<ProtectedRoute auth={auth}><Rsvp/></ProtectedRoute>} />
             <Route path={PathConstants.Reception} element={<Reception/>} />
             <Route path={PathConstants.Schedule} element={<Schedule/>} />
             <Route path={PathConstants.Profile} element={<Profile/>} />
