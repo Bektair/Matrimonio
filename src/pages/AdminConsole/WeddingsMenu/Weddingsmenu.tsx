@@ -27,9 +27,10 @@ function Weddingsmenu() {
     
     
 
+
     function onClickEvent(selectedItem: IWedding) {
         navigate("../" + PathConstants.Home)
-        dispatch(setWedding(selectedItem));
+        dispatch(setWedding({wedding: selectedItem}));
     }
 
 

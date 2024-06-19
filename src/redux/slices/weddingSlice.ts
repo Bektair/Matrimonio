@@ -12,6 +12,7 @@ import { IWedding } from '../../models/IWedding'
 import { IRSVPUpdate, patchRSVP } from '../../API/UpdateRSVP'
 import { fetchReception } from '../../API/GetReception'
 import { IWeddingUpdate, patchWedding } from '../../API/UpdateWedding'
+import { WeddingCss } from '../../constants/weddingCssVariables'
 
 
 interface sliceState  {
@@ -36,12 +37,21 @@ const initialState: sliceState = {
 // var defaultSecoundaryColor = "#203ab5"
 
 
+
+export interface IPayload {
+    wedding : IWedding,
+    cssVariable?: WeddingCss
+    cssValue?: string
+}
+
+
+
 const weddingSlice = createSlice( {
     name: "wedding",
     initialState: initialState,
     reducers:{
-        setWedding:  (state, action: PayloadAction<IWedding>) => {
-            var payload = action.payload;
+        setWedding:  (state, action: PayloadAction<IPayload>) => {
+            var payload = action.payload.wedding;
 
             let wedding : IWedding =  {
                 id: payload.id,
@@ -108,7 +118,7 @@ const weddingSlice = createSlice( {
                     backgroundImage: payload.BackgroundImage,
                     bodyFont: payload.BodyFont,
                     headingFont: payload.HeadingFont,   
-                    id: payload.Id.toString(),
+                    id: payload.id.toString(),
                     description: payload.Description,
                     dresscode: payload.Dresscode
                 } 
@@ -245,7 +255,7 @@ const weddingSlice = createSlice( {
 export const { setWedding, changeSecondaryColor } = weddingSlice.actions
 
 export const getAWedding = createAsyncThunk(
-    'wedding/setWedding',
+    'wedding/getWedding',
     //Inside thunk function
     async (wedding_id : number)=> {
         try {

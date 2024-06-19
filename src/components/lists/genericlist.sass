@@ -59,15 +59,19 @@ li:nth-child(even).generic_list_item
     background-color: var(--secoundary-bg-color)
 
 
+li:has(>.list-loader-navbar) 
+  margin: auto
 
+  
 
-.list-loader
+.list-loader-navbar
   background-image: url(https://res.cloudinary.com/dgegmm2pt/image/upload/v1716980421/Vector_zplwjr.svg)
-  height: calc(var(--line-height) * 10rem)
+  height: calc(var(--line-height) * 2rem)
   background-repeat: no-repeat
   background-size: contain
   background-position: center center
   animation: loading 3s linear infinite
+  width: 100%
   @keyframes loading
     0%
       transform: rotate(0)

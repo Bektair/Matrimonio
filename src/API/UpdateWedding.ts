@@ -6,9 +6,9 @@ import getAuthHeaders from "./SetAuthHeaders"
 export interface IWeddingUpdate {
     Description: string | undefined
     Dresscode: string | undefined
-    MainColor: string | undefined
+    PrimaryColor: string | undefined
     SecoundaryColor: string | undefined
-    MainFontColor: string | undefined
+    PrimaryFontColor: string | undefined
     SecoundaryFontColor: string | undefined
     BackgroundImage: string | undefined
     BodyFont: string | undefined

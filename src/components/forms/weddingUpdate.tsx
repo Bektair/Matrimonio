@@ -10,34 +10,45 @@ import { selectWedding } from '../../redux/selectors/selectWeddingSlice';
 function WeddingUpdate() {
     const { register, handleSubmit } = useForm();
     let wedding = useAppSelector(selectWedding);
-    const mainColor = useRef<HTMLInputElement>(null);
-    const secoundColor = useRef<HTMLInputElement>(null);
-    const fontColorMain = useRef<HTMLInputElement>(null);
-    const fontColorSecound = useRef<HTMLInputElement>(null);
+    let primaryColor : any = null;
+    let primaryRangeInput : any = null;
+    let secoundaryColor : any = null;
+    let secoundaryRangeInput : any = null;
+    let fontColorMain : any = null;
+    let fontColorSecound : any = null;
+    const backgroundImage = document.getElementById("backgroundImageWeddingUpdate")
+    const activeFontheading = document.getElementById("activeFontheading")
+    const activeFontbody = document.getElementById("activeFontbody")
     const weddingSelectedLabel = useRef<HTMLLabelElement>(null);
-    const backgroundImageInput = useRef<HTMLInputElement>(null);
-    const mainRangeInput = useRef<HTMLInputElement>(null);
-    const secoundaryRangeInput = useRef<HTMLInputElement>(null);
+    const backgroundImageLabel = useRef<HTMLInputElement>(null);
     const dispatch = useAppDispatch()
 
     
     
 
     useEffect(() => {
-        if(mainColor.current!=null && secoundColor.current!=null && fontColorMain.current!=null && fontColorSecound.current!=null){
-            mainColor.current.addEventListener("change", colorChangeWithAlphaHandler("--primary-bg-color", mainRangeInput), false); //Gets the choosen color :)
-            secoundColor.current.addEventListener("change", colorChangeWithAlphaHandler("--secoundary-bg-color", secoundaryRangeInput), false); //Gets the choosen color :)
-            fontColorMain.current.addEventListener("change", colorChangeHandler("--font-color-main"), false); //Gets the choosen color :)
-            fontColorSecound.current.addEventListener("change", colorChangeHandler("--font-color-secoundary"), false); //Gets the choosen color :)
+        primaryColor = document.getElementById("primaryColorWeddingUpdate");
+        primaryRangeInput = document.getElementById("primaryColorRangeWeddingUpdate");
+        secoundaryColor = document.getElementById("secoundaryColorWeddingUpdate");
+        secoundaryRangeInput = document.getElementById("secoundaryColorRangeWeddingUpdate");
+        fontColorMain = document.getElementById("fontColorPrimaryWeddingUpdate")
+        fontColorSecound = document.getElementById("fontColorSecoundaryWeddingUpdate")
+
+
+        if(primaryColor !=null && secoundaryColor!=null && fontColorMain !=null && fontColorSecound !=null){
+            primaryColor.addEventListener("change", colorChangeWithAlphaHandler("--primary-bg-color", primaryRangeInput), false); //Gets the choosen color :)
+            secoundaryColor.addEventListener("change", colorChangeWithAlphaHandler("--secoundary-bg-color", secoundaryRangeInput), false); //Gets the choosen color :)
+            fontColorMain.addEventListener("change", colorChangeHandler("--font-color-main"), false); //Gets the choosen color :)
+            fontColorSecound.addEventListener("change", colorChangeHandler("--font-color-secoundary"), false); //Gets the choosen color :)
         }
 
 
         return () => {
-            if (mainColor.current!=null && secoundColor.current!=null && fontColorMain.current!=null && fontColorSecound.current!=null) {
-                mainColor.current.removeEventListener("change", colorChangeWithAlphaHandler("--primary-bg-color", mainRangeInput), false);
-                secoundColor.current.removeEventListener("change", colorChangeWithAlphaHandler("--secoundary-bg-color", secoundaryRangeInput), false);
-                fontColorMain.current.removeEventListener("change", colorChangeHandler("--font-color-main"), false); //Gets the choosen color :)
-                fontColorSecound.current.removeEventListener("change", colorChangeHandler("--font-color-secoundary"), false); //Gets the choosen color :)
+            if (primaryColor!=null && secoundaryColor!=null && fontColorMain!=null && fontColorSecound!=null) {
+                primaryColor.removeEventListener("change", colorChangeWithAlphaHandler("--primary-bg-color", primaryRangeInput), false);
+                secoundaryColor.removeEventListener("change", colorChangeWithAlphaHandler("--secoundary-bg-color", secoundaryRangeInput), false);
+                fontColorMain.removeEventListener("change", colorChangeHandler("--font-color-main"), false); //Gets the choosen color :)
+                fontColorSecound.removeEventListener("change", colorChangeHandler("--font-color-secoundary"), false); //Gets the choosen color :)
             }
         };
     }, [])
@@ -46,9 +57,9 @@ function WeddingUpdate() {
     //First just see with current.
 
     //Closures
-    var colorChangeWithAlphaHandler = function(cssvariable : string, refRange : React.RefObject<HTMLInputElement>){
+    var colorChangeWithAlphaHandler = function(cssvariable : string, refRange : any){
         return function (event: any){
-            var alpha = Number(refRange.current?.value).toString(16);
+            var alpha = Number(refRange.value).toString(16);
             document.documentElement.style.setProperty(cssvariable, event.target.value + alpha)
         }
     }
@@ -60,12 +71,13 @@ function WeddingUpdate() {
         }
     }
 
-    var alphaChangeHandler = function(cssvariable : string, refColor : React.RefObject<HTMLInputElement>){
+    var alphaChangeHandler = function(cssvariable : string, refColorId : string){
         return function (event : any){
-            if(refColor.current!=null){
-                refColor.current.style.opacity = (event.target.value/255).toString();
+            var refColor = document.getElementById(refColorId) as HTMLInputElement;
+            if(refColor !=null){
+                refColor.style.opacity = (event.target.value/255).toString();
                 var alpha = Number(event.target.value).toString(16);
-                document.documentElement.style.setProperty(cssvariable, refColor.current.value + alpha)
+                document.documentElement.style.setProperty(cssvariable, refColor.value + alpha)
             }
         }
     }
@@ -73,31 +85,30 @@ function WeddingUpdate() {
  
     function backgroundImageChange(event : any){
         console.log(event.target.value)
-        document.documentElement.style.setProperty('--main-bg-image', `url(${backgroundImageInput.current?.value})`)
+        document.documentElement.style.setProperty('--main-bg-image', `url(${backgroundImageLabel.current?.value})`)
     }
 
-    async function updateWedding (formData : any){
+    function updateWedding (formData : any){
         console.log("UpdateWedding!")
         console.log(formData)
-        console.log(formData.mainColor)
-        console.log(formData.mainColorRange)
-        console.log(formData.secoundaryColor)
-        console.log(formData.secoundaryColorRange)
         console.log(formData.backgroundImage)
         console.log(formData.fontColorMain)
         console.log(formData.fontColorSecound)
         console.log(formData.activeFontbody)
         console.log(formData.activeFontheading)
         if(wedding != undefined){
+            var alphaMain = Number(formData.mainColorRange).toString(16);
+            var colorMain = formData.mainColor + alphaMain;
+            var alphaSecoundary = Number(formData.secoundaryColorRange).toString(16);
+            var colorSecoundary = formData.secoundaryColor + alphaSecoundary;
+            console.log(colorMain)
+            console.log(colorSecoundary)
 
-            var colorMain = formData.mainColor + formData.mainColorRange;
-            var colorSecoundary = formData.secoundaryColor + formData.secoundaryColorRange;
 
-            console.log(formData.numberOfGuests)
             var Wedding = {
-                MainColor: colorMain,
+                PrimaryColor: colorMain,
                 SecoundaryColor: colorSecoundary,
-                MainFontColor: formData.fontColorMain,
+                PrimaryFontColor: formData.fontColorMain,
                 SecoundaryFontColor: formData.fontColorSecound,
                 BackgroundImage: formData.backgroundImage,
                 BodyFont: formData.activeFontbody,
@@ -111,25 +122,31 @@ function WeddingUpdate() {
 
 
       }
+
+      function onSubmit(data : any) {
+        console.log("ComeON")
+        console.log(data)
+      }
   return (
-    <form id='weddingUpdateComponent' onSubmit={handleSubmit(updateWedding)}>
+    <form id='weddingUpdateComponent'  onSubmit={handleSubmit(updateWedding)}>
         <label ref={weddingSelectedLabel}>You have wedding: {wedding?.id} selected</label>
         <div id='customWeddingUpdates'>
+            <div className='griditem-wedding'><input type='color' {...register("mainColor")}  defaultValue="#161313"  id='primaryColorWeddingUpdate'></input></div>
             <div className='griditem-wedding'><label>MainColor</label></div>
-            <div className='griditem-wedding' ><input type='color' {...register("mainColor")}  defaultValue="#161313" ref={mainColor} id='maincolor'></input></div>
-            <div className='griditem-wedding'><input type="range" {...register("mainColorRange")} onChange={alphaChangeHandler('--primary-bg-color', mainColor)} ref={mainRangeInput} min="0" max="255" step="1" defaultValue="100"></input></div>
+            <div className='griditem-wedding'><input type="range" {...register("mainColorRange")} onChange={alphaChangeHandler('--primary-bg-color', "primaryColorWeddingUpdate")} min="0" max="255" step="1" defaultValue="100" id="primaryColorRangeWeddingUpdate"/></div>
             <div className='griditem-wedding'><label>SecoundaryColor</label></div>
-            <div className='griditem-wedding'><input type='color' {...register("secoundaryColor")} defaultValue="#d3d3d3" ref={secoundColor}></input></div>
-            <div className='griditem-wedding'><input type="range" {...register("secoundaryColorRange")} onChange={alphaChangeHandler('--secoundary-bg-color', secoundColor)} ref={secoundaryRangeInput} min="0" max="255" step="1" defaultValue="100"></input></div>
+            <div className='griditem-wedding'><input type='color' {...register("secoundaryColor")} defaultValue="#d3d3d3" id='secoundaryColorWeddingUpdate' /></div>
+            <div className='griditem-wedding'><input type="range" {...register("secoundaryColorRange")} onChange={alphaChangeHandler('--secoundary-bg-color', "secoundaryColorWeddingUpdate")}  min="0" max="255" step="1" defaultValue="100" id='secoundaryColorRangeWeddingUpdate' /></div>
             <div className='griditem-wedding'><label>BackgroundImage</label></div>
-            <div className='griditem-wedding'><input type='text' {...register("backgroundImage")} placeholder='link to image' ref={backgroundImageInput} onSubmit={backgroundImageChange}></input></div>
+            <div className='griditem-wedding'><input type='text' {...register("backgroundImage")} placeholder='link to image'  onSubmit={backgroundImageChange} id='backgroundImageWeddingUpdate' /></div>
             <div className='griditem-wedding'><label></label></div>
             <div className='griditem-wedding'><label>FontColor</label></div>
-            <div className='griditem-wedding'><div><input type='color' {...register("fontColorMain")} ref={fontColorMain} defaultValue="#fed3e3"></input>
-                                                    <input type='color'{...register("fontColorSecound")}  ref={fontColorSecound} defaultValue="#d84444"></input></div></div>
+            <div className='griditem-wedding'><div><input type='color' {...register("fontColorMain")}  defaultValue="#fed3e3" id='fontColorPrimaryWeddingUpdate' />
+                                                    <input type='color'{...register("fontColorSecound")}   defaultValue="#d84444" id='fontColorSecoundaryWeddingUpdate'></input></div></div>
             <div className='griditem-wedding'><div>
-            <FontDropdown register={register} cssVariable="--font-main" btnName="body"></FontDropdown>
-            <FontDropdown register={register}  btnName="heading" cssVariable="--font-secound"></FontDropdown></div></div>
+                <FontDropdown register={register} cssVariable="--font-main" btnName="body"></FontDropdown>
+                <FontDropdown register={register}  btnName="heading" cssVariable="--font-secound"></FontDropdown>
+            </div></div>
         </div>
         <button  type='submit'>Submit</button> 
     </form>

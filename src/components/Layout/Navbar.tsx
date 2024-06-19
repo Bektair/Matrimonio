@@ -22,7 +22,7 @@ function Navbar() {
             <li className="nav-item"><Link to={PathConstants.Schedule}>Scedule</Link></li>
             <li className="nav-item"><Link to={PathConstants.Posts}>Posts</Link></li>
             <li className="nav-item"><Link to={PathConstants.Profile}>Profile</Link></li>
-            { isLoading ? <></> : 
+            { isLoading ? <li className="nav-item"><div className="list-loader-navbar"></div></li> : 
               !isAuthenticated ? 
               <li className="nav-item"><LoginButton className="" key="login"></LoginButton></li> :
               <li className="nav-item"><LogoutButton className="" key="logout"></LogoutButton></li>

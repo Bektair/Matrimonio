@@ -18,7 +18,7 @@ function AdminSideBar() {
 
     useEffect(()=>{
         if(weddings.length > 0)
-            dispatch(setWedding(weddings[0]));
+            dispatch(setWedding({wedding: weddings[0]}));
         else{
             dispatch(getAllWeddings());
         }
@@ -29,7 +29,7 @@ function AdminSideBar() {
 
     function setWeddingEvent() {
         if(weddings.length > 0)
-            dispatch(setWedding(weddings[0]));
+            dispatch(setWedding({wedding: weddings[0]}));
         else{
             dispatch(getAllWeddings());
         }

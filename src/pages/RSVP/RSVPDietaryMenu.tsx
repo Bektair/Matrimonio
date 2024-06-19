@@ -35,7 +35,7 @@ function RSVPDietaryMenu(props : IProps) {
 
         if(weddings.length > 0)
 
-            dispatch(setWedding(weddings[0]));
+            dispatch(setWedding({wedding: weddings[0]}));
           else{
               dispatch(getAllWeddings());
           }

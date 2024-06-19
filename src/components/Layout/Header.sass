@@ -30,12 +30,12 @@ header
     display: none
 
 li.nav-item a
-  padding-left: var(--size-navbutton-padding, 2vh)
-  padding-right: var(--size-navbutton-padding, 2vh)
+  padding-left: var(--size-navbutton-padding, 1.5vh)
+  padding-right: var(--size-navbutton-padding, 1.5vh)
   padding-top: var(--size-navbutton-padding, 2vh)
   padding-bottom: var(--size-navbutton-padding, 2vh)
-  margin-left: var(--size-navbutton-margin-left, 3vh)
-  margin-right: var(--size-navbutton-margin-right, 3vh)
+  margin-left: var(--size-navbutton-margin-left, 1vh)
+  margin-right: var(--size-navbutton-margin-right, 1vh)
   justify-content: center
   align-content: center
 
@@ -59,7 +59,7 @@ li.nav-item
   align-content: center
 
 ul.nav-list:first-child
-  flex: 1
+  flex: 0.6
 
 
   
@@ -112,3 +112,16 @@ li a
 
   #green
     color: $secoundary-light-color
+
+  .list-loader
+    background-image: url(https://res.cloudinary.com/dgegmm2pt/image/upload/v1716980421/Vector_zplwjr.svg)
+    height: calc(var(--line-height) * 1rem)
+    background-repeat: no-repeat
+    background-size: contain
+    background-position: center center
+    animation: loading 3s linear infinite
+    @keyframes loading
+      0%
+        transform: rotate(0)
+      100%
+        transform: rotate(360deg)

@@ -5,6 +5,7 @@ import weddingSlice from './slices/weddingSlice'
 import weddingsSlice from './slices/weddingsSlice'
 import authSlice from './slices/authSlice'
 import usersSlice from './slices/usersSlice'
+import requestMiddleware from './middleware/requestMiddleware'
 
 export enum RequestsEnum {
   GetPosts="post_slice/getPosts"
@@ -26,7 +27,7 @@ export const store = configureStore({
   reducer: rootReducer,
   middleware: 
     getDefaultMiddleware =>
-      getDefaultMiddleware().concat(loggermiddleware)
+      getDefaultMiddleware().concat(loggermiddleware).concat(requestMiddleware)
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
