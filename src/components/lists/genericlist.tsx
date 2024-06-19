@@ -1,4 +1,3 @@
-import getPropertyValue from 'get-property-value';
 import { useState } from 'react';
 import '../../_index.sass';
 import './genericlist.sass';
@@ -45,9 +44,12 @@ function List<P extends IModel>(props : IPropsList<P> )  {
 
   const ListItem = ({ value } : any) => {
 
+    
+
     var changeableFormat = props.listItemFormat;
     props.propNames.forEach(prop => {
-      var propertyValue = getPropertyValue(value, prop);
+      // var propertyValue = getPropertyValue(value, prop);
+      var propertyValue = "";
       if(typeof propertyValue === 'string' || typeof propertyValue === 'number'){
         changeableFormat =changeableFormat.replace("${" + prop + "}", propertyValue.toString())
       }
