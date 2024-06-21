@@ -34,11 +34,28 @@ export async function fetchWeddings() : Promise<IWeddingResponse[]> {
         throw new Error(await response.text() || response.statusText);
 
     let data = await response.json() as IWeddingResponse[];
-
-
-
     return data;
 }
+
+export async function fetchWeddingsWithParticipant(userId : string) : Promise<IWeddingResponse[]> {
+
+    console.log("TRYING TO FETCH")
+    
+
+
+    const headers = await getAuthHeaders();
+
+    let response = await fetch(`${API_URL}/api/Wedding/participant/${userId}`, {
+       headers
+    })
+    if(!response.ok)
+        throw new Error(await response.text() || response.statusText);
+
+    let data = await response.json() as IWeddingResponse[];
+    return data;
+}
+
+
 
 export async function fetchWedding({weddingId} : IParams)  {
     const headers = await getAuthHeaders();

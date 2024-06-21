@@ -4,6 +4,9 @@ import { RequestFailed, RequestFinished, RequestStarted } from "../slices/requst
 import { RequestsEnum } from "../../constants/requestEnums";
 import { IPayload } from "../slices/weddingSlice";
 import { WeddingCss } from "../../constants/weddingCssVariables";
+import { Fonts } from "../../constants/allFonts";
+import { useAppDispatch } from "../Hooks/hooks";
+import { replaceWedding } from '../../redux/slices/weddingsSlice';
 
 export const REQUEST_ACTION_TYPE = "request/iniateRequest";
 
@@ -21,13 +24,30 @@ export interface RequestPayload<P, T> {
     sideEffect?: sideEffect;
 }
 
+function setLanguage(fontfamily : string, value : string, cssVariable: string){
+    const regex = RegExp(",*."+value, "i")
+    document.documentElement.style.setProperty(cssVariable, value  + ", "  + fontfamily.replace(regex, ""));
+}
+
+
+
+
 const requestMiddleware: Middleware<{}, RootState> = storeApi => next => (action: unknown) => {
-    
+
     if(isAction(action)){
         console.log("in action, with type" + action.type)
         if(action.type == "wedding/setWedding"){
             var payloadActionWedding = action as PayloadAction<IPayload>
             var wedding = payloadActionWedding.payload.wedding;
+
+            console.log("PayloadComingIn")
+            console.log(payloadActionWedding.payload)
+            var currentFonts = Fonts.DEFAULT;
+
+            if(wedding.headingFont != undefined){
+                console.log("CURRENTFONTS:PRIMARY:BEFORE:" + currentFonts)
+            }
+
             if(wedding.backgroundImage != undefined)
                 document.documentElement.style.setProperty(WeddingCss.BgImagePrimary, `url(${wedding.backgroundImage})`)
             if(wedding.primaryColor != undefined)
@@ -38,10 +58,16 @@ const requestMiddleware: Middleware<{}, RootState> = storeApi => next => (action
                 document.documentElement.style.setProperty(WeddingCss.FontColorMain, `${wedding.primaryFontColor}`)
             if(wedding.secoundaryColor != undefined)
                 document.documentElement.style.setProperty(WeddingCss.FontColorSecoundary, `${wedding.secoundaryColor}`)
-            if(wedding.bodyFont != undefined)
-                document.documentElement.style.setProperty(WeddingCss.FontPrimary, `${wedding.bodyFont}`)
-            if(wedding.headingFont != undefined)
-                document.documentElement.style.setProperty(WeddingCss.FontSecound, `${wedding.headingFont}`)
+            
+            
+            if(wedding.bodyFont != undefined){
+                console.log("CURRENTFONTS:PRIMARY:" + currentFonts)
+                setLanguage(currentFonts,wedding.bodyFont, WeddingCss.FontPrimary)
+            }
+            if(wedding.headingFont != undefined){
+                console.log("CURRENTFONTS:SECOUNDARY:" + currentFonts)
+                setLanguage(currentFonts,wedding.headingFont, WeddingCss.FontSecound)
+            }
 
         }
 
@@ -76,7 +102,6 @@ const requestMiddleware: Middleware<{}, RootState> = storeApi => next => (action
 
 
 export default requestMiddleware;
-
 
 
 

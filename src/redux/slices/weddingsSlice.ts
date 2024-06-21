@@ -1,6 +1,6 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import { IWeddingRequest, createWedding } from '../../API/CreateWedding'
-import { fetchWeddings } from '../../API/GetWeddings'
+import { fetchWeddings, fetchWeddingsWithParticipant } from '../../API/GetWeddings'
 import { IWedding } from '../../models/IWedding'
 
 
@@ -10,6 +10,7 @@ type sliceState = {
 
 const initialState: sliceState = {
     weddings: []
+
 }
 
 var defaultPrimaryColor = "#d147ab"
@@ -22,8 +23,39 @@ const weddingsSlice = createSlice( {
         addWedding: (state, action: PayloadAction<IWedding>) => {
             state.weddings.push(action.payload)
         },
+        replaceWedding: (state, action: PayloadAction<IWedding>) => {
+            var newArray = state.weddings.findIndex((wedding) => {
+                if(wedding.id == action.payload.id)
+                    return true;
+                else return false;
+            });
+            state.weddings[newArray] = action.payload;
+        },
     },
     extraReducers: (builder) =>  {
+        builder.addCase(getWeddingsByParticipant.fulfilled, (state, action)=>{
+            console.log("WeddingsByParticipant ONLY sent        ---------------------------------------------------------------------") 
+
+            let weddings = action.payload.map(wedding => {
+                var test  : IWedding =  { 
+                    id: wedding.id,
+                    primaryColor: wedding.primaryColor,
+                    secoundaryColor: wedding.secoundaryColor,
+                    primaryFontColor: wedding.primaryFontColor,
+                    secoundaryFontColor: wedding.secoundaryFontColor,
+                    backgroundImage: wedding.backgroundImage,
+                    bodyFont: wedding.bodyFont,
+                    headingFont: wedding.headingFont,   
+                    description: wedding.description,
+                    dresscode: wedding.dresscode
+                }
+                return test;
+            })
+            console.log(weddings) 
+            state.weddings = weddings;
+
+
+        }),
         builder.addCase(getAllWeddings.fulfilled, (state, action)=>{
 
 
@@ -40,9 +72,10 @@ const weddingsSlice = createSlice( {
                     description: wedding.description,
                     dresscode: wedding.dresscode
                 }
-                console.log(test) 
                 return test;
             })
+            console.log("WeddingsByParticipant or All sent        ---------------------------------------------------------------------") 
+            console.log(weddings) 
             
 
 
@@ -88,6 +121,19 @@ export const getAllWeddings = createAsyncThunk(
     }
   )
 
+  export const getWeddingsByParticipant = createAsyncThunk(
+    'weddings/setWeddingsByParticipant',
+    //Inside thunk function
+    async (participantId : string)=> {
+        try {
+          const weddings = await fetchWeddingsWithParticipant(participantId);
+          return weddings;
+        }catch (err){
+          return [];
+        }
+    }
+  )
+
   export const createAWedding = createAsyncThunk(
     'weddings/createWedding',
     //Inside thunk function
@@ -101,6 +147,7 @@ export const getAllWeddings = createAsyncThunk(
     }
 )
 
+export const { replaceWedding } = weddingsSlice.actions
 
 
 

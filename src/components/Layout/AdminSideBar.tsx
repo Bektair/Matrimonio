@@ -5,6 +5,7 @@ import { getAllWeddings,  } from '../../redux/slices/weddingsSlice';
 import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
 import { selectCeremony, selectReception, selectWedding } from '../../redux/selectors/selectWeddingSlice';
 import { selectAuth } from '../../redux/selectors/selectAuth';
+import { WeddingCss } from '../../constants/weddingCssVariables';
 
 
 function AdminSideBar() {
@@ -29,7 +30,9 @@ function AdminSideBar() {
 
     function setWeddingEvent() {
         if(weddings.length > 0)
-            dispatch(setWedding({wedding: weddings[0]}));
+            dispatch(setWedding({
+                wedding: weddings[0], 
+            }));
         else{
             dispatch(getAllWeddings());
         }

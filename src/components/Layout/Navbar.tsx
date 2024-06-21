@@ -6,7 +6,7 @@ import { LogoutButton } from "../buttons/logout-button"
 import PathConstants from '../route/pathConstants'
 
 function Navbar() {
-  const {isAuthenticated, isLoading} = useSelector(selectAuth)
+  const {isAuthenticated, isLoading, user} = useSelector(selectAuth)
  
 
 
@@ -21,8 +21,8 @@ function Navbar() {
             <li className="nav-item"><Link to={PathConstants.RSVP}>RSVP</Link></li>
             <li className="nav-item"><Link to={PathConstants.Schedule}>Scedule</Link></li>
             <li className="nav-item"><Link to={PathConstants.Posts}>Posts</Link></li>
-            <li className="nav-item"><Link to={PathConstants.Profile}>Profile</Link></li>
-            { isLoading ? <li className="nav-item"><div className="list-loader-navbar"></div></li> : 
+            <li className="nav-item"><Link to={PathConstants.Profile}><img className='profile-picture-nav' src={user?.picture}></img></Link></li>
+            {  process.env.NODE_ENV === 'development' && isLoading ? <li className="nav-item"><div className="list-loader-navbar"></div></li> : 
               !isAuthenticated ? 
               <li className="nav-item"><LoginButton className="" key="login"></LoginButton></li> :
               <li className="nav-item"><LogoutButton className="" key="logout"></LogoutButton></li>

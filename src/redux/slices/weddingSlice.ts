@@ -12,7 +12,6 @@ import { IWedding } from '../../models/IWedding'
 import { IRSVPUpdate, patchRSVP } from '../../API/UpdateRSVP'
 import { fetchReception } from '../../API/GetReception'
 import { IWeddingUpdate, patchWedding } from '../../API/UpdateWedding'
-import { WeddingCss } from '../../constants/weddingCssVariables'
 
 
 interface sliceState  {
@@ -40,8 +39,8 @@ const initialState: sliceState = {
 
 export interface IPayload {
     wedding : IWedding,
-    cssVariable?: WeddingCss
-    cssValue?: string
+    cssFontBodyBefore?: string
+    cssFontHeadingBefore?: string
 }
 
 
@@ -67,7 +66,7 @@ const weddingSlice = createSlice( {
             } 
 
             return {
-            ...state, wedding
+                ...state, wedding
             }
         },
         changeSecondaryColor: (state, action: PayloadAction<string>) => {
@@ -106,26 +105,30 @@ const weddingSlice = createSlice( {
         builder.addCase(updateWeddingThunk.fulfilled, (state, action)=>{
             console.log("updated Wedding")
             var payload = action.payload;
-            console.log("payload: " + payload)
+            console.log(payload)
             if(payload!=undefined){
-                console.log("smarty: ")
 
                 var updatedWedding : IWedding = {
-                    primaryColor: payload.PrimaryColor,
-                    secoundaryColor: payload.SecoundaryColor,
-                    primaryFontColor: payload.PrimaryFontColor,
-                    secoundaryFontColor: payload.SecoundaryFontColor,
-                    backgroundImage: payload.BackgroundImage,
-                    bodyFont: payload.BodyFont,
-                    headingFont: payload.HeadingFont,   
+                    primaryColor: payload.primaryColor,
+                    secoundaryColor: payload.secoundaryColor,
+                    primaryFontColor: payload.primaryFontColor,
+                    secoundaryFontColor: payload.secoundaryFontColor,
+                    backgroundImage: payload.backgroundImage,
+                    bodyFont: payload.bodyFont,
+                    headingFont: payload.headingFont,   
                     id: payload.id.toString(),
-                    description: payload.Description,
-                    dresscode: payload.Dresscode
+                    description: payload.description,
+                    dresscode: payload.dresscode
                 } 
+                console.log(updatedWedding)
+
                 var indexToChange = state.wedding?.id;
                 if(indexToChange == updatedWedding.id){
+                    console.log("Did we find the correct wedding?")
+
                     state.wedding = updatedWedding;
                 }
+
                 
             }
         }),
@@ -269,7 +272,7 @@ export const getAWedding = createAsyncThunk(
 )
 
 export interface IUpdateWeddingThunk{
-    RSVP : IWeddingUpdate, 
+    weddingUpdate : IWeddingUpdate, 
     id : string
 }
 
@@ -278,7 +281,7 @@ export const updateWeddingThunk = createAsyncThunk(
     //Inside thunk function
     async (updateWeddingThunk : IUpdateWeddingThunk)=> {
         try {
-          return await patchWedding(updateWeddingThunk.RSVP, updateWeddingThunk.id);
+          return await patchWedding(updateWeddingThunk.weddingUpdate, updateWeddingThunk.id);
         }catch (err){
           console.log(err)
           return undefined;
