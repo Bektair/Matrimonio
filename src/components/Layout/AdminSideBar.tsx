@@ -5,7 +5,6 @@ import { getAllWeddings,  } from '../../redux/slices/weddingsSlice';
 import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
 import { selectCeremony, selectReception, selectWedding } from '../../redux/selectors/selectWeddingSlice';
 import { selectAuth } from '../../redux/selectors/selectAuth';
-import { WeddingCss } from '../../constants/weddingCssVariables';
 
 
 function AdminSideBar() {

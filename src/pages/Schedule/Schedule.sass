@@ -1,0 +1,43 @@
+.schedule-tab
+    color: var(--font-color-main)
+    padding: 1rem
+    background-color: var(--secoundary-bg-color)
+    // border: 2px solid var(--font-color-main)
+    border-radius: 1rem 1rem 0rem 0rem
+    flex-grow: 1
+
+
+.schedule-tab:hover
+    -webkit-box-shadow: inset 0px 0px 0px 0.5rem var(--font-color-secoundary)
+    -moz-box-shadow: inset 0px 0px 0px 0.5rem var(--font-color-secoundary)
+    box-shadow: inset 0px 0px 0px 0.5rem var(--font-color-secoundary)
+    border: 1px solid var(--font-color-secoundary)
+    
+
+.schedule-tab-selected    
+    background-color: var(--secoundary-bg-color)
+    text-decoration: underline
+    color: var(--font-color-secoundary)
+    
+
+.schedule-tab-not-selected
+    opacity: 0.7
+
+    
+
+.schedule-tabs
+    display: flex
+    justify-content: start
+
+input[type=radio]
+    opacity: 0
+    position: fixed
+    pointer-events: none
+
+.schedule-background
+    background-color: var(--secoundary-bg-color)
+
+
+h3
+    margin-top: 0px
+    padding-top: 1rem

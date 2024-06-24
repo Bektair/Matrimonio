@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { IWeddingRequest, createWedding } from '../../API/CreateWedding'
 import { fetchWeddings, fetchWeddingsWithParticipant } from '../../API/GetWeddings'
 import { IWedding } from '../../models/IWedding'

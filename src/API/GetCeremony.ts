@@ -9,7 +9,8 @@ interface IParams {
 
 export interface ICeremonyResponse {
     id: number
-    date: string //C# formatted DateTime
+    startDate: string //C# formatted DateTime
+    endDate: string //C# formatted DateTime
     description: string
     location: ILocation
     weddingId: number

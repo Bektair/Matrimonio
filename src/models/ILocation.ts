@@ -4,4 +4,9 @@ export interface ILocation{
     body: string
     lat: number
     lng: number
+    country: string
+    region: string
+    placename: string
+    address: string
+    image: string
 }

@@ -1,12 +1,10 @@
 import { ActionCreatorWithPayload, Middleware, PayloadAction, isAction } from "@reduxjs/toolkit";
-import { RootState } from "../store";
-import { RequestFailed, RequestFinished, RequestStarted } from "../slices/requstSice";
-import { RequestsEnum } from "../../constants/requestEnums";
-import { IPayload } from "../slices/weddingSlice";
-import { WeddingCss } from "../../constants/weddingCssVariables";
 import { Fonts } from "../../constants/allFonts";
-import { useAppDispatch } from "../Hooks/hooks";
-import { replaceWedding } from '../../redux/slices/weddingsSlice';
+import { RequestsEnum } from "../../constants/requestEnums";
+import { WeddingCss } from "../../constants/weddingCssVariables";
+import { RequestFailed, RequestFinished, RequestStarted } from "../slices/requstSice";
+import { IPayload } from "../slices/weddingSlice";
+import { RootState } from "../store";
 
 export const REQUEST_ACTION_TYPE = "request/iniateRequest";
 
@@ -57,7 +55,7 @@ const requestMiddleware: Middleware<{}, RootState> = storeApi => next => (action
             if(wedding.primaryFontColor != undefined)
                 document.documentElement.style.setProperty(WeddingCss.FontColorMain, `${wedding.primaryFontColor}`)
             if(wedding.secoundaryColor != undefined)
-                document.documentElement.style.setProperty(WeddingCss.FontColorSecoundary, `${wedding.secoundaryColor}`)
+                document.documentElement.style.setProperty(WeddingCss.FontColorSecoundary, `${wedding.secoundaryFontColor}`)
             
             
             if(wedding.bodyFont != undefined){

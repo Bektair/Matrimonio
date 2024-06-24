@@ -5,3 +5,4 @@ export const redirectUri =  process.env.NODE_ENV=="development" ? import.meta.en
 export const audience =  process.env.NODE_ENV=="development" ? import.meta.env.VITE_APP_AUTH0_AUDIENCE_DEV : import.meta.env.VITE_APP_AUTH0_AUDIENCE
 export const management_auth_token =  process.env.NODE_ENV=="development" ? import.meta.env.VITE_APP_AUTH0_MANAGEMENT_API_TOKEN_DEV  : import.meta.env.VITE_APP_AUTH0_MANAGEMENT_API_TOKEN
 export const app_name = process.env.NODE_ENV=="development" ? import.meta.env.VITE_APP_APP_NAME_DEV : import.meta.env.VITE_APP_APP_NAME
+export const googleApiKey = import.meta.env.VITE_APP_GOOGLE_API_KEY

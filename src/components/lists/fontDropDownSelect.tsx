@@ -24,9 +24,6 @@ function FontDropDownSelect(sentProps : sentProps) {
         var fontFamilies : string[] = []
         if(computedStylesArray.length == 0) {
           if(refrence.current!=null){
-              var fontfamily = "";
-            //   var computed = window.getComputedStyle(refrence.current)
-              fontfamily =  Fonts.DEFAULT;
               setComputedStyles(computedStylesArray);
           }
         }

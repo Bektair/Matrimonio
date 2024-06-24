@@ -6,7 +6,8 @@ import getAuthHeaders from "./SetAuthHeaders";
 
 export interface IReceptionResponse{
     id: number
-    date: string
+    startDate: string
+    endDate: string
     description: string
     location: ILocation
     weddingId: number

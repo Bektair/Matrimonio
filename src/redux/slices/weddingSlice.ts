@@ -1,17 +1,17 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchCeremony } from '../../API/GetCeremony'
 import { fetchRSVP, fetchRSVPWedding } from '../../API/GetRSVP'
+import { fetchReception } from '../../API/GetReception'
 import { fetchWedding } from '../../API/GetWeddings'
 import { IRSVPCreate, postRSVP } from '../../API/PostRSVP'
+import { IRSVPUpdate, patchRSVP } from '../../API/UpdateRSVP'
+import { IWeddingUpdate, patchWedding } from '../../API/UpdateWedding'
 import { IParticipant } from '../../models/IParticipant'
 import { IPost } from '../../models/IPost'
 import { IRSVP } from '../../models/IRSVP'
 import { IReception } from '../../models/IReception'
 import { IReligiousCeremony as ICeremony } from '../../models/IReligiousCeremony'
 import { IWedding } from '../../models/IWedding'
-import { IRSVPUpdate, patchRSVP } from '../../API/UpdateRSVP'
-import { fetchReception } from '../../API/GetReception'
-import { IWeddingUpdate, patchWedding } from '../../API/UpdateWedding'
 
 
 interface sliceState  {
@@ -21,6 +21,7 @@ interface sliceState  {
     participants: IParticipant[]
     rsvps: IRSVP[]
     posts: IPost[]
+    
 }
 
 const initialState: sliceState = {
@@ -135,19 +136,26 @@ const weddingSlice = createSlice( {
         builder.addCase(getCeremony.fulfilled, (state, action)=>{
             var payload = action.payload;
             if(payload!=undefined){
-                var date = Date.parse(payload.date)
-                console.log("PayLOADDATE:"+ payload.date)
-                console.log("DATE:"+ date)
+                var startDate = Date.parse(payload.startDate)
+                var endDate = Date.parse(payload.endDate)
+                console.log("PayLOADDATE:"+ payload.startDate)
+                console.log("DATE:"+ startDate)
                 let ceremony : ICeremony =  {
                     id: payload.id,
-                    date: date,
+                    startDate: startDate,
+                    endDate: endDate,
                     description: payload.description,
                     location: {
                         id: payload.location.id,
                         title: payload.location.title,
                         body: payload.location.body,
                         lat: payload.location.lat,
-                        lng: payload.location.lng
+                        lng: payload.location.lng,
+                        address: payload.location.address,
+                        country: payload.location.country,
+                        placename: payload.location.placename,
+                        region: payload.location.region,
+                        image: payload.location.image
                     }
                 } 
                 
@@ -239,9 +247,11 @@ const weddingSlice = createSlice( {
         builder.addCase(getReception.fulfilled, (state, action) => {
             var payload = action.payload;
             if(payload != undefined){
-                var responseDate = Date.parse(payload.date);
+                var responseStartDate = Date.parse(payload.startDate);
+                var responseEndDate = Date.parse(payload.endDate);
                 var reception : IReception = {
-                    date: responseDate,
+                    startDate: responseStartDate,
+                    endDate: responseEndDate,
                     description: payload.description,
                     id: payload.id,
                     location: payload.location,

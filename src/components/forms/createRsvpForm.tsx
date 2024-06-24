@@ -57,7 +57,7 @@ function CreateRsvpForm(props : IProps) {
         var defaultText = ""
         if(ceremony!=null && ceremony!=undefined){
 
-            var date = new Date(ceremony.date);
+            var date = new Date(ceremony.startDate);
             defaultText = `We are glad to invite you to our wedding ${date.getDate()+"/" + date.getMonth()+"/"+date.getFullYear()} 
             The ceremony will be held in ${ceremony.location.title}, shown in the map beneath. 
             Please respond by clicking accept or decline, The Deadline to answer is {deadline}.

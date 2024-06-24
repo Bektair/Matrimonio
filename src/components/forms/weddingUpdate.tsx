@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IWeddingUpdate } from '../../API/UpdateWedding';
 import { WeddingCss } from '../../constants/weddingCssVariables';
@@ -77,11 +77,6 @@ function WeddingUpdate() {
             fontColorSecound.addEventListener("change", colorChangeHandler(WeddingCss.FontSecound), false); //Gets the choosen color :)
             
             console.log("Attempted CHANGE")
-            // if(primaryRangeInput != null ){
-            //     var alpha = Number(primaryColorAlpha).toString(16);
-            //     if(primaryColor != "")
-            //         document.documentElement.style.setProperty(WeddingCss.BgColorPrimary, primaryColor + alpha)
-            // }
 
             
         }
@@ -125,12 +120,6 @@ function WeddingUpdate() {
         }
     }
 
-    function onChangeTrigger(event: any, context : any){
-        var change = alphaChangeHandler(WeddingCss.BgColorPrimary, "primaryColorWeddingUpdate", setPrimaryColorAlpha);
-        change.apply(context, event);
-
-    }
-
 
 
  
@@ -139,7 +128,7 @@ function WeddingUpdate() {
         document.documentElement.style.setProperty(WeddingCss.BgImagePrimary, `url(${backgroundImageLabel.current?.value})`)
     }
 
-    function updateWedding (formData : any){
+    function updateWedding (){
 
 
 
