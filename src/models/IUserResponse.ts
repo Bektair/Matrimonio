@@ -1,5 +1,16 @@
 
 export interface IUserResponse {
+    id: string
+    firstName: string
+    lastName: string
+    profilePicture: string | null
+    email: string
+    nickname: string
+    email_Verified: boolean
+}
+
+
+/* ManagementAPIVersion
     "email": string,
     "email_verified": boolean,
     "username": string,
@@ -31,5 +42,4 @@ export interface IUserResponse {
     "given_name": string,
     "family_name": string
 
-      
-}
+*/

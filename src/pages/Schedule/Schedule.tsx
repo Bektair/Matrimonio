@@ -5,7 +5,6 @@ import { selectCeremony, selectReception, selectWedding } from '../../redux/sele
 import { getCeremony, getReception } from '../../redux/slices/weddingSlice';
 import "./Schedule.sass";
 import Summary from './Summary';
-import Reception from './Reception/Reception';
 import { Link } from 'react-router-dom';
 import PathConstants from '../../components/route/pathConstants';
 

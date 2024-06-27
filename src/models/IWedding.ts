@@ -10,4 +10,6 @@ export interface IWedding {
     secoundaryFontColor: string | undefined
     bodyFont: string | undefined
     headingFont: string | undefined
+    title: string
+    picture: string
 }

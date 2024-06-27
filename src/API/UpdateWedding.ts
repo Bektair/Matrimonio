@@ -4,8 +4,8 @@ import { createJsonPatch } from "./JsonPatch"
 import getAuthHeaders from "./SetAuthHeaders"
 
 export interface IWeddingUpdate {
-    Description: string | undefined
-    Dresscode: string | undefined
+    Description: string
+    Dresscode: string 
     PrimaryColor: string | undefined
     SecoundaryColor: string | undefined
     PrimaryFontColor: string | undefined
@@ -13,6 +13,8 @@ export interface IWeddingUpdate {
     BackgroundImage: string | undefined
     BodyFont: string | undefined
     HeadingFont: string | undefined
+    Title: string
+    Picture: string
 }
 
 export interface IPatchWeddingResponse {

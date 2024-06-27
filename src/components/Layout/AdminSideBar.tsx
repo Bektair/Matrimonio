@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { getCeremony, getReception, setWedding } from '../../redux/slices/weddingSlice';
+import { IWeddingAndSigner, getCeremony, getRSVPbyWeddingAndSigner, getReception, setWedding } from '../../redux/slices/weddingSlice';
 import { getAllWeddings,  } from '../../redux/slices/weddingsSlice';
 import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
 import { selectCeremony, selectReception, selectWedding } from '../../redux/selectors/selectWeddingSlice';
@@ -14,7 +14,7 @@ function AdminSideBar() {
     const wedding = useAppSelector(selectWedding)
     const ceremony = useAppSelector(selectCeremony)
     const reception = useAppSelector(selectReception)
-    const user = useAppSelector(selectAuth).user
+    const auth = useAppSelector(selectAuth)
 
     useEffect(()=>{
         if(weddings.length > 0)
@@ -38,13 +38,11 @@ function AdminSideBar() {
     }
 
     function setCeremonyEvent() {
-        console.log(user)
         if(wedding != undefined)
             dispatch(getCeremony(wedding.id))
     }
 
     function setReceptionEvent() {
-        console.log(user)
         if(wedding != undefined)
             dispatch(getReception(wedding.id))
     }
@@ -62,6 +60,12 @@ function AdminSideBar() {
     }
 
 
+    function printRSVP(){
+
+        if(wedding != undefined)
+          dispatch(getRSVPbyWeddingAndSigner( {signerId: auth.id, wedding_id: wedding.id.toString()} as IWeddingAndSigner))
+    
+      }
 
   return (
     <div id='adminSidebar' style={getVisibillity()}>
@@ -70,10 +74,10 @@ function AdminSideBar() {
         <label>Wedding: {wedding?.id}</label>
         <button onClick={setCeremonyEvent}>SetCeremony</button>
         <label>Ceremony: {ceremony?.id}</label>
-        <label>User: {user?.nickname}</label>
+        <label>User: {auth.user?.nickname}</label>
         <button onClick={setReceptionEvent}>SetReception</button>
         <label>Reception: {reception?.id}</label>
-        <button onClick={setWeddingEvent}>SetWedding</button>
+        <button onClick={printRSVP}>printRSVP</button>
         <button onClick={setWeddingEvent}>SetWedding</button>
     </div>
     

@@ -60,6 +60,8 @@ function UserCreationMenu() {
     if(wedding!=undefined)
       dispatch(getCeremony(wedding.id))
 
+
+
  }, [])
 
   async function sendRequest(event: any){
@@ -98,6 +100,12 @@ function UserCreationMenu() {
 
   }
 
+  function getContent(_user : IUser){
+    var content = "";
+    content += `${_user.firstName} ${_user.lastName} ${_user.email}`;
+    return content
+}
+
 
   return (
     <>
@@ -109,8 +117,9 @@ function UserCreationMenu() {
           <button onClick={sendRequest}>createUser</button>
       </div>
       <div id='userSelectionMenu'>
-        {users.length > 0 && <List name='users' listItems={users} propNames={["name", "email", "picture"]} listItemFormat=' ${name} ${email} ${picture}' onclickEvent={selectUserClick}></List>  }
+        {users.length > 0 && <List name='users' listItems={users} setContentFunction={getContent} onclickEvent={selectUserClick}></List>  }
       </div>
+      <label>{selectedUser?.id}</label>
 
       <div id='passwordAndInviteLinks'>
         <div id='passwordlinks'>

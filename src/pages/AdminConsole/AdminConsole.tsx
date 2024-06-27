@@ -8,9 +8,9 @@ function AdminConsole() {
         <ul id="admin-grid">
             <li className="admin-grid-item"><Link to={PathConstants.WeddingMenu}>WeddingMenu</Link></li>
             <li className="admin-grid-item"><Link to={PathConstants.User}>UserMenu</Link></li>
-            <li className="admin-grid-item"><Link to={PathConstants.RSVP}>RSVP</Link></li>
-            <li className="admin-grid-item"><Link to={PathConstants.Schedule}>Scedule</Link></li>
-            <li className="admin-grid-item"><Link to={PathConstants.Posts}>Posts</Link></li>
+            <li className="admin-grid-item"><Link to={PathConstants.RSVPMenu}>RSVPMenu</Link></li>
+            <li className="admin-grid-item"><Link to={PathConstants.CeremonyMenu}>CeremonyMenu</Link></li>
+            <li className="admin-grid-item"><Link to={PathConstants.ReceptionMenu}>ReceptionMenu</Link></li>
             <li className="admin-grid-item"><Link to={PathConstants.Profile}>Profile</Link></li>
         </ul>
     </div>

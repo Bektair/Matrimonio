@@ -64,7 +64,7 @@ function RSVPDietaryMenu(props : IProps) {
                 ChoosenDessertId: Number.parseInt(radioSelectedDessert.id),
                 ChoosenDinnerId: Number.parseInt(radioSelectedDinner.id),
                 OtherDietaryRequirements: formData.otherDietaryRequirements,
-                signerId: props.rsvp.Signer.id,
+                signerId: props.rsvp.signer.id,
                 weddingId: wedding?.id,
             }
             console.log("Update")
@@ -82,12 +82,12 @@ function RSVPDietaryMenu(props : IProps) {
         var menuOptions = reception.menuOptions;
         for (let index = 0; index < menuOptions.length; index++) {
             const element = menuOptions[index];
-            var IsSelected = (element.id==props.rsvp.ChoosenDinnerId) ? true : false
+            var IsSelected = (element.id==props.rsvp.choosenDinnerId) ? true : false
             if(element.tags.match("Dinner")){
                 dinnerElements.push(<DietaryItem selected={IsSelected} id={element.id} key={element.dishName + "-" + element.id} allergens={element.alergens.split(",")} 
                     image={element.image} name={element.dishName} tags={element.tags.split(",") }></DietaryItem>)
             } else {
-                var IsSelected = (element.id==props.rsvp.ChoosenDessertId) ? true : false
+                var IsSelected = (element.id==props.rsvp.choosenDessertId) ? true : false
                 dessertElements.push(<DietaryItem selected={IsSelected} id={element.id} key={element.dishName + "-" + element.id} allergens={element.alergens.split(",")} 
                     image={element.image} name={element.dishName} tags={element.tags.split(",")} ></DietaryItem>)
             }

@@ -1,6 +1,7 @@
 import getManagementAuthHeaders from "./SetManagementAuthHeaders"
-import { domain } from "../../constants/environment";
+import { API_URL, audience, domain } from "../../constants/environment";
 import { IUserResponse } from "../../models/IUserResponse";
+import getAuthHeaders from "../SetAuthHeaders";
 
 export interface IUserCreateRequest {
     "email": string,
@@ -43,8 +44,9 @@ interface userMetadata {
 // }
 
 export async function GetUsers() : Promise<IUserResponse[]>{
-    const headers = await getManagementAuthHeaders();
-    let response = await fetch(`https://${domain}/api/v2/users`,{
+    const headers = await getAuthHeaders()
+    //VITE_APP_AUTH0_DOMAIN dev-fnrkz1kw46cdu7zy.us.auth0.com
+    let response = await fetch(`${API_URL}/api/User`,{
         method: "GET",
         headers,
         redirect: 'follow'

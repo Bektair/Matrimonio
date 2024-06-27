@@ -52,13 +52,6 @@ function Rsvp() {
     }
   }, [])
 
-  function printRSVP(){
-    console.log(UserId + " | " + Wedding?.id.toString())
-    console.log(RSVPS)
-    if(Wedding != undefined)
-      dispatch(getRSVPbyWeddingAndSigner( {signerId: UserId, wedding_id: Wedding.id.toString()} as IWeddingAndSigner))
-
-  }
 
   // function updateRSVP(rsvp : IRSVPUpdate, id: string){Declined
   //   dispatch(updateRSVPThunk({ id: id, RSVP: rsvp }));
@@ -105,15 +98,11 @@ function Rsvp() {
   return (
     <>
       <h1>Hello {user?.name}!</h1> 
-      {
-        process.env.NODE_ENV === 'development' &&
-        <button onClick={printRSVP}>PrintRSVP</button>
-      }
-
-
-      { Auth && Auth.id  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP &&
-        renderSwitchRSVPState(currentRSVP)
-      }
+      <div className='RSVP-invite-button'>
+        { Auth && Auth.id  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP &&
+          renderSwitchRSVPState(currentRSVP)
+        }
+      </div>
 
       { Auth && Auth.id  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP && currentRSVP.status == RSVPStatus.Accepted &&
 

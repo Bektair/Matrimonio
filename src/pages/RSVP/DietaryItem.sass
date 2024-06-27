@@ -17,16 +17,23 @@
 
 .dietary-item:nth-child(even)
     background-color: var(--secoundary-bg-color)
+    filter: brightness(1)
+
 
 .dietary-item:nth-child(odd)
-    background-color: var(--primary-bg-color)
+    background-color: var(--secoundary-bg-color)
+    filter: hue-rotate(10deg) 
 
 .selected-dish-item
     color: var(--font-color-secoundary)
     border: 1px solid var(--font-color-secoundary)
+    
+
 
 .selected-dish-item > img
     filter: var(--font-inverted-color-secoundary)
+    
+
 
 .selected-dessert-item
     color: var(--font-color-secoundary)

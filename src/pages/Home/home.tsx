@@ -1,13 +1,24 @@
-import { useParams } from 'react-router-dom'
+import { useAppSelector } from "../../redux/Hooks/hooks";
+import { selectWedding } from "../../redux/selectors/selectWeddingSlice"
+import './home.sass'
+
 
 export const Home = () => {
-
-    let {weddingId} = useParams()
+const wedding = useAppSelector(selectWedding);
 
 console.log("OK loading Home")
 
   return (
-        <div>home {weddingId}</div>
+    <>
+      <div className="wedding-main">
+        <h2>{wedding?.title}</h2>
+        <img src={wedding?.picture}/>
+        <label>DressCode: {wedding?.dresscode}</label>
+        <label>{wedding?.description}</label>
+      </div>
+
+
+    </>
   )
 }
 

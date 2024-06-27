@@ -9,7 +9,7 @@ type sliceState = {
 }
 
 const initialState: sliceState = {
-    weddings: []
+    weddings: [],
 
 }
 
@@ -47,7 +47,9 @@ const weddingsSlice = createSlice( {
                     bodyFont: wedding.bodyFont,
                     headingFont: wedding.headingFont,   
                     description: wedding.description,
-                    dresscode: wedding.dresscode
+                    dresscode: wedding.dresscode,
+                    picture: wedding.picture,
+                    title: wedding.title
                 }
                 return test;
             })
@@ -70,7 +72,9 @@ const weddingsSlice = createSlice( {
                     bodyFont: wedding.bodyFont,
                     headingFont: wedding.headingFont,   
                     description: wedding.description,
-                    dresscode: wedding.dresscode
+                    dresscode: wedding.dresscode,
+                    picture: wedding.picture,
+                    title: wedding.title
                 }
                 return test;
             })
@@ -90,11 +94,13 @@ const weddingsSlice = createSlice( {
                     dresscode: payload.dresscode,
                     primaryColor: defaultPrimaryColor,
                     secoundaryColor: defaultSecoundaryColor,
-                    backgroundImage: "ok",
-                    bodyFont: "ok",
-                    headingFont: "ok",
-                    primaryFontColor: "ok",
-                    secoundaryFontColor: "ok"
+                    backgroundImage: "",
+                    bodyFont: "",
+                    headingFont: "",
+                    primaryFontColor: "",
+                    secoundaryFontColor: "",
+                    picture: "",
+                    title: ""
                 } 
 
                 return {

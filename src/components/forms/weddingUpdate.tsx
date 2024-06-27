@@ -30,6 +30,10 @@ function WeddingUpdate() {
     const [primaryColorAlpha, setPrimaryColorAlpha] = useState(1); // AS NUMBER for the range
     const [secoundaryColorAlpha, setSecoundaryColorAlpha] = useState(1); // AS NUMBER for the range
     const [backgroundImage, setBackgroundImage] = useState("");
+    const [picture, setPicture] = useState("");
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [dresscode, setDresscode] = useState("");
     const [primaryFont, setPrimaryFont] = useState("");
     const [secoundaryFont, setSecoundaryFont] = useState("");
     const [secoundaryFontColor, setSecoundaryFontColor] = useState("");
@@ -56,6 +60,11 @@ function WeddingUpdate() {
             setSecoundaryFont(wedding.headingFont ?? "");
             setPrimaryFontColor(wedding.primaryFontColor ?? "#fed3e3");
             setSecoundaryFontColor(wedding.secoundaryFontColor ?? "#d84444");
+
+            setPicture(wedding.picture ?? "#d84444");
+            setTitle(wedding.title ?? "#d84444");
+            setDescription(wedding.description ?? "#d84444");
+            setDresscode(wedding.dresscode ?? "Nice");
             console.log(wedding)
             console.log("PRIMARY COLOR:" + primaryColor)
             console.log("secoundaryColor:" + secoundaryColor)
@@ -120,7 +129,9 @@ function WeddingUpdate() {
         }
     }
 
-
+    function isEmpty(value : any) {
+        return (value == null || (typeof value === "string" && value.trim().length === 0));
+      }
 
  
     function backgroundImageChange(event : any){
@@ -129,7 +140,6 @@ function WeddingUpdate() {
     }
 
     function updateWedding (){
-
 
 
         console.log("UpdateWedding!")
@@ -153,9 +163,13 @@ function WeddingUpdate() {
                 SecoundaryColor: colorSecoundary,
                 PrimaryFontColor: primaryFontColor,
                 SecoundaryFontColor: secoundaryFontColor,
-                BackgroundImage: backgroundImage,
+                BackgroundImage: isEmpty(backgroundImage) ? undefined : backgroundImage,
                 BodyFont: primaryFont,
-                HeadingFont: secoundaryFont            
+                HeadingFont: secoundaryFont,
+                Title: isEmpty(title) ? undefined : title,
+                Picture: isEmpty(picture) ? undefined : picture,
+                Description: isEmpty(description) ? undefined : description,
+                Dresscode: isEmpty(dresscode) ? undefined : dresscode
             } as IWeddingUpdate
             console.log("WeddingUpdate:")
             console.log(JSON.stringify(Wedding))
@@ -202,12 +216,15 @@ function changedBackground(event : any){
             <div className='griditem-wedding'><label>MainColor</label></div>
             <div className='griditem-wedding'><input type='color' {...register("mainColor")} onChange={(e)=>setPrimaryColor(e.target.value)}  value={primaryColor}   id='primaryColorWeddingUpdate'></input></div>
             <div className='griditem-wedding'><input type="range" {...register("mainColorRange")} onChange={alphaChangeHandler(WeddingCss.BgColorPrimary, "primaryColorWeddingUpdate", setPrimaryColorAlpha)} min="0" max="255" step="1" value={primaryColorAlpha} id="primaryColorRangeWeddingUpdate"/></div>
+            
             <div className='griditem-wedding'><label>SecoundaryColor</label></div>
             <div className='griditem-wedding'><input type='color' {...register("secoundaryColor")} onChange={(e)=>setSecoundaryColor(e.target.value)} value={secoundaryColor} id='secoundaryColorWeddingUpdate' /></div>
             <div className='griditem-wedding'><input type="range" {...register("secoundaryColorRange")} onChange={(alphaChangeHandler(WeddingCss.BgColorSecoundary, "secoundaryColorWeddingUpdate", setSecoundaryColorAlpha))}  min="0" max="255" step="1"  value={secoundaryColorAlpha} id='secoundaryColorRangeWeddingUpdate' /></div>
+            
             <div className='griditem-wedding'><label>BackgroundImage</label></div>
             <div className='griditem-wedding'><input type='text' {...register("backgroundImage")} placeholder='link to image' value={backgroundImage} onInput={changedBackground} onSubmit={backgroundImageChange} id='backgroundImageWeddingUpdate' /></div>
             <div className='griditem-wedding'><label></label></div>
+            
             <div className='griditem-wedding'><label>FontColor</label></div>
             <div className='griditem-wedding'><div><input type='color' {...register("fontColorMain")}  onChange={(e)=>setPrimaryFontColor(e.target.value)} value={primaryFontColor ?? "#fed3e3"} id='fontColorPrimaryWeddingUpdate' />
                                                     <input type='color'{...register("fontColorSecound")}  onChange={(e)=>setSecoundaryFontColor(e.target.value)} value={secoundaryFontColor ?? "#d84444"} id='fontColorSecoundaryWeddingUpdate'></input></div></div>
@@ -215,8 +232,28 @@ function changedBackground(event : any){
                 <FontDropDownSelect currentValue={primaryFont} register={register} cssVariable={WeddingCss.FontPrimary} btnName="body"/>
                 <FontDropDownSelect currentValue={secoundaryFont} register={register} cssVariable={WeddingCss.FontSecound} btnName="heading" />
             </div></div>
+
+            <div className='griditem-wedding'><label>Picture</label></div>
+            <div className='griditem-wedding'><input type='text' {...register("mainImage")} placeholder='link to image' value={picture} onInput={(event : any)=>setPicture(event.target.value)} onSubmit={backgroundImageChange}  /></div>
+            <div className='griditem-wedding'></div>
+
+            <div className='griditem-wedding'><label>Title</label></div>
+            <div className='griditem-wedding'><input type='text' {...register("title")} placeholder='title' value={title} onInput={(event : any)=>setTitle(event.target.value)} onSubmit={backgroundImageChange}  /></div>
+            <div className='griditem-wedding'></div>
+
+            <div className='griditem-wedding'><label>Description</label></div>
+            <div className='griditem-wedding'><input type='text' {...register("description")} placeholder='description' value={description} onInput={(event : any)=>setDescription(event.target.value)} onSubmit={backgroundImageChange}/></div>
+            <div className='griditem-wedding'></div>
+
+            <div className='griditem-wedding'><label>DressCode</label></div>
+            <div className='griditem-wedding'><input type='text' {...register("dresscode")} placeholder='dresscode' value={dresscode} onInput={(event : any)=>setDresscode(event.target.value)} onSubmit={backgroundImageChange} /></div>
+            <div className='griditem-wedding'></div>
+
+
+
         </div>
-        <button type='submit'>Submit</button> 
+        <button type='submit'>Update</button> 
+        <button type='submit'>Create</button> 
     </form>
   )
 }

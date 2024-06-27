@@ -6,10 +6,10 @@ export interface IRSVP{
     deadline: number
     status: RSVPStatus
     numberOfGuests: number
-    OtherDietaryRequirements: string
-    Signer: IUserReadDTO
-    ChoosenDinnerId: number | null
-    ChoosenDessertId: number | null
+    otherDietaryRequirements: string
+    signer: IUserReadDTO
+    choosenDinnerId: number | null
+    choosenDessertId: number | null
 }
 
 

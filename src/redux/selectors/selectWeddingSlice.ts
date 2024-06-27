@@ -16,7 +16,7 @@ export const selectRSVPS = (state: RootState) => {
 export const selectRSVPByAuthId = (state: RootState, AuthId: string | undefined) => {
     if(!AuthId)
         return undefined;
-    var index = state.wedding.rsvps.findIndex((rsvp)=>rsvp.Signer.id == AuthId)
+    var index = state.wedding.rsvps.findIndex((rsvp)=>rsvp.signer.id == AuthId)
     if(index < 0)
         return undefined
     return state.wedding.rsvps[index];
@@ -24,4 +24,8 @@ export const selectRSVPByAuthId = (state: RootState, AuthId: string | undefined)
 
 export const selectReception = (state: RootState) => {
     return state.wedding.reception;
+}
+
+export const selectCurrentLocation = (state: RootState) => {
+    return state.wedding.active_location;
 }

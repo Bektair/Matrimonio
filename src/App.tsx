@@ -18,6 +18,9 @@ import Rsvp from './pages/RSVP/rsvp.tsx'
 import Ceremony from './pages/Schedule/Ceremony/Ceremony.tsx'
 import Reception from './pages/Schedule/Reception/Reception.tsx'
 import Schedule from './pages/Schedule/Schedule.tsx'
+import RsvpMenu from './pages/AdminConsole/RSVPMenu/rsvpMenu.tsx'
+import CeremonyMenu from './pages/AdminConsole/CeremonyMenu/CeremonyMenu.tsx'
+import ReceptionMenu from './pages/AdminConsole/ReceptionMenu/ReceptionMenu.tsx'
 
 export const App : React.FC = () => {
   const auth = useAuthListener()
@@ -30,14 +33,17 @@ export const App : React.FC = () => {
             <Route path={PathConstants.Login} element={<Login/>} />
             <Route path={PathConstants.Register} element={<Register/>} />
             <Route path={PathConstants.Ceremony} element={<Ceremony/>} />
+            <Route path={PathConstants.CeremonyMenu} element={<CeremonyMenu/>} />
             <Route path={PathConstants.RSVP} element={<ProtectedRoute auth={auth}><Rsvp/></ProtectedRoute>} />
             <Route path={PathConstants.Reception} element={<Reception/>} />
+            <Route path={PathConstants.ReceptionMenu} element={<ReceptionMenu/>} />
             <Route path={PathConstants.Schedule} element={<Schedule/>} />
             <Route path={PathConstants.Profile} element={<Profile/>} />
             <Route path={PathConstants.Create} element={<Create/>} />
             <Route path={PathConstants.Posts} element={<Posts/>} />
             <Route path={PathConstants.Admin} element={<ProtectedRoute auth={auth}><AdminConsole/></ProtectedRoute>} />
             <Route path={PathConstants.WeddingMenu} element={<Weddingsmenu/>} />
+            <Route path={PathConstants.RSVPMenu} element={<RsvpMenu/>} />
             <Route path={PathConstants.User} element={<UserCreationMenu/>} />
 
           </Route>

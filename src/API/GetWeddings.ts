@@ -17,11 +17,13 @@ export interface IWeddingResponse {
     secoundaryFontColor: string
     bodyFont: string
     headingFont: string
+    title: string
+    picture: string
 }
 
 export async function fetchWeddings() : Promise<IWeddingResponse[]> {
 
-    console.log("TRYING TO FETCH")
+    console.log("TRYING TO FETCH wedddings")
     
 
 
@@ -34,6 +36,7 @@ export async function fetchWeddings() : Promise<IWeddingResponse[]> {
         throw new Error(await response.text() || response.statusText);
 
     let data = await response.json() as IWeddingResponse[];
+    console.log(data)
     return data;
 }
 

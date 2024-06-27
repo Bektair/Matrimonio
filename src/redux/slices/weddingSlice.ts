@@ -12,6 +12,12 @@ import { IRSVP } from '../../models/IRSVP'
 import { IReception } from '../../models/IReception'
 import { IReligiousCeremony as ICeremony } from '../../models/IReligiousCeremony'
 import { IWedding } from '../../models/IWedding'
+import { ICeremonyUpdate, updateCeremonyRequest } from '../../API/UpdateCeremony'
+import { ILocationRequest, createLocation } from '../../API/CreateLocation'
+import { ILocationResponse } from '../../API/GetLocations'
+import { ILocation } from '../../models/ILocation'
+import { ICeremonyRequest, createCeremony } from '../../API/CreateCeremony'
+import { IReceptionRequest, createReception } from '../../API/CreateReception'
 
 
 interface sliceState  {
@@ -52,7 +58,7 @@ const weddingSlice = createSlice( {
     reducers:{
         setWedding:  (state, action: PayloadAction<IPayload>) => {
             var payload = action.payload.wedding;
-
+            console.log(payload)
             let wedding : IWedding =  {
                 id: payload.id,
                 primaryColor: payload.primaryColor,
@@ -63,7 +69,9 @@ const weddingSlice = createSlice( {
                 bodyFont: payload.bodyFont,
                 headingFont: payload.headingFont,   
                 description: payload.description,
-                dresscode: payload.dresscode
+                dresscode: payload.dresscode,
+                picture: payload.picture,
+                title: payload.title
             } 
 
             return {
@@ -78,7 +86,7 @@ const weddingSlice = createSlice( {
 
             state.wedding=updatedWedding;
 
-        }
+        },
     },
     extraReducers: (builder) =>  {
         builder.addCase(getAWedding.fulfilled, (state, action)=>{
@@ -95,7 +103,9 @@ const weddingSlice = createSlice( {
                     bodyFont: payload.bodyFont,
                     headingFont: payload.headingFont,   
                     description: payload.description,
-                    dresscode: payload.dresscode
+                    dresscode: payload.dresscode,
+                    picture: payload.picture,
+                    title: payload.title
                 } 
 
                 state.wedding = wedding;
@@ -119,7 +129,9 @@ const weddingSlice = createSlice( {
                     headingFont: payload.headingFont,   
                     id: payload.id.toString(),
                     description: payload.description,
-                    dresscode: payload.dresscode
+                    dresscode: payload.dresscode,
+                    picture: payload.picture,
+                    title: payload.title
                 } 
                 console.log(updatedWedding)
 
@@ -176,13 +188,13 @@ const weddingSlice = createSlice( {
 
                 var updatedRSVP : IRSVP = {
                     body: payload.body,
-                    ChoosenDessertId: payload.choosenDessertId,
-                    ChoosenDinnerId: payload.choosenDinnerId,
+                    choosenDessertId: payload.choosenDessertId,
+                    choosenDinnerId: payload.choosenDinnerId,
                     deadline: Date.parse(payload.deadline),
                     id: payload.id.toString(),
                     numberOfGuests: payload.numberOfGuests,
-                    OtherDietaryRequirements: payload.OtherDietaryRequirements,
-                    Signer: payload.signer,
+                    otherDietaryRequirements: payload.OtherDietaryRequirements,
+                    signer: payload.signer,
                     status: payload.status
                 } 
                 var indexToChange = state.rsvps.findIndex((rsvp)=> rsvp.id == updatedRSVP.id);
@@ -210,10 +222,11 @@ const weddingSlice = createSlice( {
                             deadline: date,
                             status: rsvpResponse.status,
                             numberOfGuests: rsvpResponse.numberOfGuests,
-                            OtherDietaryRequirements: rsvpResponse.OtherDietaryRequirements,
-                            Signer: rsvpResponse.signer,
-                            ChoosenDessertId: rsvpResponse.choosenDessertId,
-                            ChoosenDinnerId: rsvpResponse.choosenDinnerId,
+                            otherDietaryRequirements: rsvpResponse.OtherDietaryRequirements,
+                            signer: rsvpResponse.signer,
+                            choosenDessertId: rsvpResponse.choosenDessertId,
+                            choosenDinnerId: rsvpResponse.choosenDinnerId,
+
                     }
                 })
                 
@@ -233,10 +246,10 @@ const weddingSlice = createSlice( {
                             deadline: date,
                             status: rsvpResponse.status,
                             numberOfGuests: rsvpResponse.numberOfGuests,
-                            OtherDietaryRequirements: rsvpResponse.OtherDietaryRequirements,
-                            Signer: rsvpResponse.signer,
-                            ChoosenDessertId: rsvpResponse.choosenDessertId,
-                            ChoosenDinnerId: rsvpResponse.choosenDinnerId,
+                            otherDietaryRequirements: rsvpResponse.OtherDietaryRequirements,
+                            signer: rsvpResponse.signer,
+                            choosenDessertId: rsvpResponse.choosenDessertId,
+                            choosenDinnerId: rsvpResponse.choosenDinnerId,
                     }
                 })
                 
@@ -262,6 +275,22 @@ const weddingSlice = createSlice( {
                 state.reception = undefined
             }
 
+        }),
+        builder.addCase(createCeremonyThunk.fulfilled, (state, action) => {
+            var payload = action.payload;
+            if(payload != undefined){
+                var responseStartDate = Date.parse(payload.startDate);
+                var responseEndDate = Date.parse(payload.endDate);
+                var ceremony : ICeremony = {
+                    startDate: responseStartDate,
+                    endDate: responseEndDate,
+                    description: payload.description,
+                    location: payload.location,
+                    id: payload.id
+                    
+                }
+                state.ceremony = ceremony;
+            }
         })
     }
 })
@@ -371,6 +400,8 @@ export const getRSVPbyWedding = createAsyncThunk(
     }
 )
 
+
+
 export interface IWeddingAndSigner{
     wedding_id: string
     signerId: string
@@ -390,6 +421,51 @@ export const getRSVPbyWeddingAndSigner = createAsyncThunk(
         }
     }
 )
+
+export interface IUpdateCeremonyThunk{
+    update : ICeremonyUpdate, 
+    id : string
+}
+
+export const updateCeremony = createAsyncThunk(
+    'wedding/updateCeremony',
+    async(updateCeremony : IUpdateCeremonyThunk)=> {
+        try {
+            const ceremony = await updateCeremonyRequest(updateCeremony.update, updateCeremony.id);
+            return ceremony
+        } catch(err){
+            console.log(err)
+            return undefined
+        }
+    }
+)
+
+export const createCeremonyThunk = createAsyncThunk(
+    'wedding/createCeremony',
+    async(createCeremonyRequest: ICeremonyRequest)=> {
+        try {
+            const ceremony = await createCeremony(createCeremonyRequest);
+            return ceremony
+        } catch(err){
+            console.log(err)
+            return undefined
+        }
+    }
+)
+
+export const createReceptionThunk = createAsyncThunk(
+    'wedding/createReception',
+    async(createReceptionRequest: IReceptionRequest)=> {
+        try {
+            const reception = await createReception(createReceptionRequest);
+            return reception
+        } catch(err){
+            console.log(err)
+            return undefined
+        }
+    }
+)
+
 
 
 
