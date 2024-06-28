@@ -8,7 +8,6 @@ export const LoginButton = (props: sentProps) => {
   const { loginWithRedirect } = useAuth0();
 
   const handleLogin = async () => {
-    console.log("REDIREKT" + redirectUri);
     
     await loginWithRedirect({
       

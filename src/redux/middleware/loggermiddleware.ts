@@ -10,7 +10,6 @@ export const loggermiddleware : Middleware<{}, any> = storeAPI => next => async 
     
     if(isAction(action)){
         var unknownAction  = action as UnknownAction;
-
         switch(unknownAction.type){
 
             case("post_slice/getPosts"): {

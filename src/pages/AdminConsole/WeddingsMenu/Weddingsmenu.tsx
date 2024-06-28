@@ -19,7 +19,22 @@ function Weddingsmenu() {
 
     }, [])
     
-    
+    /*
+        id: number,
+        description: string,
+        dresscode: string,
+        primaryColor: string,
+        secoundaryColor: string
+        backgroundImage: string
+        primaryFontColor: string | undefined
+        secoundaryFontColor: string | undefined
+        bodyFont: string | undefined
+        headingFont: string | undefined
+        title: string
+        picture: string
+https://res.cloudinary.com/dgegmm2pt/image/upload/v1719230405/409904963_3600451846866566_9187057470133906523_n_dmkcnl.jpg
+        
+    */
 
     return (
         <div>

@@ -10,7 +10,7 @@ export const LogoutButton = (props: sentProps) => {
     await logout({
     });
   };
-
+  
   return (
     <button className={props.className} onClick={handleLogout}>
       Log out

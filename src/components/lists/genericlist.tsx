@@ -9,6 +9,7 @@ import './genericlist.sass';
     name: string
     onclickEvent: (arg: P)=>any
     setContentFunction: (arg: P)=>string //String der ${propertyname} blir interoplata om det er en av propnames i array
+    
   }
 
   export interface IModel {
@@ -40,6 +41,7 @@ function List<P extends IModel>(props : IPropsList<P> )  {
       props.onclickEvent(selectedItemById); //I want to select from the dict of all weddings the one with correct id
     }else{
         console.log("failure to select " + props.name)
+        
     }
   }
 

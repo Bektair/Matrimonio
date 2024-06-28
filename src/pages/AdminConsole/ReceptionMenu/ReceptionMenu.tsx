@@ -28,6 +28,8 @@ function ReceptionMenu() {
   },[])
 
   function menuItemAdd(menuItem: IMenuOption){
+
+
     setMenuItems([...menuItems, { alergens: menuItem.alergens, dishName: menuItem.dishName, 
         id: menuItem.id, image: menuItem.image, tags: menuItem.tags }])
 
@@ -41,11 +43,13 @@ function ReceptionMenu() {
   }
 
   function setContent(option: IMenuOption){
+    
     return `${option.dishName} ${option.alergens} ${option.tags}`
   }
 
   function onMenuOptionClick(option: IMenuOption){
     console.log(option)
+
   }
 
   return (
