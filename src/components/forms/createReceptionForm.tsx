@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { ILocation } from '../../models/ILocation';
-import { selectCurrentLocation, selectLocations } from '../../redux/selectors/selectLocations';
-import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { getAllLocations } from '../../redux/slices/locationSlice';
-import HandleLocationForm from './handleLocationForm';
-import { createReceptionThunk } from '../../redux/slices/weddingSlice';
 import { IReceptionRequest } from '../../API/CreateReception';
+import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
+import { selectCurrentLocation, selectLocations } from '../../redux/selectors/selectLocations';
+import { getAllLocations } from '../../redux/slices/locationSlice';
+import { createMenuOptionThunk, createReceptionThunk } from '../../redux/slices/weddingSlice';
+import CreateMenuItemForm from './createMenuItemForm';
+import HandleLocationForm from './handleLocationForm';
+import { IMenuOption } from '../../models/IMenuOption';
+import { selectReception } from '../../redux/selectors/selectWeddingSlice';
+import { IMenuOptionRequest } from '../../API/CreateMenuOption';
+import { ILocation } from '../../models/ILocation';
+
 
 interface IProps {
     wedding_id: number
@@ -14,12 +19,10 @@ interface IProps {
 
 
 function CreateReceptionForm(props : IProps) {
-    const [location, setLocation] = useState<ILocation | undefined>()
-    const current_location = useAppSelector(selectCurrentLocation);
     const locations = useAppSelector(selectLocations);
     const dispatch = useAppDispatch();
     const { register, handleSubmit } = useForm();
-
+    const [location, setLocation] = useState<ILocation | undefined>()
 
 
     
@@ -33,13 +36,13 @@ function CreateReceptionForm(props : IProps) {
     function receptionFormHandler(formdata : any){
 
         console.log(formdata)
-        if(current_location){
+        if(location){
           var reception : IReceptionRequest = {
             description: formdata.description,
             startDate: formdata.start_date,
             endDate: formdata.end_date,
-            locationId: current_location,
-            weddingId: props.wedding_id,
+            locationId: location.id,
+            weddingId: props.wedding_id, 
             menuOptions:[]
 
           }
@@ -48,14 +51,20 @@ function CreateReceptionForm(props : IProps) {
         }
         
     
-      }
+    }
+
+    function locationHandler(location : ILocation){
+        setLocation(location)
+    }
+
+
 
 
   return (
     <>
-        <HandleLocationForm></HandleLocationForm>
+        {!location && <HandleLocationForm locationHandler={locationHandler}></HandleLocationForm>}
         <div>
-          <label>createCeremonyForm</label>
+          <label>createReceptionForm</label>
           <form onSubmit={handleSubmit(receptionFormHandler)}>
             <label>Start: <input {...register("start_date")} type='datetime-local'></input></label>
             <label>End: <input {...register("end_date")} type='datetime-local'></input></label>

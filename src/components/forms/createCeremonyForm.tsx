@@ -3,11 +3,9 @@ import { useForm } from 'react-hook-form'
 import { ICeremonyRequest } from '../../API/CreateCeremony'
 import { ILocation } from '../../models/ILocation'
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks'
-import { selectCurrentLocation, selectLocations } from '../../redux/selectors/selectLocations'
-import { getAllLocations, setCurrentLocation } from '../../redux/slices/locationSlice'
+import { selectLocations } from '../../redux/selectors/selectLocations'
+import { getAllLocations } from '../../redux/slices/locationSlice'
 import { createCeremonyThunk } from '../../redux/slices/weddingSlice'
-import List from '../lists/genericlist'
-import CreateLocationForm from './createLocationForm'
 import HandleLocationForm from './handleLocationForm'
 
 interface IProps {
@@ -18,10 +16,11 @@ interface IProps {
 
 
 function CreateCeremonyForm(props : IProps) {
-  const current_location = useAppSelector(selectCurrentLocation);
   const locations = useAppSelector(selectLocations);
   const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm();
+  const [location, setLocation] = useState<ILocation | undefined>()
+
 
   useEffect(()=>{
     console.log("RENDERING " + locations.length)
@@ -35,12 +34,12 @@ function CreateCeremonyForm(props : IProps) {
   function ceremonyFormHandler(formdata : any){
 
     console.log(formdata)
-    if(current_location){
+    if(location){
       var ceremony : ICeremonyRequest = {
         description: formdata.description,
         startDate: formdata.start_date,
         endDate: formdata.end_date,
-        locationId: current_location,
+        locationId: location.id,
         weddingId: props.wedding_id
       }
       if(ceremony)
@@ -50,11 +49,14 @@ function CreateCeremonyForm(props : IProps) {
 
   }
 
+  function setCurrentLocationEvent(locationInput : ILocation){
+    setLocation(locationInput);
+  }
 
 
   return (
     <>
-        <HandleLocationForm></HandleLocationForm>
+        <HandleLocationForm locationHandler={setCurrentLocationEvent}></HandleLocationForm>
         <div>
           <label>createCeremonyForm</label>
           <form onSubmit={handleSubmit(ceremonyFormHandler)}>

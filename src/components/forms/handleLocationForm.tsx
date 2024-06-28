@@ -6,9 +6,13 @@ import { getAllLocations, setCurrentLocation } from '../../redux/slices/location
 import List from '../lists/genericlist'
 import CreateLocationForm from './createLocationForm'
 
-function HandleLocationForm() {
+
+interface IProps{
+    locationHandler : any
+}
+
+function HandleLocationForm(props : IProps) {
     const [location, setLocation] = useState<ILocation | undefined>()
-    const current_location = useAppSelector(selectCurrentLocation);
     const locations = useAppSelector(selectLocations);
     const dispatch = useAppDispatch();
   
@@ -24,7 +28,7 @@ function HandleLocationForm() {
   
       console.log("EVENT?")
       console.log(event)
-      dispatch(setCurrentLocation(event.id));
+      props.locationHandler(event)
       setLocation(event);
     }
   
@@ -34,13 +38,15 @@ function HandleLocationForm() {
     }
   
     function resetLocation(){
-      dispatch(setCurrentLocation(undefined));
+      props.locationHandler(undefined);
+      setLocation(undefined);
+
     }
 
 
   return (
     <>
-        { current_location && location ? <><h2>{current_location} {location.title}</h2><button onClick={resetLocation}>ResetLocation</button></> :
+        {location ? <><h2>{location.id} {location.title}</h2><button onClick={resetLocation}>ResetLocation</button></> :
         <> <label>Pick or Create a Location</label> <List<ILocation> listItems={locations} name='locations' onclickEvent={setCurrentLocationEvent} setContentFunction={setContent}></List>
         <CreateLocationForm></CreateLocationForm></> }
     </>

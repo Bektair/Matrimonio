@@ -18,6 +18,7 @@ import { ILocationResponse } from '../../API/GetLocations'
 import { ILocation } from '../../models/ILocation'
 import { ICeremonyRequest, createCeremony } from '../../API/CreateCeremony'
 import { IReceptionRequest, createReception } from '../../API/CreateReception'
+import { IMenuOptionRequest, createAddMenuOption } from '../../API/CreateMenuOption'
 
 
 interface sliceState  {
@@ -291,6 +292,12 @@ const weddingSlice = createSlice( {
                 }
                 state.ceremony = ceremony;
             }
+        }),
+        builder.addCase(createMenuOptionThunk.fulfilled, (state, action) => {
+            var payload = action.payload;
+            if(payload != undefined){
+                state.reception?.menuOptions.push(payload);
+            }
         })
     }
 })
@@ -459,6 +466,20 @@ export const createReceptionThunk = createAsyncThunk(
         try {
             const reception = await createReception(createReceptionRequest);
             return reception
+        } catch(err){
+            console.log(err)
+            return undefined
+        }
+    }
+)
+
+
+export const createMenuOptionThunk = createAsyncThunk(
+    'wedding/createReception',
+    async(createMenuOptionRequest: IMenuOptionRequest)=> {
+        try {
+            const menuoption = await createAddMenuOption(createMenuOptionRequest);
+            return menuoption
         } catch(err){
             console.log(err)
             return undefined
