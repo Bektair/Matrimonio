@@ -8,4 +8,5 @@ export enum DishTags
     Vegan = "Vegan",
     Dinner = "Dinner",
     Dessert = "Dessert",
+    Vegetarian = "Vegetarian"
 }

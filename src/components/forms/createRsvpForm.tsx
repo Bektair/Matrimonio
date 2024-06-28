@@ -9,6 +9,7 @@ import { useAppDispatch } from '../../redux/Hooks/hooks';
 import { createRSVPThunk } from '../../redux/slices/weddingSlice';
 import './createRsvpForm.sass';
 import { selectCeremony } from '../../redux/selectors/selectWeddingSlice';
+import { RSVPStatus } from '../../models/IRSVP';
 
 interface IProps {
     user: IUser | undefined
@@ -33,15 +34,18 @@ function CreateRsvpForm(props : IProps) {
         console.log(new Date(formData.deadline))
         if(props.user != undefined && props.wedding != undefined){
             console.log(props.user?.id)
-            console.log(formData.numberOfGuests)
+            console.log("USER ID YAY")
+            console.log(props.user.id.includes("|") ?  props.user.id.split("|")[1] : props.user.id)
+
+
             var rsvp = {
                 body: formData.body,
                 deadline: new Date(formData.deadline).getTime(),
                 OtherDietaryRequirements: "",
                 numberOfGuests: formData.numberOfGuests,
-                signerId: props.user.id.split("|")[1],
+                signerId: props.user.id.includes("|") ?  props.user.id.split("|")[1] : props.user.id,
                 weddingId: props.wedding.id,
-                status: "pending"
+                status: RSVPStatus.Pending
             } as IRSVPCreate
             console.log(props.user)
             console.log(JSON.stringify(rsvp))
@@ -56,9 +60,8 @@ function CreateRsvpForm(props : IProps) {
     function setDefaultTextBody(){
         var defaultText = ""
         if(ceremony!=null && ceremony!=undefined){
-
             var date = new Date(ceremony.startDate);
-            defaultText = `We are glad to invite you to our wedding ${date.getDate()+"/" + date.getMonth()+"/"+date.getFullYear()} 
+            defaultText = `We are glad to invite you to our wedding ${date.getDate()+"/" + (date.getMonth()+1) +"/"+date.getFullYear()} 
             The ceremony will be held in ${ceremony.location.title}, shown in the map beneath. 
             Please respond by clicking accept or decline, The Deadline to answer is {deadline}.
             For more information visit the rest of the website, we look forward to meeting you`

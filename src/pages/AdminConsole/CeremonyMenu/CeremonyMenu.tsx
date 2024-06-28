@@ -29,7 +29,7 @@ function CeremonyMenu() {
         <WeddingList weddings={weddings} ceremony={true}></WeddingList>
         {!ceremony && wedding && <><label>You can add a ceremony to wedding with id {wedding.id}</label>
         <CreateCeremonyForm wedding_id={wedding?.id}></CreateCeremonyForm></>}
-        { ceremony && <><label>Ceremony</label><Summary location={ceremony.location} startDate={ceremony.startDate} endDate={ceremony.endDate}></Summary></> }
+        { ceremony && wedding && <><label>Ceremony</label><Summary location={ceremony.location} startDate={ceremony.startDate} endDate={ceremony.endDate}></Summary></> }
         
     </>
   )

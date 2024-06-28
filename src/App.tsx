@@ -21,6 +21,7 @@ import Schedule from './pages/Schedule/Schedule.tsx'
 import RsvpMenu from './pages/AdminConsole/RSVPMenu/rsvpMenu.tsx'
 import CeremonyMenu from './pages/AdminConsole/CeremonyMenu/CeremonyMenu.tsx'
 import ReceptionMenu from './pages/AdminConsole/ReceptionMenu/ReceptionMenu.tsx'
+import ParticipationMenu from './pages/AdminConsole/ParticipationMenu/ParticipationMenu.tsx'
 
 export const App : React.FC = () => {
   const auth = useAuthListener()
@@ -45,7 +46,7 @@ export const App : React.FC = () => {
             <Route path={PathConstants.WeddingMenu} element={<Weddingsmenu/>} />
             <Route path={PathConstants.RSVPMenu} element={<RsvpMenu/>} />
             <Route path={PathConstants.User} element={<UserCreationMenu/>} />
-
+            <Route path={PathConstants.ParticipationMenu} element={<ParticipationMenu/>} />
           </Route>
         </Routes>
   )

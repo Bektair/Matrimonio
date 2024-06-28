@@ -63,6 +63,7 @@ function Rsvp() {
     console.log("STATUS ER: " + rsvp.status)
     switch (rsvp.status) {
       case RSVPStatus.Pending:
+        elements.push(<label>{rsvp.body}</label>)
         elements.push(<RSVPPending key={rsvp.id+"-"+rsvp.status} id={rsvp.id}></RSVPPending>)
         break;
       case RSVPStatus.Accepted:

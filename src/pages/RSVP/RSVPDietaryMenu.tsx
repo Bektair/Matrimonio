@@ -33,13 +33,8 @@ function RSVPDietaryMenu(props : IProps) {
     
     function updateRSVP(formData : any){
 
-        if(weddings.length > 0)
-
-            dispatch(setWedding({wedding: weddings[0]}));
-          else{
-              dispatch(getAllWeddings());
-          }
-
+        if(weddings.length == 0)
+            dispatch(getAllWeddings());
 
         console.log("RECEPTION")
         console.log(reception)

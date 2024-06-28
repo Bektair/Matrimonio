@@ -1,3 +1,4 @@
+import { Root } from "react-dom/client";
 import { RootState } from "../store";
 
 export const selectWedding = (state: RootState) => {
@@ -26,3 +27,7 @@ export const selectReception = (state: RootState) => {
     return state.wedding.reception;
 }
 
+
+export const selectParticipants = (state: RootState) => {
+    return state.wedding.participants;
+}

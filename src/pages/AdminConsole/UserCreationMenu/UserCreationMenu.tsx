@@ -10,6 +10,7 @@ import { getCeremony } from '../../../redux/slices/weddingSlice';
 import './UserCreationMenu.sass';
 import { selectUsers } from '../../../redux/selectors/selectUsers';
 import { selectWedding } from '../../../redux/selectors/selectWeddingSlice';
+import UserList from '../../../components/lists/UserList';
 
 
 
@@ -101,12 +102,6 @@ function UserCreationMenu() {
 
   }
 
-  function getContent(_user : IUser){
-    var content = "";
-    content += `${_user.firstName} ${_user.lastName} ${_user.email}`;
-    return content
-}
-
 
   return (
     <>
@@ -118,7 +113,7 @@ function UserCreationMenu() {
           <button onClick={sendRequest}>createUser</button>
       </div>
       <div id='userSelectionMenu'>
-        {users.length > 0 && <List name='users' listItems={users} setContentFunction={getContent} onclickEvent={selectUserClick}></List>  }
+        <UserList setSelectedUser={selectUserClick} users={users}></UserList>
       </div>
       <label>{selectedUser?.id}</label>
 

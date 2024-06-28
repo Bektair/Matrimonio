@@ -28,7 +28,8 @@ function ReceptionMenu() {
   },[])
 
   function menuItemAdd(menuItem: IMenuOption){
-
+    console.log("MENUITEM attempted added")
+    console.log(menuItem)
 
     setMenuItems([...menuItems, { alergens: menuItem.alergens, dishName: menuItem.dishName, 
         id: menuItem.id, image: menuItem.image, tags: menuItem.tags }])

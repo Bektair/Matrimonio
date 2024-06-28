@@ -1,0 +1,16 @@
+export enum ParticipationRole {
+    Bride = "Bride",
+    Groom = "Groom",
+    Guest = "Guest",
+    GodParent = "GodParent",
+    Bridesmaid = "Bridesmaid",
+    MaidOfHonor = "MaidOfHonor",
+    RingeBearer = "RingBearer",
+    Groomsman = "Groomsman",
+    Priest = "Priest",
+    BestMan = "BestMan",
+    MotherOfTheBride = "MotherOfTheBride",
+    FatherOfTheBride = "FatherOfTheBride",
+    FatherOfTheGroom = "FatherOfTheGroom",
+    MotherOfTheGroom = "MotherOfTheGroom",
+}

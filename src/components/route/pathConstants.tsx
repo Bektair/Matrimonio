@@ -15,6 +15,7 @@ const PathConstants = {
     Admin: "/adminconsole",
     WeddingMenu: "/weddingmenu",
     User: "/user",
+    ParticipationMenu: "/participationMenu",
 }
 
 export default PathConstants;

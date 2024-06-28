@@ -13,7 +13,7 @@ function RSVPPending(props: IProps) {
 
 
   return (
-    <div key={props.id+"-pending"}>
+    <div key={props.id+"-pending"} className='rsvp-response-buttons'>
       <UpdateRSVPbutton rsvpId={props.id} status={RSVPStatus.Accepted} name='Accept'></UpdateRSVPbutton>
       <UpdateRSVPbutton rsvpId={props.id} status={RSVPStatus.Declined} name='Decline'></UpdateRSVPbutton>
     </div>

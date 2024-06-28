@@ -16,6 +16,8 @@ import { IRSVP } from '../../models/IRSVP'
 import { IReception } from '../../models/IReception'
 import { IReligiousCeremony as ICeremony } from '../../models/IReligiousCeremony'
 import { IWedding } from '../../models/IWedding'
+import { IParticipantRequest, addParticipant } from '../../API/CreateParticipant'
+import { IParticipantGetRequest, fetchParticipants } from '../../API/GetParticipant'
 
 
 interface sliceState  {
@@ -76,6 +78,7 @@ const weddingSlice = createSlice( {
                 ...state, wedding
             }
         },
+
         changeSecondaryColor: (state, action: PayloadAction<string>) => {
             var updatedWedding = state.wedding;
             if(updatedWedding!=undefined){
@@ -295,7 +298,32 @@ const weddingSlice = createSlice( {
             if(payload != undefined){
                 state.reception?.menuOptions.push(payload);
             }
+        }),
+        builder.addCase(addParticipantThunk.fulfilled, (state, action) => {
+            var payload = action.payload;
+            if(payload!=undefined) {
+                var participant : IParticipant = {
+                    role: payload.role,
+                    id: payload.userId
+                } 
+                state.participants.push(participant)
+            }
+        }),
+        builder.addCase(getParticipantsThunk.fulfilled, (state, action) => {
+            var payload = action.payload;
+            if(payload != undefined){
+                console.log("------------------------------------------------------------------ThunkDone")
+                console.log(payload)
+                let participants : IParticipant[] = payload.map((req) =>{ return {
+                    role: req.role,
+                    id: req.userId
+                }})
+                console.log(participants)
+                state.participants = participants;
+            }
+
         })
+
     }
 })
 export const { setWedding, changeSecondaryColor } = weddingSlice.actions
@@ -472,7 +500,7 @@ export const createReceptionThunk = createAsyncThunk(
 
 
 export const createMenuOptionThunk = createAsyncThunk(
-    'wedding/createReception',
+    'wedding/reception/addMenuOption',
     async(createMenuOptionRequest: IMenuOptionRequest)=> {
         try {
             const menuoption = await createAddMenuOption(createMenuOptionRequest);
@@ -484,7 +512,32 @@ export const createMenuOptionThunk = createAsyncThunk(
     }
 )
 
+export const addParticipantThunk = createAsyncThunk(
+    'wedding/addParticipant',
+    async(participantRequest: IParticipantRequest)=> {
+        try {
+            const participant = await addParticipant({participantrequest: participantRequest});
+            return participant
+        } catch(err){
+            console.log(err)
+            return undefined
+        }
+    }
+)
 
+export const getParticipantsThunk = createAsyncThunk(
+    'wedding/getParticipants',
+    async(participantRequest: IParticipantGetRequest)=> {
+        try {
+            console.log("INSIDE Participantrequest")
+            const participants = await fetchParticipants({ weddingId: participantRequest.weddingId, role: participantRequest.role });
+            return participants
+        } catch(err){
+            console.log(err)
+            return undefined
+        }
+    }
+)
 
 
 
