@@ -4,7 +4,6 @@ import { RequestsEnum } from "../../constants/requestEnums";
 import { WeddingCss } from "../../constants/weddingCssVariables";
 import { RequestFailed, RequestFinished, RequestStarted } from "../slices/requstSice";
 import { IPayload } from "../slices/weddingSlice";
-import { RootState } from "../store";
 
 export const REQUEST_ACTION_TYPE = "request/iniateRequest";
 
@@ -30,7 +29,7 @@ function setLanguage(fontfamily : string, value : string, cssVariable: string){
 
 
 
-const requestMiddleware: Middleware<{}, RootState> = storeApi => next => (action: unknown) => {
+const requestMiddleware: Middleware<{}, any> = storeApi => next => (action: unknown) => {
 
     if(isAction(action)){
         console.log("in action, with type" + action.type)
