@@ -1,16 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IReceptionRequest } from '../../API/CreateReception';
-import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { selectCurrentLocation, selectLocations } from '../../redux/selectors/selectLocations';
-import { getAllLocations } from '../../redux/slices/locationSlice';
-import { createMenuOptionThunk, createReceptionThunk } from '../../redux/slices/weddingSlice';
-import CreateMenuItemForm from './createMenuItemForm';
-import HandleLocationForm from './handleLocationForm';
-import { IMenuOption } from '../../models/IMenuOption';
-import { selectReception } from '../../redux/selectors/selectWeddingSlice';
-import { IMenuOptionRequest } from '../../API/CreateMenuOption';
 import { ILocation } from '../../models/ILocation';
+import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
+import { selectLocations } from '../../redux/selectors/selectLocations';
+import { getAllLocations } from '../../redux/slices/locationSlice';
+import { createReceptionThunk } from '../../redux/slices/weddingSlice';
+import HandleLocationForm from './handleLocationForm';
 
 
 interface IProps {

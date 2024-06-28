@@ -3,14 +3,13 @@ import { useForm } from "react-hook-form";
 import { ILocationRequest } from "../../API/CreateLocation";
 import { googleApiKey } from "../../constants/environment";
 import { useAppDispatch } from "../../redux/Hooks/hooks";
-import './createLocationForm.sass';
 import { ICreateLocation, createLocationThunk } from "../../redux/slices/locationSlice";
+import './createLocationForm.sass';
 
 function CreateLocationForm() {
     const { register, handleSubmit } = useForm();
     const [address, setAddress] = useState("");
     const dispatch = useAppDispatch();
-    const [error, setError] = useState(null);
 
     useEffect(()=>{
         console.log("REEEEEEEEEEEEEEEEEERENDER")
@@ -53,7 +52,7 @@ function CreateLocationForm() {
     <>
 
         <div>createLocationForm</div>
-        <label>{address}{error}</label>
+        <label>{address}</label>
         <form id='locationUpdateComponent'  onSubmit={handleSubmit(updateCeremony)}>
             <input {...register("title")} type="text" placeholder="title" name="title"></input>
             <input {...register("img")} type="text" placeholder="image" name="img"></input>

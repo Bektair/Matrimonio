@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ILocation } from '../../models/ILocation'
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks'
-import { selectCurrentLocation, selectLocations } from '../../redux/selectors/selectLocations'
-import { getAllLocations, setCurrentLocation } from '../../redux/slices/locationSlice'
+import { selectLocations } from '../../redux/selectors/selectLocations'
+import { getAllLocations } from '../../redux/slices/locationSlice'
 import List from '../lists/genericlist'
 import CreateLocationForm from './createLocationForm'
 

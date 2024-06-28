@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { IMenuOptionCreate } from '../../API/CreateReception';
 import './createMenuItemForm.sass'
 import { Allergen } from '../../constants/allergens';
+import Select from 'react-select';
 
 interface IProps {
     menuItemAdd : any
@@ -12,7 +13,8 @@ interface IProps {
 function CreateMenuItemForm(props : IProps) {
     const { register, handleSubmit } = useForm();
     const [image, setImage] = useState("")
-    const allergenOptions = Object.values(Allergen)
+    const allergenOptions = Object.values(Allergen).map((s)=> {return {value: s, label: s.toString()}})
+
 
 
     function menuItemFormHandler(formdata: any){
@@ -31,15 +33,15 @@ function CreateMenuItemForm(props : IProps) {
         setImage(e.target.value)
     }
 
-    function getAllergenOptions(){
-        var allergens : JSX.Element[] = [];
+    // function getAllergenOptions(){
+    //     var allergens : JSX.Element[] = [];
 
-        allergenOptions.forEach(allergenOption => {
-            allergenOption.toString()
-            allergens.push(<label>{allergenOption}<input {...register('allergen_chk')} type='checkbox' name='allergen_chk' value={allergenOption}/></label>)
-        });
-        return allergens;
-    }
+    //     allergenOptions.forEach(allergenOption => {
+    //         allergenOption.toString()
+    //         allergens.push(<label>{allergenOption}<input {...register('allergen_chk')} type='checkbox' name='allergen_chk' value={allergenOption}/></label>)
+    //     });
+    //     return allergens;
+    // }
 
     //Can I add the menu from the RSVP, that kind of items here as a display?
     //First add alergens and stuff
@@ -48,7 +50,14 @@ function CreateMenuItemForm(props : IProps) {
     <div>createMenuItemForm
         <form id='menuOptionForm' onSubmit={handleSubmit(menuItemFormHandler)}>
             <input {...register("dishname")} type='text' placeholder='dishname'/>
-            <label id='menuOptionForm-allergen'>Allergens: {getAllergenOptions()}</label>
+            <label id='menuOptionForm-allergen'>Allergens:  <Select
+                defaultValue={[allergenOptions[0]]}
+                isMulti
+                name="allergens"
+                options={allergenOptions}
+                className="basic-multi-select"
+                classNamePrefix="select"
+            /></label>
             <label>Tags</label>
             <select {...register("tags")}>
 

@@ -1,11 +1,10 @@
 import { useEffect } from "react"
+import CreateCeremonyForm from "../../../components/forms/createCeremonyForm"
 import WeddingList from "../../../components/lists/WeddingList"
 import { useAppDispatch, useAppSelector } from "../../../redux/Hooks/hooks"
 import { selectCeremony, selectWedding } from "../../../redux/selectors/selectWeddingSlice"
 import { selectWeddings } from "../../../redux/selectors/selectWeddingsSlice"
 import { getAllWeddings } from "../../../redux/slices/weddingsSlice"
-import { getCeremony } from "../../../redux/slices/weddingSlice"
-import CreateCeremonyForm from "../../../components/forms/createCeremonyForm"
 import Summary from "../../Schedule/Summary"
 
 function CeremonyMenu() {

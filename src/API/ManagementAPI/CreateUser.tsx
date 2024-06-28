@@ -1,7 +1,7 @@
-import getManagementAuthHeaders from "./SetManagementAuthHeaders"
-import { API_URL, audience, domain } from "../../constants/environment";
+import { API_URL, domain } from "../../constants/environment";
 import { IUserResponse } from "../../models/IUserResponse";
 import getAuthHeaders from "../SetAuthHeaders";
+import getManagementAuthHeaders from "./SetManagementAuthHeaders";
 
 export interface IUserCreateRequest {
     "email": string,
@@ -24,24 +24,6 @@ interface userMetadata {
 
 }
 
-// interface appMetadata {
-//     clientID: string
-//     globalClientID : string
-//     global_client_id : string
-//     email_verified : string
-//     user_id : string
-//     identities : string
-//     lastIP : string
-//     lastLogin : string
-//     metadata : string
-//     created_at : string
-//     loginsCount : string
-//     _id : string
-//     email : string
-//     blocked : string
-//     __tenant : string
-//     updated_at : string
-// }
 
 export async function GetUsers() : Promise<IUserResponse[]>{
     const headers = await getAuthHeaders()

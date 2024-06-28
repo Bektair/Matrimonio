@@ -1,6 +1,4 @@
 import { API_URL } from "../constants/environment"
-import { IMenuOption } from "../models/IMenuOption"
-import { ICeremonyResponse } from "./GetCeremony"
 import { IReceptionResponse } from "./GetReception"
 import getAuthHeaders from "./SetAuthHeaders"
 

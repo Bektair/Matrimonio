@@ -26,6 +26,3 @@ export const selectReception = (state: RootState) => {
     return state.wedding.reception;
 }
 
-export const selectCurrentLocation = (state: RootState) => {
-    return state.wedding.active_location;
-}
