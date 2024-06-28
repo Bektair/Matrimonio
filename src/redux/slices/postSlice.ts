@@ -41,7 +41,7 @@ import { IPost } from "../../models/IPost"
     },
     extraReducers: (builder) => {
       builder.addCase(getAllPostsInWedding.fulfilled, (state, action)=>{
-        let posts = action.payload.map(post => {
+        let posts = action.payload.map((post : any) => {
           return {
             id: post.id,
             title: post.title,
@@ -56,7 +56,7 @@ import { IPost } from "../../models/IPost"
   });
   
 // Thunk creator
-export const getAllPostsInWedding = createAsyncThunk(
+export const getAllPostsInWedding : any = createAsyncThunk(
   'posts/setPosts',
   //Inside thunk function
   async (wedding_id : number)=> {

@@ -18,7 +18,7 @@ const usersSlice = createSlice({
     },
     extraReducers: (builder) =>  {
         builder.addCase(getAllUsers.fulfilled, (state, action)=>{
-            let users = action.payload.map(wedding => {
+            let users = action.payload.map((wedding: any) => {
                 return { 
                     id: wedding.id,
                     firstName: wedding.firstName,
@@ -35,7 +35,7 @@ const usersSlice = createSlice({
     }
 })
 
-export const getAllUsers = createAsyncThunk(
+export const getAllUsers: any = createAsyncThunk(
     'users/setUsers',
     //Inside thunk function
     async ()=> {

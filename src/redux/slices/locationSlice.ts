@@ -2,7 +2,6 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { ILocation } from "../../models/ILocation"
 import { ILocationResponse, fetchLocations } from "../../API/GetLocations"
 import { ILocationRequest, createLocation } from "../../API/CreateLocation"
-
 type sliceState = {
     locations: ILocation[]
     active_location: number | undefined
@@ -28,7 +27,7 @@ type sliceState = {
     },
     extraReducers: (builder) => {
         builder.addCase(getAllLocations.fulfilled, (state, action)=> {
-            let locations = action.payload.map(locationResponse => {
+            let locations = action.payload.map((locationResponse : any)  => {
                 return {
                     address: locationResponse.address,
                     body: locationResponse.body,
@@ -72,7 +71,7 @@ type sliceState = {
 
   export const { setCurrentLocation } = locationSlice.actions
 
-  export const getAllLocations = createAsyncThunk(
+  export const getAllLocations : any = createAsyncThunk(
     'location/getAllLocations',
     //Inside thunk function
     async ()=> {
@@ -93,7 +92,7 @@ type sliceState = {
 
 
 
-export const createLocationThunk = createAsyncThunk(
+export const createLocationThunk : any = createAsyncThunk(
     'wedding/createLocation',
     async(_location : ICreateLocation)=>{
         try{

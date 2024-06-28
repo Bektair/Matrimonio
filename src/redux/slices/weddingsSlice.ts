@@ -34,9 +34,8 @@ const weddingsSlice = createSlice( {
     },
     extraReducers: (builder) =>  {
         builder.addCase(getWeddingsByParticipant.fulfilled, (state, action)=>{
-            console.log("WeddingsByParticipant ONLY sent        ---------------------------------------------------------------------") 
 
-            let weddings = action.payload.map(wedding => {
+            let weddings = action.payload.map((wedding : any) => {
                 var test  : IWedding =  { 
                     id: wedding.id,
                     primaryColor: wedding.primaryColor,
@@ -61,7 +60,7 @@ const weddingsSlice = createSlice( {
         builder.addCase(getAllWeddings.fulfilled, (state, action)=>{
 
 
-            let weddings = action.payload.map(wedding => {
+            let weddings = action.payload.map((wedding : any) => {
                 var test  : IWedding =  { 
                     id: wedding.id,
                     primaryColor: wedding.primaryColor,
@@ -78,11 +77,6 @@ const weddingsSlice = createSlice( {
                 }
                 return test;
             })
-            console.log("WeddingsByParticipant or All sent        ---------------------------------------------------------------------") 
-            console.log(weddings) 
-            
-
-
             state.weddings = weddings;
         }),
         builder.addCase(createAWedding.fulfilled, (state, action)=>{
@@ -114,7 +108,7 @@ const weddingsSlice = createSlice( {
 })
 export const { addWedding } = weddingsSlice.actions
 
-export const getAllWeddings = createAsyncThunk(
+export const getAllWeddings: any = createAsyncThunk(
     'weddings/setWeddings',
     //Inside thunk function
     async ()=> {
@@ -127,7 +121,7 @@ export const getAllWeddings = createAsyncThunk(
     }
   )
 
-  export const getWeddingsByParticipant = createAsyncThunk(
+  export const getWeddingsByParticipant: any = createAsyncThunk(
     'weddings/setWeddingsByParticipant',
     //Inside thunk function
     async (participantId : string)=> {
@@ -140,7 +134,7 @@ export const getAllWeddings = createAsyncThunk(
     }
   )
 
-  export const createAWedding = createAsyncThunk(
+  export const createAWedding: any = createAsyncThunk(
     'weddings/createWedding',
     //Inside thunk function
     async (weddingRequest : IWeddingRequest)=> {
