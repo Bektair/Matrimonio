@@ -22,6 +22,7 @@ import RsvpMenu from './pages/AdminConsole/RSVPMenu/rsvpMenu.tsx'
 import CeremonyMenu from './pages/AdminConsole/CeremonyMenu/CeremonyMenu.tsx'
 import ReceptionMenu from './pages/AdminConsole/ReceptionMenu/ReceptionMenu.tsx'
 import ParticipationMenu from './pages/AdminConsole/ParticipationMenu/ParticipationMenu.tsx'
+import ProtectedAdminRoute from './pages/Auth/protectedAdminRoute.tsx'
 
 export const App : React.FC = () => {
   const auth = useAuthListener()
@@ -42,7 +43,7 @@ export const App : React.FC = () => {
             <Route path={PathConstants.Profile} element={<Profile/>} />
             <Route path={PathConstants.Create} element={<Create/>} />
             <Route path={PathConstants.Posts} element={<Posts/>} />
-            <Route path={PathConstants.Admin} element={<ProtectedRoute auth={auth}><AdminConsole/></ProtectedRoute>} />
+            <Route path={PathConstants.Admin} element={<ProtectedAdminRoute auth={auth}><AdminConsole/></ProtectedAdminRoute>} />
             <Route path={PathConstants.WeddingMenu} element={<Weddingsmenu/>} />
             <Route path={PathConstants.RSVPMenu} element={<RsvpMenu/>} />
             <Route path={PathConstants.User} element={<UserCreationMenu/>} />

@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 function useAuthListener() {
   const {isAuthenticated, user, isLoading, getAccessTokenSilently} = useAuth0()
   const dispatch = useDispatch()
-
+  var isAdmin = false; 
   useEffect(()=>{
 
     const getToken = (async () => {
@@ -22,19 +22,34 @@ function useAuthListener() {
 
       return token;
     })
+
     if(isAuthenticated){
       console.log("allreadyAuthenticated")
       getToken();
+      if(user){
+        var roles = user['https://marrymonio.azurewebsites.net/roles']
+        console.log("ROLLER SOM ER FUNNET I AUTHLISTENER")
+        console.log(roles)
+        if(roles && roles.length > 0){
+          if(roles.find((x : string)=> x == "Administrator"))
+            isAdmin= true;
+        }
+      }
+      console.log("IsAdmin?")
+      console.log(isAdmin)
+
+
     } else {
       var id = user?.sub?.split("|")[1];
       dispatch(setAuthState({isAuthenticated, user, isLoading, id}))
     }
+    
 
 
 
   }, [dispatch, isAuthenticated, user, isLoading, getAccessTokenSilently])
 
-  return {isLoading, isAuthenticated}
+  return {isLoading, isAuthenticated, isAdmin}
 
 }
 
