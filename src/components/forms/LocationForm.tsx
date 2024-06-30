@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useAppDispatch } from '../../redux/Hooks/hooks';
 import { googleApiKey } from '../../constants/environment';
 import { ILocation } from '../../models/ILocation';
 

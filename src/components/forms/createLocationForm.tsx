@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 import { ILocationRequest } from "../../API/CreateLocation";
-import { googleApiKey } from "../../constants/environment";
 import { useAppDispatch, useAppSelector } from "../../redux/Hooks/hooks";
-import { ICreateLocation, createLocationThunk } from "../../redux/slices/locationSlice";
-import './createLocationForm.sass';
-import LocationForm from "./LocationForm";
 import { selectCeremony } from "../../redux/selectors/selectWeddingSlice";
+import { ICreateLocation, createLocationThunk } from "../../redux/slices/locationSlice";
+import LocationForm from "./LocationForm";
+import './createLocationForm.sass';
 
 function CreateLocationForm() {
     const dispatch = useAppDispatch();

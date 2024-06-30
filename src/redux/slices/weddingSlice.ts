@@ -1,8 +1,10 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ICeremonyRequest, createCeremony } from '../../API/CreateCeremony'
 import { IMenuOptionRequest, createAddMenuOption } from '../../API/CreateMenuOption'
+import { IParticipantRequest, addParticipant } from '../../API/CreateParticipant'
 import { IReceptionRequest, createReception } from '../../API/CreateReception'
 import { fetchCeremony } from '../../API/GetCeremony'
+import { IParticipantGetRequest, fetchParticipants } from '../../API/GetParticipant'
 import { fetchRSVP, fetchRSVPWedding } from '../../API/GetRSVP'
 import { fetchReception } from '../../API/GetReception'
 import { fetchWedding } from '../../API/GetWeddings'
@@ -16,8 +18,6 @@ import { IRSVP } from '../../models/IRSVP'
 import { IReception } from '../../models/IReception'
 import { IReligiousCeremony as ICeremony } from '../../models/IReligiousCeremony'
 import { IWedding } from '../../models/IWedding'
-import { IParticipantRequest, addParticipant } from '../../API/CreateParticipant'
-import { IParticipantGetRequest, fetchParticipants } from '../../API/GetParticipant'
 
 
 interface sliceState  {

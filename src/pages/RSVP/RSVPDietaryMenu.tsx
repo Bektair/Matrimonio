@@ -5,12 +5,12 @@ import '../../_index.sass';
 import { IRSVP } from '../../models/IRSVP';
 import { IReception } from '../../models/IReception';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import {  setWedding, updateRSVPThunk } from '../../redux/slices/weddingSlice';
+import { selectReception, selectWedding } from '../../redux/selectors/selectWeddingSlice';
+import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
+import { updateRSVPThunk } from '../../redux/slices/weddingSlice';
 import { getAllWeddings } from '../../redux/slices/weddingsSlice';
 import DietaryItem from './DietaryItem';
 import './RSVPDietaryMenu.sass';
-import { selectReception, selectWedding } from '../../redux/selectors/selectWeddingSlice';
-import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
 
 interface IProps {
     rsvp: IRSVP

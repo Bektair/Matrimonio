@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
+import Select from 'react-select';
+import { IParticipantRequest } from "../../../API/CreateParticipant";
+import UserList from "../../../components/lists/UserList";
+import WeddingList from "../../../components/lists/WeddingList";
+import List from "../../../components/lists/genericlist";
+import { ParticipationRole } from "../../../constants/participantRoles";
+import { IParticipant } from "../../../models/IParticipant";
+import { IUser } from "../../../models/IUser";
 import { useAppDispatch, useAppSelector } from "../../../redux/Hooks/hooks";
 import { selectUsers } from "../../../redux/selectors/selectUsers";
-import { getAllUsers } from "../../../redux/slices/usersSlice";
-import { getAllWeddings } from "../../../redux/slices/weddingsSlice";
-import { selectWeddings, selectWeddingsByParticipant } from "../../../redux/selectors/selectWeddingsSlice";
-import WeddingList from "../../../components/lists/WeddingList";
-import UserList from "../../../components/lists/UserList";
-import { IUser } from "../../../models/IUser";
 import { selectParticipants, selectWedding } from "../../../redux/selectors/selectWeddingSlice";
-import { ParticipationRole } from "../../../constants/participantRoles";
-import Select from 'react-select';
-import { SelectValue } from "../../../components/forms/createMenuItemForm";
+import { selectWeddings } from "../../../redux/selectors/selectWeddingsSlice";
+import { getAllUsers } from "../../../redux/slices/usersSlice";
 import { addParticipantThunk, getParticipantsThunk } from "../../../redux/slices/weddingSlice";
-import { IParticipantRequest } from "../../../API/CreateParticipant";
-import List from "../../../components/lists/genericlist";
-import { IParticipant } from "../../../models/IParticipant";
+import { getAllWeddings } from "../../../redux/slices/weddingsSlice";
 
 
 function ParticipationMenu() {

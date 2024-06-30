@@ -220,11 +220,13 @@ function colorChangeInstantSecoundary(e : any) {
 }
 
 function fontChangeInstant(e: any){
-
+    setPrimaryColor(e.target.value);
+    document.documentElement.style.setProperty(WeddingCss.FontColorMain, e.target.value)
 }
 
 function fontChangeInstantSecound(e: any){
-    
+    setSecoundaryFontColor(e.target.value)
+    document.documentElement.style.setProperty(WeddingCss.FontColorSecoundary, e.target.value)
 }
 
   return (
@@ -246,8 +248,8 @@ function fontChangeInstantSecound(e: any){
             <div className='griditem-wedding'><label></label></div>
             
             <div className='griditem-wedding'><label>FontColor</label></div>
-            <div className='griditem-wedding'><div><input type='color' {...register("fontColorMain")}  onChange={(e)=>setPrimaryFontColor(e.target.value)} value={primaryFontColor ?? "#fed3e3"} id='fontColorPrimaryWeddingUpdate' />
-                                                    <input type='color'{...register("fontColorSecound")}  onChange={(e)=>setSecoundaryFontColor(e.target.value)} value={secoundaryFontColor ?? "#d84444"} id='fontColorSecoundaryWeddingUpdate'></input></div></div>
+            <div className='griditem-wedding'><div><input type='color' {...register("fontColorMain")}  onChange={fontChangeInstant} value={primaryFontColor ?? "#fed3e3"} id='fontColorPrimaryWeddingUpdate' />
+                                                    <input type='color'{...register("fontColorSecound")}  onChange={fontChangeInstantSecound} value={secoundaryFontColor ?? "#d84444"} id='fontColorSecoundaryWeddingUpdate'></input></div></div>
             <div className='griditem-wedding'><div>
                 <FontDropDownSelect currentValue={primaryFont} register={register} cssVariable={WeddingCss.FontPrimary} btnName="body"/>
                 <FontDropDownSelect currentValue={secoundaryFont} register={register} cssVariable={WeddingCss.FontSecound} btnName="heading" />

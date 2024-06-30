@@ -3,11 +3,11 @@ import UpdateLocationForm from "../../../components/forms/UpdateLocationForm"
 import CreateCeremonyForm from "../../../components/forms/createCeremonyForm"
 import WeddingList from "../../../components/lists/WeddingList"
 import { useAppDispatch, useAppSelector } from "../../../redux/Hooks/hooks"
+import { selectCurrentLocation } from "../../../redux/selectors/selectLocations"
 import { selectCeremony, selectWedding } from "../../../redux/selectors/selectWeddingSlice"
 import { selectWeddings } from "../../../redux/selectors/selectWeddingsSlice"
 import { getAllWeddings } from "../../../redux/slices/weddingsSlice"
 import Summary from "../../Schedule/Summary"
-import { selectCurrentLocation, selectCurrentLocationId, selectLocations } from "../../../redux/selectors/selectLocations"
 
 function CeremonyMenu() {
 

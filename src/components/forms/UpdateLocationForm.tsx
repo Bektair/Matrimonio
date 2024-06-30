@@ -1,9 +1,8 @@
-import React from 'react'
-import LocationForm from './LocationForm'
 import { ILocationRequest } from '../../API/CreateLocation'
-import { ICreateLocation, updateLocationThunk } from '../../redux/slices/locationSlice'
-import { useAppDispatch } from '../../redux/Hooks/hooks'
 import { ILocation } from '../../models/ILocation'
+import { useAppDispatch } from '../../redux/Hooks/hooks'
+import { ICreateLocation, updateLocationThunk } from '../../redux/slices/locationSlice'
+import LocationForm from './LocationForm'
 
 interface IProps {
     location: ILocation
