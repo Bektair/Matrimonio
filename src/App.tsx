@@ -35,19 +35,19 @@ export const App : React.FC = () => {
             <Route path={PathConstants.Login} element={<Login/>} />
             <Route path={PathConstants.Register} element={<Register/>} />
             <Route path={PathConstants.Ceremony} element={<Ceremony/>} />
-            <Route path={PathConstants.CeremonyMenu} element={<CeremonyMenu/>} />
+            <Route path={PathConstants.CeremonyMenu} element={<ProtectedAdminRoute auth={auth}><CeremonyMenu/></ProtectedAdminRoute>} />
             <Route path={PathConstants.RSVP} element={<ProtectedRoute auth={auth}><Rsvp/></ProtectedRoute>} />
             <Route path={PathConstants.Reception} element={<Reception/>} />
-            <Route path={PathConstants.ReceptionMenu} element={<ReceptionMenu/>} />
+            <Route path={PathConstants.ReceptionMenu} element={<ProtectedAdminRoute auth={auth}><ReceptionMenu/></ProtectedAdminRoute>} />
             <Route path={PathConstants.Schedule} element={<Schedule/>} />
             <Route path={PathConstants.Profile} element={<Profile/>} />
             <Route path={PathConstants.Create} element={<Create/>} />
             <Route path={PathConstants.Posts} element={<Posts/>} />
             <Route path={PathConstants.Admin} element={<ProtectedAdminRoute auth={auth}><AdminConsole/></ProtectedAdminRoute>} />
-            <Route path={PathConstants.WeddingMenu} element={<Weddingsmenu/>} />
-            <Route path={PathConstants.RSVPMenu} element={<RsvpMenu/>} />
-            <Route path={PathConstants.User} element={<UserCreationMenu/>} />
-            <Route path={PathConstants.ParticipationMenu} element={<ParticipationMenu/>} />
+            <Route path={PathConstants.WeddingMenu} element={<ProtectedAdminRoute auth={auth}><Weddingsmenu/></ProtectedAdminRoute>} />
+            <Route path={PathConstants.RSVPMenu} element={<ProtectedAdminRoute auth={auth}><RsvpMenu/></ProtectedAdminRoute>} />
+            <Route path={PathConstants.User} element={<ProtectedAdminRoute auth={auth}><UserCreationMenu/></ProtectedAdminRoute>} />
+            <Route path={PathConstants.ParticipationMenu} element={<ProtectedAdminRoute auth={auth}><ParticipationMenu/></ProtectedAdminRoute>} />
           </Route>
         </Routes>
   )
