@@ -20,7 +20,6 @@ function WeddingUpdate() {
     let fontColorMain : any = null;
     let fontColorSecound : any = null;
     const weddingSelectedLabel = useRef<HTMLLabelElement>(null);
-    const backgroundImageLabel = useRef<HTMLInputElement>(null);
     const dispatch = useAppDispatch()
     
 
