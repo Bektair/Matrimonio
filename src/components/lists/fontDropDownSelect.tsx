@@ -1,6 +1,6 @@
 import { MutableRefObject, useRef, useState } from "react";
 import { FieldValues, UseFormRegister } from "react-hook-form";
-import { Fonts } from "../../constants/allFonts";
+import { WeddingDefaults } from "../../constants/weddingDefaults";
 
 
 
@@ -14,7 +14,7 @@ interface sentProps{
 function FontDropDownSelect(sentProps : sentProps) {
 
 
-    const [computedStylesArray, setComputedStyles] = useState(Fonts.DEFAULT);
+    const [computedStylesArray, setComputedStyles] = useState(WeddingDefaults.DEFAULT_BODY_FONT);
     const [activeFont, setActiveFont] = useState<HTMLElement | null>(null) 
     const styleRef = useRef(null);
 

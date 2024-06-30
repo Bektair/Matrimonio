@@ -10,6 +10,15 @@ interface IParams {
 export interface IWeddingRequest {
     description: string
     dresscode: string
+    primaryColor : string
+    secoundaryColor : string
+    primaryFontColor : string
+    secoundaryFontColor : string
+    backgroundImage : string
+    bodyFont : string
+    headingFont : string
+    title : string
+    picture : string
 }
 
 export async function createWedding({ weddingRequest } : IParams) {

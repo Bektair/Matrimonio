@@ -21,7 +21,12 @@ export interface IPatchCeremonyResponse {
 
 
 export async function updateCeremonyRequest(ceremony : ICeremonyUpdate, id : string) : Promise<ICeremonyUpdate> {
+    
+    console.log("CEREMONY before patch creation")
+    console.log(ceremony)
     var patches = createJsonPatch(ceremony);
+    console.log("CEREMONY AFTER PATCHMADE")
+    console.log(patches)
 
     const headers = await getAuthHeaders();
 

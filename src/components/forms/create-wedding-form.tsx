@@ -1,6 +1,7 @@
 import { ReactNode, useRef, useState } from 'react';
 import { useAppDispatch } from '../../redux/Hooks/hooks';
 import { createAWedding } from '../../redux/slices/weddingsSlice';
+import { WeddingDefaults } from '../../constants/weddingDefaults';
 
 function CreateWeddingForm() {
     const dispatch = useAppDispatch()
@@ -18,7 +19,16 @@ function CreateWeddingForm() {
     
     dispatch(createAWedding({
       description: e.target.description.value,
-      dresscode: e.target.dresscode.value
+      dresscode: e.target.dresscode.value,
+      backgroundImage: WeddingDefaults.DEFAULT_BACKGROUND_IMG,
+      bodyFont: WeddingDefaults.DEFAULT_BODY_FONT,
+      headingFont: WeddingDefaults.DEFAULT_HEADING_FONT,
+      picture: e.target.picture.value,
+      primaryColor: WeddingDefaults.DEFAULT_BG_COLOR,
+      primaryFontColor: WeddingDefaults.DEFAULT_FONT_COLOR,
+      secoundaryColor: WeddingDefaults.DEFAULT_BG_COLOR_SECOUNDARY,
+      secoundaryFontColor: WeddingDefaults.DEFAULT_FONT_COLOR_SECOUNDARY,
+      title: e.target.title.value
     }))
 
     setTimeout(function () {

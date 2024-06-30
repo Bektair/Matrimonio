@@ -111,6 +111,7 @@ function WeddingUpdate() {
 
     var colorChangeHandler = function(cssvariable : string){
         return function (event: any){
+            console.log("colorChanged")
             document.documentElement.style.setProperty(cssvariable, event.target.value)
             console.log(cssvariable + ":" + event.target.value)
         }
@@ -206,6 +207,25 @@ function changedBackground(event : any){
         setBackgroundImage(event.target.value)
 }
 
+function colorChangeInstantPrimary(e : any) {
+    console.log("INSTANT CHANGE TRIGGER")
+    setPrimaryColor(e.target.value)
+    document.documentElement.style.setProperty(WeddingCss.BgColorPrimary, e.target.value)
+}
+
+function colorChangeInstantSecoundary(e : any) {
+    console.log("INSTANT CHANGE TRIGGER")
+    setSecoundaryColor(e.target.value)
+    document.documentElement.style.setProperty(WeddingCss.BgColorSecoundary, e.target.value)
+}
+
+function fontChangeInstant(e: any){
+
+}
+
+function fontChangeInstantSecound(e: any){
+    
+}
 
   return (
     <form id='weddingUpdateComponent'  onSubmit={handleSubmit(updateWedding)}>
@@ -214,11 +234,11 @@ function changedBackground(event : any){
         <label>You have wedding: {primaryColor} selected</label>
         <div id='customWeddingUpdates'>
             <div className='griditem-wedding'><label>MainColor</label></div>
-            <div className='griditem-wedding'><input type='color' {...register("mainColor")} onChange={(e)=>setPrimaryColor(e.target.value)}  value={primaryColor}   id='primaryColorWeddingUpdate'></input></div>
+            <div className='griditem-wedding'><input type='color' {...register("mainColor")} onChange={colorChangeInstantPrimary}  value={primaryColor}   id='primaryColorWeddingUpdate'></input></div>
             <div className='griditem-wedding'><input type="range" {...register("mainColorRange")} onChange={alphaChangeHandler(WeddingCss.BgColorPrimary, "primaryColorWeddingUpdate", setPrimaryColorAlpha)} min="0" max="255" step="1" value={primaryColorAlpha} id="primaryColorRangeWeddingUpdate"/></div>
             
             <div className='griditem-wedding'><label>SecoundaryColor</label></div>
-            <div className='griditem-wedding'><input type='color' {...register("secoundaryColor")} onChange={(e)=>setSecoundaryColor(e.target.value)} value={secoundaryColor} id='secoundaryColorWeddingUpdate' /></div>
+            <div className='griditem-wedding'><input type='color' {...register("secoundaryColor")} onChange={colorChangeInstantSecoundary} value={secoundaryColor} id='secoundaryColorWeddingUpdate' /></div>
             <div className='griditem-wedding'><input type="range" {...register("secoundaryColorRange")} onChange={(alphaChangeHandler(WeddingCss.BgColorSecoundary, "secoundaryColorWeddingUpdate", setSecoundaryColorAlpha))}  min="0" max="255" step="1"  value={secoundaryColorAlpha} id='secoundaryColorRangeWeddingUpdate' /></div>
             
             <div className='griditem-wedding'><label>BackgroundImage</label></div>

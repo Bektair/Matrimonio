@@ -108,7 +108,7 @@ const weddingsSlice = createSlice( {
 })
 export const { addWedding } = weddingsSlice.actions
 
-export const getAllWeddings: any = createAsyncThunk(
+export const getAllWeddings = createAsyncThunk(
     'weddings/setWeddings',
     //Inside thunk function
     async ()=> {
@@ -121,7 +121,7 @@ export const getAllWeddings: any = createAsyncThunk(
     }
   )
 
-  export const getWeddingsByParticipant: any = createAsyncThunk(
+  export const getWeddingsByParticipant = createAsyncThunk(
     'weddings/setWeddingsByParticipant',
     //Inside thunk function
     async (participantId : string)=> {
@@ -134,7 +134,7 @@ export const getAllWeddings: any = createAsyncThunk(
     }
   )
 
-  export const createAWedding: any = createAsyncThunk(
+  export const createAWedding = createAsyncThunk(
     'weddings/createWedding',
     //Inside thunk function
     async (weddingRequest : IWeddingRequest)=> {

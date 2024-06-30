@@ -1,5 +1,5 @@
 import { ActionCreatorWithPayload, Middleware, PayloadAction, isAction } from "@reduxjs/toolkit";
-import { Fonts } from "../../constants/allFonts";
+import { WeddingDefaults } from "../../constants/weddingDefaults";
 import { RequestsEnum } from "../../constants/requestEnums";
 import { WeddingCss } from "../../constants/weddingCssVariables";
 import { RequestFailed, RequestFinished, RequestStarted } from "../slices/requstSice";
@@ -39,7 +39,7 @@ const requestMiddleware: Middleware<{}, any> = storeApi => next => (action: unkn
 
             console.log("PayloadComingIn")
             console.log(payloadActionWedding.payload)
-            var currentFonts = Fonts.DEFAULT;
+            var currentFonts = WeddingDefaults.DEFAULT_BODY_FONT;
 
             if(wedding.headingFont != undefined){
                 console.log("CURRENTFONTS:PRIMARY:BEFORE:" + currentFonts)

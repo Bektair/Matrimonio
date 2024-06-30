@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { ILocation } from "../../models/ILocation"
 import { ILocationResponse, fetchLocations } from "../../API/GetLocations"
-import { ILocationRequest, createLocation } from "../../API/CreateLocation"
+import { ILocationRequest, createLocation, updateLocation } from "../../API/CreateLocation"
 type sliceState = {
     locations: ILocation[]
     active_location: number | undefined
@@ -65,7 +65,38 @@ type sliceState = {
                 state.locations.push(location);
                 
             }
+        }),
+        builder.addCase(updateLocationThunk.fulfilled, (state, action) => {
+            var payload = action.payload;
+            if(payload != undefined){
+                var pay = payload as ILocationResponse;
+
+                var location = {
+                    address: pay.address,
+                    body: pay.body,
+                    placename: pay.placename,
+                    country: pay.country,
+                    image: pay.image,
+                    id: pay.id,
+                    lat: pay.lat,
+                    lng: pay.lng,
+                    region: pay.region,
+                    title: pay.title
+
+                } as ILocation
+                state.active_location=location.id;
+                
+                state.locations = state.locations.map((locationMap) => {
+                    if(locationMap.id == location.id){
+                        return location;
+                    }
+                    return locationMap;
+                })
+                
+                
+            }
         })
+
     }
   })
 
@@ -92,11 +123,30 @@ type sliceState = {
 
 
 
-export const createLocationThunk : any = createAsyncThunk(
+export const createLocationThunk = createAsyncThunk(
     'wedding/createLocation',
     async(_location : ICreateLocation)=>{
         try{
             var location = await createLocation(_location.location);
+            return location;
+        } catch(err){
+            console.log(err)
+            return undefined;
+        }
+
+    }
+)
+
+export interface IUpdateLocation {
+    location: ICreateLocation
+    id: number
+}
+
+export const updateLocationThunk = createAsyncThunk(
+    'wedding/updateLocation',
+    async(_location : IUpdateLocation)=>{
+        try{
+            var location = await updateLocation(_location);
             return location;
         } catch(err){
             console.log(err)
