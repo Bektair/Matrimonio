@@ -4,9 +4,14 @@ import './App.css'
 import Layout from './components/Layout/Layout.tsx'
 import PathConstants from './components/route/pathConstants.tsx'
 import AdminConsole from './pages/AdminConsole/AdminConsole.tsx'
+import CeremonyMenu from './pages/AdminConsole/CeremonyMenu/CeremonyMenu.tsx'
+import ParticipationMenu from './pages/AdminConsole/ParticipationMenu/ParticipationMenu.tsx'
+import RsvpMenu from './pages/AdminConsole/RSVPMenu/rsvpMenu.tsx'
+import ReceptionMenu from './pages/AdminConsole/ReceptionMenu/ReceptionMenu.tsx'
 import UserCreationMenu from './pages/AdminConsole/UserCreationMenu/UserCreationMenu.tsx'
 import Weddingsmenu from './pages/AdminConsole/WeddingsMenu/Weddingsmenu.tsx'
 import Login from './pages/Auth/login'
+import ProtectedAdminRoute from './pages/Auth/protectedAdminRoute.tsx'
 import ProtectedRoute from './pages/Auth/protectedRoute.tsx'
 import { Register } from './pages/Auth/register'
 import useAuthListener from './pages/Auth/useAuthListener.tsx'
@@ -18,14 +23,12 @@ import Rsvp from './pages/RSVP/rsvp.tsx'
 import Ceremony from './pages/Schedule/Ceremony/Ceremony.tsx'
 import Reception from './pages/Schedule/Reception/Reception.tsx'
 import Schedule from './pages/Schedule/Schedule.tsx'
-import RsvpMenu from './pages/AdminConsole/RSVPMenu/rsvpMenu.tsx'
-import CeremonyMenu from './pages/AdminConsole/CeremonyMenu/CeremonyMenu.tsx'
-import ReceptionMenu from './pages/AdminConsole/ReceptionMenu/ReceptionMenu.tsx'
-import ParticipationMenu from './pages/AdminConsole/ParticipationMenu/ParticipationMenu.tsx'
-import ProtectedAdminRoute from './pages/Auth/protectedAdminRoute.tsx'
 
 export const App : React.FC = () => {
-  const auth = useAuthListener()
+  
+
+  
+  const auth =  useAuthListener()
   
 
   return (

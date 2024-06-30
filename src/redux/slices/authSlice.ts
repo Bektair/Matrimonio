@@ -5,6 +5,7 @@ import { User } from "@auth0/auth0-react";
 type sliceState = {
     isAuthenticated: boolean,
     isLoading: boolean,
+    isAdmin: boolean,
     user: User | undefined,
     id: string | undefined
 }
@@ -13,6 +14,7 @@ type sliceState = {
 
 const initialState: sliceState = {
     isAuthenticated: false,
+    isAdmin: false,
     isLoading: true,
     user: undefined,
     id: undefined
@@ -26,6 +28,7 @@ export const authSlice = createSlice({
             state.user = action.payload.user;
             state.isAuthenticated = action.payload.isAuthenticated;
             state.isLoading = action.payload.isLoading;
+            state.isAdmin = action.payload.isAdmin;
             state.id = action.payload.id;
         }
     }

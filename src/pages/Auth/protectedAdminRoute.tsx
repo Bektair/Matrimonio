@@ -1,13 +1,17 @@
-import { Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
+import { useAppSelector } from '../../redux/Hooks/hooks';
+import { selectAuth } from '../../redux/selectors/selectAuth';
+
 
 function ProtectedAdminRoute({children, auth} : any) {
-    const {isAuthenticated, isLoading, isAdmin} = auth
+    const {isAuthenticated, isLoading} = auth
+    const auth2 = useAppSelector(selectAuth)
 
     console.log("ISADMIN WRAPPER TRIGGERED")
     console.log(isAuthenticated)
-    console.log(isAdmin)
+    console.log(auth2.isAdmin)
     if(isLoading) return <div>Loading...</div>
-    if(isAuthenticated && isAdmin) return children
+    if(isAuthenticated && auth2.isAdmin) return children
 
   return (
     <Navigate to="/"></Navigate>

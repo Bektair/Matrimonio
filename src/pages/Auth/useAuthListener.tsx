@@ -18,7 +18,7 @@ function useAuthListener() {
       console.log("postingToken" + id)
       var token = await getAccessTokenSilently()
       Cookies.set('token', token, { expires: 7, secure: true})
-      dispatch(setAuthState({isAuthenticated, user, isLoading, id}))
+      dispatch(setAuthState({isAuthenticated, user, isLoading, id, isAdmin}))
 
       return token;
     })
@@ -41,7 +41,7 @@ function useAuthListener() {
 
     } else {
       var id = user?.sub?.split("|")[1];
-      dispatch(setAuthState({isAuthenticated, user, isLoading, id}))
+      dispatch(setAuthState({isAuthenticated, user, isLoading, id, isAdmin}))
     }
     
 
