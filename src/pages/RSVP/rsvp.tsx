@@ -1,8 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { IRSVP, RSVPStatus } from '../../models/IRSVP';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { IWeddingAndSigner, getRSVPbyWeddingAndSigner, getReception  } from '../../redux/slices/weddingSlice';
+import { IWeddingAndSigner, getMenuOrdersThunk, getRSVPbyWeddingAndSigner, getReception  } from '../../redux/slices/weddingSlice';
 import { getAllWeddings } from '../../redux/slices/weddingsSlice';
 import RSVPAllreadyAccepted from './RSVPAllreadyAccepted';
 import RSVPAllreadyAcceptedPastDue from './RSVPAllreadyAcceptedPastDue';
@@ -15,6 +15,10 @@ import './rsvp.sass';
 import { selectRSVPByAuthId, selectRSVPS, selectWedding } from '../../redux/selectors/selectWeddingSlice';
 import { selectAuth } from '../../redux/selectors/selectAuth';
 import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
+import List from '../../components/lists/genericlist';
+import { IMenuOrder } from '../../models/IMenuOrder';
+import CreateMenuOrderForm from '../../components/forms/createMenuOrderForm';
+import { IMenuOption } from '../../models/IMenuOption';
 function Rsvp() {
 
   const { user, isAuthenticated } = useAuth0();
@@ -25,6 +29,7 @@ function Rsvp() {
   const weddings = useAppSelector(selectWeddings)
   const dispatch = useAppDispatch();
   const currentRSVP = useAppSelector(state => selectRSVPByAuthId(state, Auth ? Auth.id : undefined))
+  const [currentMenuItem, setCurrentMenuItem] = useState();
 
   const mode = import.meta.env.MODE;
   console.log("MODE")
@@ -50,6 +55,14 @@ function Rsvp() {
     if(!isAuthenticated){
       console.log("not authenticated")
     }
+    if(currentRSVP){
+      console.log("ACTUALY?------------------------------ SEnt a currentrsvp dispatch?")
+      console.log(currentRSVP)
+
+      dispatch(getMenuOrdersThunk(Number(currentRSVP.id)));
+    }
+    
+
   }, [])
 
 
@@ -60,6 +73,8 @@ function Rsvp() {
 
   function renderSwitchRSVPState(rsvp : IRSVP){
     var elements = [];
+    console.log("ACTUALY?------------------------------ SEnt a currentrsvp dispatch?")
+    console.log(currentRSVP)
     console.log("STATUS ER: " + rsvp.status)
     switch (rsvp.status) {
       case RSVPStatus.Pending:
@@ -96,19 +111,38 @@ function Rsvp() {
 
 
 
+  function contentMenuOrders(e: IMenuOrder){
+    return `${e.name} ${e.isAdult} ${e.alergens} ${e.menuOptionId}`
+  }
+
+  function setMenuItem(e: any){
+    setCurrentMenuItem(e)
+  }
+
+
   return (
     <>
       <h1>Hello {user?.name}!</h1> 
       <div className='RSVP-invite-button'>
         { Auth && Auth.id  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP &&
-          renderSwitchRSVPState(currentRSVP)
+          <> 
+            {renderSwitchRSVPState(currentRSVP)}
+            
+            
+          </>
         }
       </div>
 
       { Auth && Auth.id  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP && currentRSVP.status == RSVPStatus.Accepted &&
-
-
-        <RSVPDietaryMenu rsvp={currentRSVP}></RSVPDietaryMenu>
+        <>
+        <h2>Dietary Requirements</h2>
+        <List<IMenuOrder> name='menuOrders' listItems={currentRSVP.menuOrders} onclickEvent={(e)=> console.log(e)} 
+              setContentFunction={contentMenuOrders} ></List>
+        <RSVPDietaryMenu rsvp={currentRSVP} setCurrentMenuItem={setMenuItem}></RSVPDietaryMenu>
+        {currentMenuItem &&
+          <CreateMenuOrderForm rsvp_id={currentRSVP.id} menuOptionId={currentMenuItem}></CreateMenuOrderForm>}
+       
+        </>
       }
       
     </>

@@ -1,3 +1,4 @@
+import { IMenuOrder } from './IMenuOrder'
 import { IUserReadDTO } from './IUser'
 
 export interface IRSVP{
@@ -8,8 +9,7 @@ export interface IRSVP{
     numberOfGuests: number
     otherDietaryRequirements: string
     signer: IUserReadDTO
-    choosenDinnerId: number | null
-    choosenDessertId: number | null
+    menuOrders: IMenuOrder[]
 }
 
 

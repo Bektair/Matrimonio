@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { IRSVPCreate } from '../../API/PostRSVP';
+import { IRSVPCreate } from '../../API/CreateRSVP';
 import '../../_index.sass';
 import { IUser } from '../../models/IUser';
 import { IWedding } from '../../models/IWedding';

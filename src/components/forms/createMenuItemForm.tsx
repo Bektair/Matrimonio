@@ -29,7 +29,7 @@ function CreateMenuItemForm(props : IProps) {
     function menuItemFormHandler(formdata: any){
         console.log(formdata)
 
-        var allergensString = allergens.map((x)=>x.value.toString()).toString();
+        var allergensString = allergens.map((x)=>x.value).toString();
         var tagsString = tags.map((x)=>x.value.toString()).toString();
         
 

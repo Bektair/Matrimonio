@@ -4,10 +4,11 @@ import './DietaryItem.sass'
 interface IDietaryItem {
     image : string
     name : string
-    allergens: string[]
     tags: string[]
     id: number
     selected: boolean
+    orderCount: number
+    onClickAddon: any
 }
 
 
@@ -18,14 +19,7 @@ const IsDessert = item.tags.find((tag) => tag.match("Dessert"));
 const selectedItem = !item.selected ? "" : IsDinner ? "selected-dish-item":"selected-dessert-item";
 
 
-function setAllergens(){
-    var alergensCsv = ""
-    for(let i = 0; i<item.allergens.length; i++){
-        alergensCsv+=item.allergens[i]+","
-    }
-    var element = <div  key={`allergens`}>{alergensCsv.substring(0, alergensCsv.length-1)}</div>
-    return element
-}
+
 
 function setTags(){
     
@@ -49,6 +43,7 @@ function dinnerRadioSelected(event : any){
         allDishItems[i].classList.remove('selected-dish-item')
     }
     parent.classList.add('selected-dish-item')
+    item.onClickAddon(item.id);
 }
 
 function dessertRadioSelected(event : any){
@@ -62,6 +57,7 @@ function dessertRadioSelected(event : any){
         allDishItems[i].classList.remove('selected-dessert-item')
     }
     parent.classList.add('selected-dessert-item')
+    item.onClickAddon(item.id);
 }
 
 
@@ -78,16 +74,16 @@ return (
         { IsDessert &&
         <input type="radio" name="isSelectedDessert"  onChange={dessertRadioSelected} defaultChecked={item.selected}></input>}
         <div>
-            <div>Alergens:</div>
-            {
-               setAllergens()
-            }
-        </div>
-        <div>
             <div>Tags:</div>
 
             {
                 setTags()
+            }
+        </div>
+        <div>
+            <div>Orders:</div>
+            {
+                <div>{item.orderCount}</div>
             }
         </div>
     </label>

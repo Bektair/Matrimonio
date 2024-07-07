@@ -1,4 +1,5 @@
 import { API_URL } from "../constants/environment"
+import { IMenuOrder } from "../models/IMenuOrder"
 import { RSVPStatus } from "../models/IRSVP"
 import { IUserReadDTO } from "../models/IUser"
 import getAuthHeaders from "./SetAuthHeaders"
@@ -19,9 +20,7 @@ export interface IRSVPResponse {
     numberOfGuests: number
     OtherDietaryRequirements: string
     signer: IUserReadDTO
-    choosenDinnerId: number | null
-    choosenDessertId: number | null
-    
+    menuOrders: IMenuOrder[]
 }
 
 

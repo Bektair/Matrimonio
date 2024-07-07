@@ -8,7 +8,7 @@ import { IParticipantGetRequest, fetchParticipants } from '../../API/GetParticip
 import { fetchRSVP, fetchRSVPWedding } from '../../API/GetRSVP'
 import { fetchReception } from '../../API/GetReception'
 import { fetchWedding } from '../../API/GetWeddings'
-import { IRSVPCreate, postRSVP } from '../../API/PostRSVP'
+import { IMenuOrderCreateRSVP, IRSVPCreate, addMenuOrder, createRSVP } from '../../API/CreateRSVP'
 import { ICeremonyUpdate, updateCeremonyRequest } from '../../API/UpdateCeremony'
 import { IRSVPUpdate, patchRSVP } from '../../API/UpdateRSVP'
 import { IWeddingUpdate, patchWedding } from '../../API/UpdateWedding'
@@ -18,6 +18,8 @@ import { IRSVP } from '../../models/IRSVP'
 import { IReception } from '../../models/IReception'
 import { IReligiousCeremony as ICeremony } from '../../models/IReligiousCeremony'
 import { IWedding } from '../../models/IWedding'
+import { getMenuOrders } from '../../API/GetMenuOrders'
+import { IMenuOrder } from '../../models/IMenuOrder'
 
 
 interface sliceState  {
@@ -189,14 +191,13 @@ const weddingSlice = createSlice( {
 
                 var updatedRSVP : IRSVP = {
                     body: payload.body,
-                    choosenDessertId: payload.choosenDessertId,
-                    choosenDinnerId: payload.choosenDinnerId,
                     deadline: Date.parse(payload.deadline),
                     id: payload.id.toString(),
                     numberOfGuests: payload.numberOfGuests,
                     otherDietaryRequirements: payload.OtherDietaryRequirements,
                     signer: payload.signer,
-                    status: payload.status
+                    status: payload.status,
+                    menuOrders: payload.menuOrders
                 } 
                 var indexToChange = state.rsvps.findIndex((rsvp)=> rsvp.id == updatedRSVP.id);
                 var copy = state.rsvps.slice()
@@ -225,9 +226,7 @@ const weddingSlice = createSlice( {
                             numberOfGuests: rsvpResponse.numberOfGuests,
                             otherDietaryRequirements: rsvpResponse.OtherDietaryRequirements,
                             signer: rsvpResponse.signer,
-                            choosenDessertId: rsvpResponse.choosenDessertId,
-                            choosenDinnerId: rsvpResponse.choosenDinnerId,
-
+                            menuOrders: rsvpResponse.menuOrders
                     }
                 })
                 
@@ -249,8 +248,7 @@ const weddingSlice = createSlice( {
                             numberOfGuests: rsvpResponse.numberOfGuests,
                             otherDietaryRequirements: rsvpResponse.OtherDietaryRequirements,
                             signer: rsvpResponse.signer,
-                            choosenDessertId: rsvpResponse.choosenDessertId,
-                            choosenDinnerId: rsvpResponse.choosenDinnerId,
+                            menuOrders: rsvpResponse.menuOrders
                     }
                 })
                 
@@ -322,7 +320,36 @@ const weddingSlice = createSlice( {
                 state.participants = participants;
             }
 
-        })
+        }),
+        builder.addCase(getMenuOrdersThunk.fulfilled, (state, action) => {
+            var payload = action.payload;
+            if(payload != undefined){
+                var rsvp = state.rsvps.find((rsvp) => rsvp.id == payload?.rsvp_id.toString())
+                if(rsvp){
+                    let menuOrders = payload.menuOrders.map((menuOrder)=> {
+                         return {
+                            id: menuOrder.id.toString(),
+                            name: menuOrder.name,
+                            alergens: menuOrder.alergens,
+                            isAdult: menuOrder.isAdult,
+                            menuOptionId: menuOrder.MenuOptionId
+                        } as IMenuOrder
+                    })
+
+                    rsvp.menuOrders = menuOrders; 
+                    
+                    var indexToChange = state.rsvps.findIndex((rsvp)=> rsvp.id == payload?.rsvp_id.toString());
+                    var copy = state.rsvps.slice()
+                    copy[indexToChange] = rsvp;
+                    console.log(state.rsvps)
+                    console.log("COPY")
+                    console.log(copy)
+    
+                    state.rsvps = copy;                
+                }
+
+            }
+        } )
 
     }
 })
@@ -393,7 +420,7 @@ export const createRSVPThunk = createAsyncThunk(
     //Inside thunk function
     async (RSVP : IRSVPCreate)=> {
         try {
-          await postRSVP(RSVP);
+          await createRSVP(RSVP);
         }catch (err){
           console.log(err)
         }
@@ -532,6 +559,34 @@ export const getParticipantsThunk = createAsyncThunk(
             console.log("INSIDE Participantrequest")
             const participants = await fetchParticipants({ weddingId: participantRequest.weddingId, role: participantRequest.role });
             return participants
+        } catch(err){
+            console.log(err)
+            return undefined
+        }
+    }
+)
+
+export const addMenuOrderOption = createAsyncThunk(
+    'wedding/RSVP/addMenuOrder',
+    async(menuOrderRequest: IMenuOrderCreateRSVP) => {
+        try {
+            console.log("INSIDE Participantrequest")
+            const menuOrder = await addMenuOrder(menuOrderRequest);
+            return menuOrder
+        } catch(err){
+            console.log(err)
+            return undefined
+        }
+    }
+)
+
+export const getMenuOrdersThunk = createAsyncThunk(
+    'wedding/RSVP/getMenuOrders',
+    async(rsvp_id : number) => {
+        try {
+            console.log("INSIDE Get IMenuorders")
+            const menuOrder = await getMenuOrders(rsvp_id);
+            return menuOrder
         } catch(err){
             console.log(err)
             return undefined

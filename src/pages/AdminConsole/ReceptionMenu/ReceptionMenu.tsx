@@ -31,7 +31,7 @@ function ReceptionMenu() {
     console.log("MENUITEM attempted added")
     console.log(menuItem)
 
-    setMenuItems([...menuItems, { alergens: menuItem.alergens, dishName: menuItem.dishName, 
+    setMenuItems([...menuItems, { dishType: menuItem.dishType, 
         id: menuItem.id, image: menuItem.image, tags: menuItem.tags }])
 
     if(reception){
@@ -45,7 +45,7 @@ function ReceptionMenu() {
 
   function setContent(option: IMenuOption){
     
-    return `${option.dishName} ${option.alergens} ${option.tags}`
+    return `${option.dishType} ${option.tags}`
   }
 
   function onMenuOptionClick(option: IMenuOption){

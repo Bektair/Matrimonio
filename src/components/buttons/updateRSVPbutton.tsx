@@ -18,11 +18,10 @@ export const UpdateRSVPbutton = (props : sentProps) => {
             status: status,
             deadline: undefined,
             numberOfGuests: undefined,
-            ChoosenDessertId: undefined,
-            ChoosenDinnerId: undefined,
             OtherDietaryRequirements: undefined,
             signerId: undefined,
-            weddingId: undefined
+            weddingId: undefined,
+            menuOrders: undefined
           }
          dispatch(updateRSVPThunk({ id: id, RSVP: RSVPForUpdate }))
    }

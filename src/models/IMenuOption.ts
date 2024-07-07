@@ -1,7 +1,6 @@
 export interface IMenuOption{
     id: number
-    dishName: string
-    alergens: string
+    dishType: string
     tags: string
     image: string
 }

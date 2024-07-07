@@ -1,4 +1,5 @@
 import { API_URL } from "../constants/environment"
+import { IMenuOrder } from "../models/IMenuOrder"
 import { IRSVPResponse } from "./GetRSVP"
 import { createJsonPatch } from "./JsonPatch"
 import getAuthHeaders from "./SetAuthHeaders"
@@ -11,8 +12,7 @@ export interface IRSVPUpdate {
     OtherDietaryRequirements: string | undefined
     signerId: string | undefined
     weddingId: number | undefined
-    ChoosenDinnerId: number | undefined
-    ChoosenDessertId: number | undefined
+    menuOrders: IMenuOrder[] | undefined
 }
 
 export interface IPatchRSVPResponse {

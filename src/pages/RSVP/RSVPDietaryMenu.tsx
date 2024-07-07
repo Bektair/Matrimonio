@@ -14,6 +14,7 @@ import './RSVPDietaryMenu.sass';
 
 interface IProps {
     rsvp: IRSVP
+    setCurrentMenuItem: any
 }
 
 
@@ -56,11 +57,10 @@ function RSVPDietaryMenu(props : IProps) {
                 status: "Accepted",
                 deadline: undefined,
                 numberOfGuests: formData.numberOfGuests,
-                ChoosenDessertId: Number.parseInt(radioSelectedDessert.id),
-                ChoosenDinnerId: Number.parseInt(radioSelectedDinner.id),
                 OtherDietaryRequirements: formData.otherDietaryRequirements,
                 signerId: props.rsvp.signer.id,
                 weddingId: wedding?.id,
+                menuOrders: undefined
             }
             console.log("Update")
             console.log(rsvpUpdate)
@@ -77,22 +77,27 @@ function RSVPDietaryMenu(props : IProps) {
         var menuOptions = reception.menuOptions;
         for (let index = 0; index < menuOptions.length; index++) {
             const element = menuOptions[index];
-            var IsSelected = (element.id==props.rsvp.choosenDinnerId) ? true : false
+            var copy = props.rsvp.menuOrders.slice();
+            var orders = copy.filter((x)=> x.menuOptionId == element.id).length;
+
+            var IsSelected = false
             if(element.tags.match("Dinner")){
-                dinnerElements.push(<DietaryItem selected={IsSelected} id={element.id} key={element.dishName + "-" + element.id} allergens={element.alergens.split(",")} 
-                    image={element.image} name={element.dishName} tags={element.tags.split(",") }></DietaryItem>)
+                dinnerElements.push(<DietaryItem onClickAddon={props.setCurrentMenuItem} selected={IsSelected} id={element.id} key={element.dishType + "-" + element.id} 
+                    image={element.image} name={element.dishType} tags={element.tags.split(",")} orderCount={orders}></DietaryItem>);
             } else {
-                var IsSelected = (element.id==props.rsvp.choosenDessertId) ? true : false
-                dessertElements.push(<DietaryItem selected={IsSelected} id={element.id} key={element.dishName + "-" + element.id} allergens={element.alergens.split(",")} 
-                    image={element.image} name={element.dishName} tags={element.tags.split(",")} ></DietaryItem>)
+                var IsSelected = false
+                dessertElements.push(<DietaryItem onClickAddon={props.setCurrentMenuItem}  selected={IsSelected} id={element.id} key={element.dishType + "-" + element.id} 
+                    image={element.image} name={element.dishType} tags={element.tags.split(",")} orderCount={orders} ></DietaryItem>)
             }
         }
-
+    
 
         allElements.push(<h3 key={"ReceptionDinner"}>Reception Dinner</h3>)
         allElements.push(dinnerElements);
-        allElements.push(<h3 key={"ReceptionDessert"}>Reception Dessert</h3>)
-        allElements.push(dessertElements);
+        if(dessertElements.length > 0){
+           allElements.push(<h3 key={"ReceptionDessert"}>Reception Dessert</h3>)
+            allElements.push(dessertElements);
+        }
 
         return allElements;
     }
@@ -102,12 +107,8 @@ function RSVPDietaryMenu(props : IProps) {
     return (
     <div>
         <div>
-            <form onSubmit={handleSubmit(updateRSVP)}>
-                <h2>Dietary Requirements</h2>
-                { reception && renderDietaryItems(reception)
-                
-                }
-                
+            <form onSubmit={handleSubmit(updateRSVP)}>                
+                { reception && renderDietaryItems(reception)}
                 <div>
                     <input {...register("numberOfGuests")} type='range' placeholder='numberofguests' step={1} defaultValue={1} max={4} min={1} onChange={rangeUpdate}></input>
                     <label id='number-of-guests-output' ref={numberOfGuestsOutput}>1</label>

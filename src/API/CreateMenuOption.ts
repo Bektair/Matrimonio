@@ -8,8 +8,7 @@ export interface IMenuOptionRequest {
 }
 
 export interface IMenuOptionCreate {
-    dishName: string
-    alergens: string
+    dishType: string
     tags: string
     image: string
 }
