@@ -9,6 +9,8 @@ export interface IReceptionResponse{
     startDate: string
     endDate: string
     description: string
+    isDefaultLanguage: boolean,
+    language: string,
     location: ILocation
     weddingId: number
     menuOptions: IMenuOption[]

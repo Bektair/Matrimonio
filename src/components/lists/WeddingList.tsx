@@ -15,6 +15,8 @@ function WeddingList(props : IProps){
     const dispatch = useAppDispatch();
 
     function onClickEvent(selectedItem: IWedding) {
+      console.log("CLICKED")
+      console.log(selectedItem)
         dispatch(setWedding({wedding: selectedItem}));
         dispatch(replaceWedding(selectedItem));
 

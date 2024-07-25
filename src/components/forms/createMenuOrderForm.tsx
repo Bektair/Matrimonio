@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { IMenuOrderCreate, IMenuOrderCreateRSVP } from '../../API/CreateRSVP';
 import { Allergen } from '../../constants/allergens';
-import { IMenuOption } from '../../models/IMenuOption';
 import { useAppDispatch } from '../../redux/Hooks/hooks';
 import { addMenuOrderOption } from '../../redux/slices/weddingSlice';
 import { SelectValue } from './createMenuItemForm';
@@ -31,12 +30,14 @@ function CreateMenuOrderForm(props: IProps) {
     function menuOrderFormHandler(formdata: any){
         console.log(formdata)
 
-        var allergensString = allergens.map((x)=>x.value).toString();
-        
+        var allergensString = allergens.map((x)=> "," + x.value).toString();
+        var otherAllergens = formdata.OtherAllergens ? formdata.OtherAllergens : "" ;
+        if(otherAllergens = ""){
+          allergensString = allergensString.substring(1); //Remove initial ,
+        }
 
         var menuItem : IMenuOrderCreate = {
-            alergens: allergensString + ', Other: ' + formdata.OtherAllergens,
-            isAdult: formdata.isAdult,
+            alergens: otherAllergens + allergensString,
             name: formdata.name,
             menuOptionId: Number(props.menuOptionId)
         } 
@@ -56,11 +57,11 @@ function CreateMenuOrderForm(props: IProps) {
     <>
     <h3>MenuOrder</h3>
     <form className='createMenuOrder' onSubmit={handleSubmit(menuOrderFormHandler)}>
-      <label className='menuOrderItem'>
-        Name: 
+      <label className='menuOrderItem' >
+        Name:
         <input {...register('name')} type="text" placeholder="Name"></input>  
       </label>
-      <label className='menuOrderItem'>Allergens:</label>
+      <label className='menuOrderItem allergens'>
             <Select
                 isMulti
                 name="allergens"
@@ -71,11 +72,8 @@ function CreateMenuOrderForm(props: IProps) {
                 placeholder='Select Allergens'
             />
             <input {...register('otherAllergens')} type='text' placeholder='other Allergens'></input>
-        <label className='menuOrderItem'>
-            IsAdult?
-            <input {...register('isAdult')} type='checkbox'></input>
-        </label>
-        <button type='submit'>AddMenuOrder</button>
+      </label>
+      <button type='submit' className='addMenuOrder'>AddMenuOrder</button>
     </form>
     </>
   )

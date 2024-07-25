@@ -5,7 +5,7 @@ import { IParticipantRequest, addParticipant } from '../../API/CreateParticipant
 import { IReceptionRequest, createReception } from '../../API/CreateReception'
 import { fetchCeremony } from '../../API/GetCeremony'
 import { IParticipantGetRequest, fetchParticipants } from '../../API/GetParticipant'
-import { fetchRSVP, fetchRSVPWedding } from '../../API/GetRSVP'
+import { fetchRSVP, fetchRSVPWedding, fetchRSVPWeddingWithLang, IWeddingAndSigner } from '../../API/GetRSVP'
 import { fetchReception } from '../../API/GetReception'
 import { fetchWedding } from '../../API/GetWeddings'
 import { IMenuOrderCreateRSVP, IRSVPCreate, addMenuOrder, createRSVP } from '../../API/CreateRSVP'
@@ -20,6 +20,7 @@ import { IReligiousCeremony as ICeremony } from '../../models/IReligiousCeremony
 import { IWedding } from '../../models/IWedding'
 import { getMenuOrders } from '../../API/GetMenuOrders'
 import { IMenuOrder } from '../../models/IMenuOrder'
+import { deleteMenuOrder } from '../../API/DeleteMenuOrder'
 
 
 interface sliceState  {
@@ -73,7 +74,10 @@ const weddingSlice = createSlice( {
                 description: payload.description,
                 dresscode: payload.dresscode,
                 picture: payload.picture,
-                title: payload.title
+                title: payload.title,
+                isDefaultLanguage: payload.isDefaultLanguage,
+                language: payload.language,
+                defaultLanguage: payload.defaultLanguage
             } 
 
             return {
@@ -105,10 +109,13 @@ const weddingSlice = createSlice( {
                     backgroundImage: payload.backgroundImage,
                     bodyFont: payload.bodyFont,
                     headingFont: payload.headingFont,   
-                    description: payload.description,
                     dresscode: payload.dresscode,
                     picture: payload.picture,
-                    title: payload.title
+                    title: payload.title,
+                    description: payload.description,
+                    isDefaultLanguage: payload.isDefaultLanguage,
+                    language: payload.language,
+                    defaultLanguage: payload.defaultLanguage
                 } 
 
                 state.wedding = wedding;
@@ -134,7 +141,10 @@ const weddingSlice = createSlice( {
                     description: payload.description,
                     dresscode: payload.dresscode,
                     picture: payload.picture,
-                    title: payload.title
+                    title: payload.title,
+                    isDefaultLanguage: payload.isDefaultLanguage,
+                    language: payload.language,
+                    defaultLanguage: payload.defaultLanguage
                 } 
                 console.log(updatedWedding)
 
@@ -164,13 +174,11 @@ const weddingSlice = createSlice( {
                         id: payload.location.id,
                         title: payload.location.title,
                         body: payload.location.body,
-                        lat: payload.location.lat,
-                        lng: payload.location.lng,
                         address: payload.location.address,
                         country: payload.location.country,
-                        placename: payload.location.placename,
-                        region: payload.location.region,
-                        image: payload.location.image
+                        image: payload.location.image,
+                        isDefaultLanguage: payload.location.isDefaultLanguage,
+                        language: payload.location.language
                     }
                 } 
                 
@@ -215,6 +223,7 @@ const weddingSlice = createSlice( {
             var payload = action.payload;
             if(payload!=undefined){
                 console.log("PayLOAD Length rsvp:"+ payload.length)
+                console.log(payload)                
                 let rsvps = payload.map((rsvpResponse)=> {
                     var date = Date.parse(rsvpResponse.deadline)
 
@@ -224,7 +233,7 @@ const weddingSlice = createSlice( {
                             deadline: date,
                             status: rsvpResponse.status,
                             numberOfGuests: rsvpResponse.numberOfGuests,
-                            otherDietaryRequirements: rsvpResponse.OtherDietaryRequirements,
+                            otherDietaryRequirements: rsvpResponse.otherDietaryRequirements,
                             signer: rsvpResponse.signer,
                             menuOrders: rsvpResponse.menuOrders
                     }
@@ -238,6 +247,7 @@ const weddingSlice = createSlice( {
             var payload = action.payload;
             if(payload!=undefined){
                 console.log("PayLOAD Length rsvp:"+ payload.length)
+                console.log(payload)
                 let rsvps = payload.map((rsvpResponse)=> {
                     var date = Date.parse(rsvpResponse.deadline)
                      return {
@@ -246,7 +256,7 @@ const weddingSlice = createSlice( {
                             deadline: date,
                             status: rsvpResponse.status,
                             numberOfGuests: rsvpResponse.numberOfGuests,
-                            otherDietaryRequirements: rsvpResponse.OtherDietaryRequirements,
+                            otherDietaryRequirements: rsvpResponse.otherDietaryRequirements,
                             signer: rsvpResponse.signer,
                             menuOrders: rsvpResponse.menuOrders
                     }
@@ -259,6 +269,8 @@ const weddingSlice = createSlice( {
         builder.addCase(getReception.fulfilled, (state, action) => {
             var payload = action.payload;
             if(payload != undefined){
+                console.log("OKAY OKAY-------------------------------------Reception")
+                console.log(action.payload)
                 var responseStartDate = Date.parse(payload.startDate);
                 var responseEndDate = Date.parse(payload.endDate);
                 var reception : IReception = {
@@ -269,6 +281,7 @@ const weddingSlice = createSlice( {
                     location: payload.location,
                     menuOptions: payload.menuOptions
                 }
+                console.log(reception)
                 state.reception = reception;
             }else {
                 state.reception = undefined
@@ -349,7 +362,37 @@ const weddingSlice = createSlice( {
                 }
 
             }
-        } )
+        }),
+        builder.addCase(addMenuOrderOption.fulfilled, (state, action) => {
+            var payload = action.payload;
+            if(payload != undefined){
+                
+                var indexToChange = state.rsvps.findIndex((rsvp)=> rsvp.id == payload?.RSVP_id.toString());
+                var copy = state.rsvps.slice();
+
+
+                var menuOrder : IMenuOrder = {
+                    alergens: payload.data.alergens,
+                    id: payload.data.id.toString(),
+                    isAdult: payload.data.isAdult,
+                    menuOptionId: payload.data.MenuOptionId,
+                    name: payload.data.name
+                } 
+                copy[indexToChange].menuOrders.push(menuOrder);
+                state.rsvps = copy;                
+            }
+        }),
+        builder.addCase(deleteMenuOrderThunk.fulfilled, (state, action) => {
+            var payload = action.payload;
+            if(payload != undefined){
+                var indexToChange = state.rsvps.findIndex((rsvp)=> rsvp.id == payload?.rsvp_id.toString());
+                var copy = state.rsvps.slice();
+                var index = copy[indexToChange].menuOrders.findIndex((menuOrder)=> menuOrder.id == payload?.menuOrder_id.toString());
+                copy[indexToChange].menuOrders.splice(index, 1);
+                state.rsvps = copy;
+            }
+        })
+
 
     }
 })
@@ -371,7 +414,8 @@ export const getAWedding = createAsyncThunk(
 
 export interface IUpdateWeddingThunk{
     weddingUpdate : IWeddingUpdate, 
-    id : string
+    id : string,
+    language: string
 }
 
 export const updateWeddingThunk = createAsyncThunk(
@@ -379,7 +423,7 @@ export const updateWeddingThunk = createAsyncThunk(
     //Inside thunk function
     async (updateWeddingThunk : IUpdateWeddingThunk)=> {
         try {
-          return await patchWedding(updateWeddingThunk.weddingUpdate, updateWeddingThunk.id);
+          return await patchWedding(updateWeddingThunk.weddingUpdate, updateWeddingThunk.id, updateWeddingThunk.language);
         }catch (err){
           console.log(err)
           return undefined;
@@ -448,9 +492,9 @@ export const updateRSVPThunk = createAsyncThunk(
 export const getRSVPbyWedding = createAsyncThunk(
     'wedding/getRSVPbyWedding',
     //Inside thunk function
-    async (wedding_id : number)=> {
+    async (rsvpFetch : fetchRSVPWeddingWithLang)=> {
         try {
-          const rsvp = await fetchRSVPWedding(wedding_id.toString());
+          const rsvp = await fetchRSVPWedding(rsvpFetch);
           return rsvp;
         }catch (err){
           console.log(err)
@@ -461,10 +505,7 @@ export const getRSVPbyWedding = createAsyncThunk(
 
 
 
-export interface IWeddingAndSigner{
-    wedding_id: string
-    signerId: string
-}
+
 
 export const getRSVPbyWeddingAndSigner = createAsyncThunk(
     'wedding/getRSVPbyWeddingAndSigner',
@@ -472,7 +513,7 @@ export const getRSVPbyWeddingAndSigner = createAsyncThunk(
     //${weddingAndSignerId.signerId}
     async (weddingAndSignerId : IWeddingAndSigner)=> {
         try {
-          const rsvp = await fetchRSVP({ weddingId: weddingAndSignerId.wedding_id, signerId: weddingAndSignerId.signerId});
+          const rsvp = await fetchRSVP(weddingAndSignerId);
           return rsvp;
         }catch (err){
           console.log(err)
@@ -591,6 +632,24 @@ export const getMenuOrdersThunk = createAsyncThunk(
             console.log(err)
             return undefined
         }
+    }
+)
+
+export interface IMenuOrderDelete {
+    menuOrder_id : number,
+    rsvp_id: number
+}
+
+export const deleteMenuOrderThunk = createAsyncThunk(
+    'wedding/RSVP/deleteMenuOrder',
+    async(menuorder : IMenuOrderDelete) => {
+        try{
+            await deleteMenuOrder(menuorder.menuOrder_id);
+        } catch(err){
+            console.log(err)
+            return undefined
+        }
+        return menuorder;
     }
 )
 

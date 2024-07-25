@@ -7,6 +7,7 @@ import authSlice from './slices/authSlice'
 import usersSlice from './slices/usersSlice'
 import requestMiddleware from './middleware/requestMiddleware'
 import locationSlice from './slices/locationSlice'
+import langSlice from './slices/langSlice'
 
 export enum RequestsEnum {
   GetPosts="post_slice/getPosts"
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   wedding: weddingSlice,
   auth: authSlice,
   users: usersSlice,
-  locations: locationSlice
+  locations: locationSlice,
+  language: langSlice
 })
 
 //Has autoamtic combineredusers now.

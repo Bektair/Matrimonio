@@ -4,8 +4,6 @@ import { createJsonPatch } from "./JsonPatch"
 import getAuthHeaders from "./SetAuthHeaders"
 
 export interface IWeddingUpdate {
-    Description: string
-    Dresscode: string 
     PrimaryColor: string | undefined
     SecoundaryColor: string | undefined
     PrimaryFontColor: string | undefined
@@ -13,8 +11,14 @@ export interface IWeddingUpdate {
     BackgroundImage: string | undefined
     BodyFont: string | undefined
     HeadingFont: string | undefined
-    Title: string
     Picture: string
+    Translation: IWeddingUpdateTranslation
+}
+
+export interface IWeddingUpdateTranslation {
+    Description: string
+    Dresscode: string 
+    Title: string
 }
 
 export interface IPatchWeddingResponse {
@@ -22,11 +26,13 @@ export interface IPatchWeddingResponse {
     patched: IWeddingResponse
 }
 
-export async function patchWedding(rsvp : IWeddingUpdate, id : string){
+export async function patchWedding(rsvp : IWeddingUpdate, id : string, language: string){
 
     var patches = createJsonPatch(rsvp);
+    console.log(patches)
+
     const headers = await getAuthHeaders();
-    let response = await fetch(`${API_URL}/api/Wedding/${id}`, {
+    let response = await fetch(`${API_URL}/api/Wedding/${id}?language=${language}`, {
         headers,
         method: "PATCH",
         body: JSON.stringify(patches)

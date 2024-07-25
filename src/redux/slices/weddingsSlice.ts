@@ -48,7 +48,10 @@ const weddingsSlice = createSlice( {
                     description: wedding.description,
                     dresscode: wedding.dresscode,
                     picture: wedding.picture,
-                    title: wedding.title
+                    title: wedding.title,
+                    isDefaultLanguage: wedding.isDefaultLanguage,
+                    language: wedding.language,
+                    defaultLanguage: wedding.defaultLanguage
                 }
                 return test;
             })
@@ -73,7 +76,10 @@ const weddingsSlice = createSlice( {
                     description: wedding.description,
                     dresscode: wedding.dresscode,
                     picture: wedding.picture,
-                    title: wedding.title
+                    title: wedding.title,
+                    isDefaultLanguage: wedding.isDefaultLanguage,
+                    language: wedding.language,
+                    defaultLanguage: wedding.defaultLanguage
                 }
                 return test;
             })
@@ -86,6 +92,9 @@ const weddingsSlice = createSlice( {
                     id: payload.id,
                     description: payload.description,
                     dresscode: payload.dresscode,
+                    title: payload.title,
+                    isDefaultLanguage: payload.isDefaultLanguage,
+                    language: payload.language,
                     primaryColor: defaultPrimaryColor,
                     secoundaryColor: defaultSecoundaryColor,
                     backgroundImage: "",
@@ -94,7 +103,7 @@ const weddingsSlice = createSlice( {
                     primaryFontColor: "",
                     secoundaryFontColor: "",
                     picture: "",
-                    title: ""
+                    defaultLanguage: payload.language
                 } 
 
                 return {
@@ -111,9 +120,9 @@ export const { addWedding } = weddingsSlice.actions
 export const getAllWeddings = createAsyncThunk(
     'weddings/setWeddings',
     //Inside thunk function
-    async ()=> {
+    async (language: string)=> {
         try {
-          const weddings = await fetchWeddings();
+          const weddings = await fetchWeddings(language);
           return weddings;
         }catch (err){
           return [];
@@ -121,12 +130,17 @@ export const getAllWeddings = createAsyncThunk(
     }
   )
 
+  export interface IGetWedding{
+    participantId : string
+    language : string
+  }
+
   export const getWeddingsByParticipant = createAsyncThunk(
     'weddings/setWeddingsByParticipant',
     //Inside thunk function
-    async (participantId : string)=> {
+    async (props: IGetWedding)=> {
         try {
-          const weddings = await fetchWeddingsWithParticipant(participantId);
+          const weddings = await fetchWeddingsWithParticipant(props.participantId, props.language);
           return weddings;
         }catch (err){
           return [];

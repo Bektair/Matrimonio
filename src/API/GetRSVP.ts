@@ -7,9 +7,11 @@ import getAuthHeaders from "./SetAuthHeaders"
 
 
 
-interface IParams {
-    weddingId: string
+
+export interface IWeddingAndSigner{
+    wedding_id: string
     signerId: string
+    language: string
 }
 
 export interface IRSVPResponse {
@@ -18,19 +20,22 @@ export interface IRSVPResponse {
     deadline: string
     status: RSVPStatus
     numberOfGuests: number
-    OtherDietaryRequirements: string
+    otherDietaryRequirements: string
     signer: IUserReadDTO
     menuOrders: IMenuOrder[]
 }
 
+export interface fetchRSVPWeddingWithLang{
+    weddingId : string
+    language: string
+}
 
 
-
-export async function fetchRSVPWedding(weddingId : string) : Promise<IRSVPResponse[]> {
+export async function fetchRSVPWedding(rsvpFetch : fetchRSVPWeddingWithLang) : Promise<IRSVPResponse[]> {
     console.log("TRYING TO FETCH RSVP")
     const headers = await getAuthHeaders();
 
-    let response = await fetch(`${API_URL}/api/RSVP/${weddingId}`, {
+    let response = await fetch(`${API_URL}/api/RSVP/${rsvpFetch.weddingId}?language=${rsvpFetch.language}`, {
        headers
     })
     if(!response.ok)
@@ -40,11 +45,11 @@ export async function fetchRSVPWedding(weddingId : string) : Promise<IRSVPRespon
 }
 
 
-export async function fetchRSVP(props: IParams) : Promise<IRSVPResponse[]> {
+export async function fetchRSVP(props: IWeddingAndSigner) : Promise<IRSVPResponse[]> {
     console.log("TRYING TO FETCH RSVP")
     const headers = await getAuthHeaders();
 
-    let response = await fetch(`${API_URL}/api/RSVP/${props.weddingId}/${props.signerId}`, {
+    let response = await fetch(`${API_URL}/api/RSVP/${props.wedding_id}/${props.signerId}?language=${props.language}`, {
        headers
     })
     if(!response.ok)

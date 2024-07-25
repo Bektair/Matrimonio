@@ -11,17 +11,18 @@ import { IMenuOptionRequest } from "../../../API/CreateMenuOption"
 import { IMenuOption } from "../../../models/IMenuOption"
 import { createMenuOptionThunk } from "../../../redux/slices/weddingSlice"
 import List from "../../../components/lists/genericlist"
+import { selectLanguage } from "../../../redux/selectors/selectLanguage"
 
 function ReceptionMenu() {
   const weddings = useAppSelector(selectWeddings)
   const wedding = useAppSelector(selectWedding)
   const reception = useAppSelector(selectReception)
+  const language = useAppSelector(selectLanguage).language;
   const dispatch = useAppDispatch();
   const [menuItems, setMenuItems] = useState<IMenuOption[]>([])
-
   useEffect(()=>{
       if(weddings.length < 1)
-          dispatch(getAllWeddings)
+          dispatch(getAllWeddings(language))
       else{
       }
       
@@ -32,7 +33,7 @@ function ReceptionMenu() {
     console.log(menuItem)
 
     setMenuItems([...menuItems, { dishType: menuItem.dishType, 
-        id: menuItem.id, image: menuItem.image, tags: menuItem.tags }])
+        id: menuItem.id, image: menuItem.image, tags: menuItem.tags, language: language, isDefaultLanguage: true }])
 
     if(reception){
         var menuOptionRequest : IMenuOptionRequest =  {

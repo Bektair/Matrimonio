@@ -1,4 +1,5 @@
 import { API_URL } from "../constants/environment";
+import { IMenuOrderResponse } from "./GetMenuOrders";
 import getAuthHeaders from "./SetAuthHeaders";
 
 
@@ -27,7 +28,6 @@ export async function createRSVP(rsvp : IRSVPCreate){
 export interface IMenuOrderCreate{
     name : string
     alergens : string
-    isAdult : boolean
     menuOptionId : number
 }
 
@@ -35,6 +35,8 @@ export interface IMenuOrderCreateRSVP {
     RSVP_id : string
     MenuOrders : IMenuOrderCreate
 }
+
+
 
 export async function addMenuOrder(menuOrder: IMenuOrderCreateRSVP){
 
@@ -44,11 +46,13 @@ export async function addMenuOrder(menuOrder: IMenuOrderCreateRSVP){
 
 
     const headers = await getAuthHeaders();
-    let response = await fetch(`${API_URL}/api/RSVP/${menuOrder.RSVP_id}`, {
+    let response = await fetch(`${API_URL}/api/RSVP/${menuOrder.RSVP_id}/AddMenuOrder`, {
         headers,
         method: "POST",
         body: JSON.stringify(menuOrder.MenuOrders)
      })
      if(!response.ok)
          throw new Error(await response.text() || response.statusText);
+     let data = await response.json() as IMenuOrderResponse;
+     return { data: data, RSVP_id: menuOrder.RSVP_id};
 }

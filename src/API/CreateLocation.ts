@@ -15,12 +15,14 @@ export interface ILocationRequest {
     region: string
     lat: number
     lng: number
+    language: string
+    isDefaultLanguage: boolean
 }
 
 export async function createLocation( locationRequest : ILocationRequest) {
     const headers = await getAuthHeaders();
 
-    let response = await fetch(`${API_URL}/api/Location`, {
+    let response = await fetch(`${API_URL}/api/Location?language=${locationRequest.language}`, {
         method: "POST",
         headers,
         body: JSON.stringify(locationRequest)
@@ -42,7 +44,7 @@ export async function updateLocation( locationRequest : IUpdateLocation) {
     const headers = await getAuthHeaders();
 
 
-    let response = await fetch(`${API_URL}/api/Location/${locationRequest.id}`, {
+    let response = await fetch(`${API_URL}/api/Location/${locationRequest.id}?language=${locationRequest.location.language}`, {
         method: "PATCH",
         headers,
         body: JSON.stringify(patches)

@@ -7,6 +7,7 @@ import { selectLocations } from '../../redux/selectors/selectLocations';
 import { getAllLocations } from '../../redux/slices/locationSlice';
 import { createReceptionThunk } from '../../redux/slices/weddingSlice';
 import HandleLocationForm from './handleLocationForm';
+import { selectLanguage } from '../../redux/selectors/selectLanguage';
 
 
 interface IProps {
@@ -16,6 +17,7 @@ interface IProps {
 
 function CreateReceptionForm(props : IProps) {
     const locations = useAppSelector(selectLocations);
+    const language  = useAppSelector(selectLanguage).language;
     const dispatch = useAppDispatch();
     const { register, handleSubmit } = useForm();
     const [location, setLocation] = useState<ILocation | undefined>()
@@ -38,9 +40,10 @@ function CreateReceptionForm(props : IProps) {
             startDate: formdata.start_date,
             endDate: formdata.end_date,
             locationId: location.id,
-            weddingId: props.wedding_id, 
+            weddingId: props.wedding_id,
+            language: language,
+            isDefaultLanguage: true,
             menuOptions:[]
-
           }
           if(reception)
             dispatch(createReceptionThunk(reception));

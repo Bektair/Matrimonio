@@ -1,4 +1,6 @@
 import { API_URL } from "../constants/environment";
+import { useAppSelector } from "../redux/Hooks/hooks";
+import { selectLanguage } from "../redux/selectors/selectLanguage";
 import getAuthHeaders from "./SetAuthHeaders";
 
 
@@ -15,12 +17,12 @@ export interface ILocationResponse {
     country: string
 }
 
-export async function fetchLocations() : Promise<ILocationResponse[]> {
+export async function fetchLocations(language: string) : Promise<ILocationResponse[]> {
 
     console.log("TRYING TO FETCH wedddings")
     const headers = await getAuthHeaders();
 
-    let response = await fetch(`${API_URL}/api/Location`, {
+    let response = await fetch(`${API_URL}/api/Location?language=${language}`, {
        headers
     })
     if(!response.ok)

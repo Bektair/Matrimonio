@@ -28,7 +28,9 @@ function CreateWeddingForm() {
       primaryFontColor: WeddingDefaults.DEFAULT_FONT_COLOR,
       secoundaryColor: WeddingDefaults.DEFAULT_BG_COLOR_SECOUNDARY,
       secoundaryFontColor: WeddingDefaults.DEFAULT_FONT_COLOR_SECOUNDARY,
-      title: e.target.title.value
+      title: e.target.title.value,
+      isDefaultLanguage: true,
+      language: e.target.language.value
     }))
 
     setTimeout(function () {
@@ -47,6 +49,7 @@ function CreateWeddingForm() {
       <input type='text' id="description" placeholder='Description'></input>
       <input type='text' id="picture" placeholder='Picture'></input>
       <input type='text' id="title" placeholder='Title'></input>
+      <input type='text' id="language" placeholder='language'></input>
       {renderButton()}
     </form>
 

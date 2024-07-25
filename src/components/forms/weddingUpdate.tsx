@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { IWeddingUpdate } from '../../API/UpdateWedding';
+import { IWeddingUpdate, IWeddingUpdateTranslation } from '../../API/UpdateWedding';
 import { WeddingCss } from '../../constants/weddingCssVariables';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
 import { selectWedding } from '../../redux/selectors/selectWeddingSlice';
 import { updateWeddingThunk } from '../../redux/slices/weddingSlice';
 import FontDropDownSelect from '../lists/fontDropDownSelect';
 import './weddingUpdate.sass';
+import { selectLanguage } from '../../redux/selectors/selectLanguage';
 
 function WeddingUpdate() {
     const { register, handleSubmit } = useForm();
     let wedding = useAppSelector(selectWedding);
+    let language = useAppSelector(selectLanguage);
 
 
     let primaryColorElement : any = null;
@@ -151,6 +153,11 @@ function WeddingUpdate() {
             
             var colorSecoundary = secoundaryColor + alphaSecoundary;
 
+            var WeddingTranslation = {
+                Title: isEmpty(title) ? undefined : title,
+                Description: isEmpty(description) ? undefined : description,
+                Dresscode: isEmpty(dresscode) ? undefined : dresscode,
+            } as IWeddingUpdateTranslation
 
             var Wedding = {
                 PrimaryColor: colorMain,
@@ -160,15 +167,16 @@ function WeddingUpdate() {
                 BackgroundImage: isEmpty(backgroundImage) ? undefined : backgroundImage,
                 BodyFont: primaryFont,
                 HeadingFont: secoundaryFont,
-                Title: isEmpty(title) ? undefined : title,
                 Picture: isEmpty(picture) ? undefined : picture,
-                Description: isEmpty(description) ? undefined : description,
-                Dresscode: isEmpty(dresscode) ? undefined : dresscode
+                Translation: WeddingTranslation,
             } as IWeddingUpdate
+
+
+
             console.log("WeddingUpdate:")
             console.log(JSON.stringify(Wedding))
 
-            dispatch(updateWeddingThunk({ id: wedding.id.toString(), weddingUpdate: Wedding}))
+            dispatch(updateWeddingThunk({ id: wedding.id.toString(), weddingUpdate: Wedding, language: language.language}))
         }
 
 

@@ -14,6 +14,8 @@ export interface ICeremonyResponse {
     description: string
     location: ILocation
     weddingId: number
+    language: string
+    isDefaultLanguage: boolean
 }
 
 

@@ -4,11 +4,13 @@ import { IRSVP } from '../../../models/IRSVP'
 import { useAppDispatch, useAppSelector } from '../../../redux/Hooks/hooks'
 import { selectRSVPS, selectWedding } from '../../../redux/selectors/selectWeddingSlice'
 import { getRSVPbyWedding } from '../../../redux/slices/weddingSlice'
+import { selectLanguage } from '../../../redux/selectors/selectLanguage'
 
 function RsvpMenu() {
     const dispatch = useAppDispatch();
     const rsvps = useAppSelector(selectRSVPS)
     const wedding = useAppSelector(selectWedding)
+    const language = useAppSelector(selectLanguage).language
     const [rsvp, setRSVP] = useState<IRSVP>(); 
 
 
@@ -19,7 +21,7 @@ function RsvpMenu() {
     useEffect(()=> {
         if(wedding){
             console.log("I have wedding will try fetch")
-            dispatch(getRSVPbyWedding(wedding.id))
+            dispatch(getRSVPbyWedding({weddingId: wedding.id.toString(), language: language}))
         }
     }, [])
 
@@ -28,8 +30,6 @@ function RsvpMenu() {
         setRSVP(selectedItem);
       
     }
-//Just give the list the content it should have lol
-//I can give it an array of content, this way we are not so volunourable to variable changes
 
     function getContent(_rsvp : IRSVP){
         var content = "";

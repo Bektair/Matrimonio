@@ -1,5 +1,4 @@
 import { API_URL } from "../constants/environment"
-import { IMenuOrder } from "../models/IMenuOrder"
 import { IMenuOrderResponse } from "./GetMenuOrders"
 import getAuthHeaders from "./SetAuthHeaders"
 

@@ -8,12 +8,14 @@ import WeddingList from '../../components/lists/WeddingList';
 import { useAppDispatch } from '../../redux/Hooks/hooks';
 import { getWeddingsByParticipant } from '../../redux/slices/weddingsSlice';
 import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
+import { selectLanguage } from '../../redux/selectors/selectLanguage';
 
 function Profile() {
   const {user, isAuthenticated, id } = useSelector(selectAuth);
   var navigate = useNavigate()
   const dispatch = useAppDispatch();
   const weddings = useSelector(selectWeddings);
+  const language = useSelector(selectLanguage).language;
 
 
   useEffect(()=>{
@@ -25,7 +27,7 @@ function Profile() {
     }
 
     if(id)
-      dispatch(getWeddingsByParticipant(id)) 
+      dispatch(getWeddingsByParticipant({participantId: id, language: language})) 
 
   }, [])
   

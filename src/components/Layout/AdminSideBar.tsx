@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { IWeddingAndSigner, getCeremony, getRSVPbyWeddingAndSigner, getReception, setWedding } from '../../redux/slices/weddingSlice';
+import { getCeremony, getRSVPbyWeddingAndSigner, getReception, setWedding } from '../../redux/slices/weddingSlice';
 import { getAllWeddings,  } from '../../redux/slices/weddingsSlice';
 import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
 import { selectCeremony, selectReception, selectWedding } from '../../redux/selectors/selectWeddingSlice';
 import { selectAuth } from '../../redux/selectors/selectAuth';
+import { selectLanguage } from '../../redux/selectors/selectLanguage';
+import { IWeddingAndSigner } from '../../API/GetRSVP';
 
 
 function AdminSideBar() {
@@ -15,12 +17,14 @@ function AdminSideBar() {
     const ceremony = useAppSelector(selectCeremony)
     const reception = useAppSelector(selectReception)
     const auth = useAppSelector(selectAuth)
+    const language = useAppSelector(selectLanguage).language;
+
 
     useEffect(()=>{
         if(weddings.length > 0)
             dispatch(setWedding({wedding: weddings[0]}));
         else{
-            dispatch(getAllWeddings());
+            dispatch(getAllWeddings(language));
         }
 
 
@@ -33,7 +37,7 @@ function AdminSideBar() {
                 wedding: weddings[0], 
             }));
         else{
-            dispatch(getAllWeddings());
+            dispatch(getAllWeddings(language));
         }
     }
 
@@ -63,7 +67,7 @@ function AdminSideBar() {
     function printRSVP(){
 
         if(wedding != undefined)
-          dispatch(getRSVPbyWeddingAndSigner( {signerId: auth.id, wedding_id: wedding.id.toString()} as IWeddingAndSigner))
+          dispatch(getRSVPbyWeddingAndSigner( {signerId: auth.id, wedding_id: wedding.id.toString(), language: language} as IWeddingAndSigner))
     
       }
 

@@ -8,6 +8,7 @@ import { selectCeremony, selectWedding } from "../../../redux/selectors/selectWe
 import { selectWeddings } from "../../../redux/selectors/selectWeddingsSlice"
 import { getAllWeddings } from "../../../redux/slices/weddingsSlice"
 import Summary from "../../Schedule/Summary"
+import { selectLanguage } from "../../../redux/selectors/selectLanguage"
 
 function CeremonyMenu() {
 
@@ -16,9 +17,11 @@ function CeremonyMenu() {
     const ceremony = useAppSelector(selectCeremony)
     const dispatch = useAppDispatch();
     const currentLocation = useAppSelector(selectCurrentLocation)
+    const language = useAppSelector(selectLanguage).language;
+
     useEffect(()=>{
         if(weddings.length < 1)
-            dispatch(getAllWeddings)
+            dispatch(getAllWeddings(language))
         else{
 
         }

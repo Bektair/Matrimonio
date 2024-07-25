@@ -1,4 +1,6 @@
 import { API_URL } from "../constants/environment";
+import { useAppSelector } from "../redux/Hooks/hooks";
+import { selectLanguage } from "../redux/selectors/selectLanguage";
 import getAuthHeaders from "./SetAuthHeaders";
 
 
@@ -8,28 +10,29 @@ interface IParams {
 
 export interface IWeddingResponse {
     id: number
-    description: string
-    dresscode: string
     primaryColor: string,
     secoundaryColor: string
-    backgroundImage: string
     primaryFontColor: string
     secoundaryFontColor: string
+    backgroundImage: string
     bodyFont: string
     headingFont: string
-    title: string
     picture: string
+    language: string
+    isDefaultLanguage: boolean,
+    title: string
+    description: string
+    dresscode: string
+    defaultLanguage: string
 }
 
-export async function fetchWeddings() : Promise<IWeddingResponse[]> {
 
+
+export async function fetchWeddings(language: string) : Promise<IWeddingResponse[]> {
     console.log("TRYING TO FETCH wedddings")
-    
-
-
     const headers = await getAuthHeaders();
 
-    let response = await fetch(`${API_URL}/api/Wedding`, {
+    let response = await fetch(`${API_URL}/api/Wedding?language=${language.toUpperCase()}`, {
        headers
     })
     if(!response.ok)
@@ -40,7 +43,7 @@ export async function fetchWeddings() : Promise<IWeddingResponse[]> {
     return data;
 }
 
-export async function fetchWeddingsWithParticipant(userId : string) : Promise<IWeddingResponse[]> {
+export async function fetchWeddingsWithParticipant(userId : string, language: string) : Promise<IWeddingResponse[]> {
 
     console.log("TRYING TO FETCH")
     
@@ -48,7 +51,7 @@ export async function fetchWeddingsWithParticipant(userId : string) : Promise<IW
 
     const headers = await getAuthHeaders();
 
-    let response = await fetch(`${API_URL}/api/Wedding/participant/${userId}`, {
+    let response = await fetch(`${API_URL}/api/Wedding/participant/${userId}?language=${language.toUpperCase()}`, {
        headers
     })
     if(!response.ok)
@@ -74,3 +77,4 @@ export async function fetchWedding({weddingId} : IParams)  {
     return data.length>0 ? data[0] : undefined;
     
 }
+

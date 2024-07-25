@@ -5,10 +5,12 @@ import { selectCeremony } from "../../redux/selectors/selectWeddingSlice";
 import { ICreateLocation, createLocationThunk } from "../../redux/slices/locationSlice";
 import LocationForm from "./LocationForm";
 import './createLocationForm.sass';
+import { selectLanguage } from "../../redux/selectors/selectLanguage";
 
 function CreateLocationForm() {
     const dispatch = useAppDispatch();
     const ceremony = useAppSelector(selectCeremony)
+    const language = useAppSelector(selectLanguage).language;
 
     useEffect(()=>{
         console.log("REEEEEEEEEEEEEEEEEERENDER")
@@ -17,7 +19,7 @@ function CreateLocationForm() {
 
     }, [])
 
-    function updateCeremony(formData :any){
+    function updateLocation(formData :any){
         console.log(formData)
 
 
@@ -30,14 +32,14 @@ function CreateLocationForm() {
                 country: "",
                 region:"",
                 lat: 0,
-                lng: 0
+                lng: 0,
+                language: language,
+                isDefaultLanguage: true
             } as ILocationRequest
 
             if(location){
                 console.log(formData)
-                var myLocationRequest = { location: location, reception: false} as ICreateLocation
-                if(myLocationRequest)
-                    dispatch(createLocationThunk(myLocationRequest))
+                dispatch(createLocationThunk(location))
             }
 
     }
@@ -47,7 +49,7 @@ function CreateLocationForm() {
     <>
         <div>createLocationForm</div>
         <label>{ceremony?.location.address}</label>
-        <LocationForm handleLocationSubmit={updateCeremony}></LocationForm>
+        <LocationForm handleLocationSubmit={updateLocation}></LocationForm>
     </>
   )
 }

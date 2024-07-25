@@ -14,6 +14,7 @@ import { selectWeddings } from "../../../redux/selectors/selectWeddingsSlice";
 import { getAllUsers } from "../../../redux/slices/usersSlice";
 import { addParticipantThunk, getParticipantsThunk } from "../../../redux/slices/weddingSlice";
 import { getAllWeddings } from "../../../redux/slices/weddingsSlice";
+import { selectLanguage } from "../../../redux/selectors/selectLanguage";
 
 
 function ParticipationMenu() {
@@ -21,6 +22,7 @@ function ParticipationMenu() {
     const dispatch = useAppDispatch();
     const weddings = useAppSelector(selectWeddings);
     const wedding = useAppSelector(selectWedding);
+    const language = useAppSelector(selectLanguage).language;
     const participants = useAppSelector(selectParticipants);
     const [selectedUser, setSelectedUser] = useState<IUser>()
     const roles = Object.values(ParticipationRole).map((x)=>{return { value: x.toString(), label: x.toString()}});
@@ -29,7 +31,7 @@ function ParticipationMenu() {
 
     useEffect(()=> {
         setTimeout(function() {dispatch(getAllUsers());}, 500)
-        setTimeout(function() {dispatch(getAllWeddings());}, 10)
+        setTimeout(function() {dispatch(getAllWeddings(language));}, 10)
 
         console.log("TRYING TO RENDER BOYS!!!!!!!!!!!!")
         console.log(wedding)
@@ -56,8 +58,10 @@ function ParticipationMenu() {
         if(role && wedding && selectedUser){
             var participantReq : IParticipantRequest = {
                 role: role,
-                userId: selectedUser.id,
-                wedding_id: wedding.id.toString()
+                userId: selectedUser.id.trim(),
+                wedding_id: wedding.id.toString(),
+                language: language,
+                isDefaultLanguage: (wedding.defaultLanguage.toUpperCase() == language.toUpperCase())  
             }
 
             if(participantReq){

@@ -6,16 +6,19 @@ export interface IReceptionRequest {
     startDate: string
     endDate: string
     description: string
+    isDefaultLanguage: boolean,
+    language: string,
     locationId: number
     weddingId: number
     menuOptions: IMenuOptionCreate[]
 }
 
 export interface IMenuOptionCreate {
-    dishName: string
-    alergens: string
-    tags: string
-    image: string
+    DishType: string
+    Tags: string
+    Image: string
+    IsDefaultLanguage: boolean
+    Language: string
 }
 
 

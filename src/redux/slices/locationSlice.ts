@@ -34,10 +34,6 @@ type sliceState = {
                     country: locationResponse.country,
                     id: locationResponse.id,
                     image: locationResponse.image,
-                    lat: locationResponse.lat,
-                    lng: locationResponse.lng,
-                    placename: locationResponse.placename,
-                    region: locationResponse.region,
                     title: locationResponse.title
                 } as ILocation
             })
@@ -51,13 +47,9 @@ type sliceState = {
                 var location = {
                     address: pay.address,
                     body: pay.body,
-                    placename: pay.placename,
                     country: pay.country,
                     image: pay.image,
                     id: pay.id,
-                    lat: pay.lat,
-                    lng: pay.lng,
-                    region: pay.region,
                     title: pay.title
 
                 } as ILocation
@@ -74,13 +66,9 @@ type sliceState = {
                 var location = {
                     address: pay.address,
                     body: pay.body,
-                    placename: pay.placename,
                     country: pay.country,
                     image: pay.image,
                     id: pay.id,
-                    lat: pay.lat,
-                    lng: pay.lng,
-                    region: pay.region,
                     title: pay.title
 
                 } as ILocation
@@ -105,10 +93,10 @@ type sliceState = {
   export const getAllLocations : any = createAsyncThunk(
     'location/getAllLocations',
     //Inside thunk function
-    async ()=> {
+    async (language : string)=> {
         try {
         console.log("FETCHING locations")
-          const locations = await fetchLocations();
+          const locations = await fetchLocations(language);
           return locations;
         }catch (err){
           return [];
@@ -119,15 +107,16 @@ type sliceState = {
 
   export interface ICreateLocation{
     location : ILocationRequest, 
+    language: string
 }
 
 
 
 export const createLocationThunk = createAsyncThunk(
     'wedding/createLocation',
-    async(_location : ICreateLocation)=>{
+    async(_location : ILocationRequest)=>{
         try{
-            var location = await createLocation(_location.location);
+            var location = await createLocation(_location);
             return location;
         } catch(err){
             console.log(err)
@@ -140,6 +129,7 @@ export const createLocationThunk = createAsyncThunk(
 export interface IUpdateLocation {
     location: ICreateLocation
     id: number
+    language: string
 }
 
 export const updateLocationThunk = createAsyncThunk(

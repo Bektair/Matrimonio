@@ -1,8 +1,14 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
+import CreateMenuOrderForm from '../../components/forms/createMenuOrderForm';
+import List from '../../components/lists/genericlist';
+import { IMenuOrder } from '../../models/IMenuOrder';
 import { IRSVP, RSVPStatus } from '../../models/IRSVP';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { IWeddingAndSigner, getMenuOrdersThunk, getRSVPbyWeddingAndSigner, getReception  } from '../../redux/slices/weddingSlice';
+import { selectAuth } from '../../redux/selectors/selectAuth';
+import { selectRSVPByAuthId, selectRSVPS, selectWedding } from '../../redux/selectors/selectWeddingSlice';
+import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
+import { IMenuOrderDelete, deleteMenuOrderThunk, getMenuOrdersThunk, getRSVPbyWeddingAndSigner, getReception } from '../../redux/slices/weddingSlice';
 import { getAllWeddings } from '../../redux/slices/weddingsSlice';
 import RSVPAllreadyAccepted from './RSVPAllreadyAccepted';
 import RSVPAllreadyAcceptedPastDue from './RSVPAllreadyAcceptedPastDue';
@@ -12,24 +18,21 @@ import RSVPDietaryMenu from './RSVPDietaryMenu';
 import RSVPExpiredInvite from './RSVPExpiredInvite';
 import RSVPPending from './RSVPPending';
 import './rsvp.sass';
-import { selectRSVPByAuthId, selectRSVPS, selectWedding } from '../../redux/selectors/selectWeddingSlice';
-import { selectAuth } from '../../redux/selectors/selectAuth';
-import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
-import List from '../../components/lists/genericlist';
-import { IMenuOrder } from '../../models/IMenuOrder';
-import CreateMenuOrderForm from '../../components/forms/createMenuOrderForm';
-import { IMenuOption } from '../../models/IMenuOption';
+import { selectLanguage } from '../../redux/selectors/selectLanguage';
+import { IWeddingAndSigner } from '../../API/GetRSVP';
 function Rsvp() {
 
   const { user, isAuthenticated } = useAuth0();
   const RSVPS = useAppSelector(selectRSVPS);
   const Wedding = useAppSelector(selectWedding);
+  const Language = useAppSelector(selectLanguage).language;
   const Auth = useAppSelector(selectAuth);
   const UserId = useAppSelector(selectAuth).id;
   const weddings = useAppSelector(selectWeddings)
   const dispatch = useAppDispatch();
   const currentRSVP = useAppSelector(state => selectRSVPByAuthId(state, Auth ? Auth.id : undefined))
   const [currentMenuItem, setCurrentMenuItem] = useState();
+  const [selectedMenuOrder, setSelectedMenuOrder] = useState<IMenuOrder>();
 
   const mode = import.meta.env.MODE;
   console.log("MODE")
@@ -46,10 +49,10 @@ function Rsvp() {
     console.log(currentRSVP)
 
     if(weddings.length == 0){
-      dispatch(getAllWeddings());
+      dispatch(getAllWeddings(Language));
     }
     if(Wedding != undefined){
-      dispatch(getRSVPbyWeddingAndSigner( {signerId: UserId, wedding_id: Wedding.id.toString()} as IWeddingAndSigner))
+      dispatch(getRSVPbyWeddingAndSigner( {signerId: UserId, wedding_id: Wedding.id.toString(), language: Language} as IWeddingAndSigner))
       dispatch(getReception(Wedding.id))
     }
     if(!isAuthenticated){
@@ -118,6 +121,21 @@ function Rsvp() {
   function setMenuItem(e: any){
     setCurrentMenuItem(e)
   }
+  
+  function selectMenuOrder(order : IMenuOrder){
+    setSelectedMenuOrder(order);
+  }
+
+  function sendDeleteMenuOrder(){
+    if(selectedMenuOrder != undefined && currentRSVP != undefined){
+      var order : IMenuOrderDelete = {
+        menuOrder_id: Number(selectedMenuOrder.id),
+        rsvp_id: Number(currentRSVP?.id)
+      }
+
+      dispatch(deleteMenuOrderThunk(order))
+    }
+  }
 
 
   return (
@@ -135,13 +153,18 @@ function Rsvp() {
 
       { Auth && Auth.id  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP && currentRSVP.status == RSVPStatus.Accepted &&
         <>
-        <h2>Dietary Requirements</h2>
-        <List<IMenuOrder> name='menuOrders' listItems={currentRSVP.menuOrders} onclickEvent={(e)=> console.log(e)} 
-              setContentFunction={contentMenuOrders} ></List>
-        <RSVPDietaryMenu rsvp={currentRSVP} setCurrentMenuItem={setMenuItem}></RSVPDietaryMenu>
-        {currentMenuItem &&
-          <CreateMenuOrderForm rsvp_id={currentRSVP.id} menuOptionId={currentMenuItem}></CreateMenuOrderForm>}
-       
+          <h2>Dietary Requirements</h2>
+        <div className='DietaryMenu'>
+          <RSVPDietaryMenu rsvp={currentRSVP} setCurrentMenuItem={setMenuItem}></RSVPDietaryMenu>
+          {currentMenuItem &&
+            <CreateMenuOrderForm rsvp_id={currentRSVP.id} menuOptionId={currentMenuItem}></CreateMenuOrderForm>}
+        </div>
+          <h2>Current Orders</h2>
+        <div className='ordersList'>
+          <List<IMenuOrder> name='menuOrders' listItems={currentRSVP.menuOrders} onclickEvent={(e)=> selectMenuOrder(e)} 
+            setContentFunction={contentMenuOrders} ></List>
+          <button type='button' onClick={sendDeleteMenuOrder}>Delete Order</button>
+        </div>
         </>
       }
       

@@ -1,8 +1,6 @@
 
 export interface IWedding {
     id: number,
-    description: string,
-    dresscode: string,
     primaryColor: string,
     secoundaryColor: string
     backgroundImage: string
@@ -10,6 +8,11 @@ export interface IWedding {
     secoundaryFontColor: string | undefined
     bodyFont: string | undefined
     headingFont: string | undefined
-    title: string
     picture: string
+    title: string
+    description: string,
+    dresscode: string,
+    language: string
+    isDefaultLanguage: boolean,
+    defaultLanguage: string
 }

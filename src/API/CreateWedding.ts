@@ -8,8 +8,6 @@ interface IParams {
 }
 
 export interface IWeddingRequest {
-    description: string
-    dresscode: string
     primaryColor : string
     secoundaryColor : string
     primaryFontColor : string
@@ -17,12 +15,19 @@ export interface IWeddingRequest {
     backgroundImage : string
     bodyFont : string
     headingFont : string
+    isDefaultLanguage: boolean,
+    language: string
+    description: string
+    dresscode: string
     title : string
     picture : string
 }
 
 export async function createWedding({ weddingRequest } : IParams) {
     const headers = await getAuthHeaders();
+
+    console.log("REQUESTED for WEDDING")
+    console.log(weddingRequest)
 
     let response = await fetch(`${API_URL}/api/Wedding`, {
         method: "POST",

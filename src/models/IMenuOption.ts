@@ -3,4 +3,6 @@ export interface IMenuOption{
     dishType: string
     tags: string
     image: string
+    isDefaultLanguage: boolean
+    language: string
 }

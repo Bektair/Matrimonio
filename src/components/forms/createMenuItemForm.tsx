@@ -5,6 +5,8 @@ import './createMenuItemForm.sass'
 import { Allergen } from '../../constants/allergens';
 import Select from 'react-select';
 import { DishTags } from '../../constants/dishtags';
+import { useAppSelector } from '../../redux/Hooks/hooks';
+import { selectLanguage } from '../../redux/selectors/selectLanguage';
 
 interface IProps {
     menuItemAdd : any
@@ -23,7 +25,7 @@ function CreateMenuItemForm(props : IProps) {
     const dishTagOptions = Object.values(DishTags).map((s)=> {return {value: s, label: s.toString()}})
     const [allergens, setAllergens] = useState<SelectValue[]>([]);
     const [tags, setTags] = useState<SelectValue[]>([]);
-
+    const language = useAppSelector(selectLanguage).language;
 
 
     function menuItemFormHandler(formdata: any){
@@ -34,10 +36,11 @@ function CreateMenuItemForm(props : IProps) {
         
 
         var menuItem : IMenuOptionCreate = {
-            dishName: formdata.dishname,
-            image: formdata.image,
-            alergens: allergensString,
-            tags: tagsString
+            DishType: formdata.dishname,
+            Image: formdata.image,
+            Tags: tagsString,
+            IsDefaultLanguage: true,
+            Language: language
         } 
 
         props.menuItemAdd(menuItem);
