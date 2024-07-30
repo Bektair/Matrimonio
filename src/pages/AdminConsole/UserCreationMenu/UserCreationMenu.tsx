@@ -10,6 +10,7 @@ import { selectWedding } from '../../../redux/selectors/selectWeddingSlice';
 import { getAllUsers } from '../../../redux/slices/usersSlice';
 import { getCeremony } from '../../../redux/slices/weddingSlice';
 import './UserCreationMenu.sass';
+import { selectLanguage } from '../../../redux/selectors/selectLanguage';
 
 
 
@@ -54,11 +55,12 @@ function UserCreationMenu() {
   let users = useAppSelector(selectUsers);
   const [selectedUser, setSelectedUser] = useState<IUser>()
   const wedding = useAppSelector(selectWedding);
+  const language = useAppSelector(selectLanguage).language;
 
   useEffect(()=> {
     setTimeout(function() {dispatch(getAllUsers());}, 500)
     if(wedding!=undefined)
-      dispatch(getCeremony(wedding.id))
+      dispatch(getCeremony({weddingId: wedding.id.toString(),language:language}))
 
 
 

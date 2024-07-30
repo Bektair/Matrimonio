@@ -28,7 +28,8 @@ function LocationForm(props : IProps) {
                     &q=${address}` }> 
             </iframe>: <img id="loadingLocationMap" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Blank_Map_Pacific_World.svg/1200px-Blank_Map_Pacific_World.svg.png"></img> }
             <textarea {...register("body")} name="body" defaultValue={props.location?.body}></textarea>
-            <button type="submit">Submit</button>
+            <button type="submit" name='Update'>Update</button>
+            <button type="submit" name='Translate'>AddTranslation</button>
         </form>
   )
 }

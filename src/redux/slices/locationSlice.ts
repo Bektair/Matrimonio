@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { ILocation } from "../../models/ILocation"
 import { ILocationResponse, fetchLocations } from "../../API/GetLocations"
-import { ILocationRequest, createLocation, updateLocation } from "../../API/CreateLocation"
+import { ILocationRequest, ITranslationLocationRequest, IUpdateLocationRequest, addTranslationLocation, createLocation, updateLocation } from "../../API/CreateLocation"
 type sliceState = {
     locations: ILocation[]
     active_location: number | undefined
@@ -105,10 +105,7 @@ type sliceState = {
   )
 
 
-  export interface ICreateLocation{
-    location : ILocationRequest, 
-    language: string
-}
+
 
 
 
@@ -126,15 +123,10 @@ export const createLocationThunk = createAsyncThunk(
     }
 )
 
-export interface IUpdateLocation {
-    location: ICreateLocation
-    id: number
-    language: string
-}
 
 export const updateLocationThunk = createAsyncThunk(
     'wedding/updateLocation',
-    async(_location : IUpdateLocation)=>{
+    async(_location : IUpdateLocationRequest)=>{
         try{
             var location = await updateLocation(_location);
             return location;
@@ -145,4 +137,19 @@ export const updateLocationThunk = createAsyncThunk(
 
     }
 )
+
+
+export const addLocationTranslationThunk = createAsyncThunk(
+    'location/Translation',
+    //Inside thunk function
+    async (req : ITranslationLocationRequest)=> {
+        try {
+          await addTranslationLocation(req);
+        }catch (err){
+            console.log(err)
+          return undefined;
+        }
+    }
+  )
+
 export default locationSlice.reducer

@@ -16,12 +16,17 @@ export interface IReceptionResponse{
     menuOptions: IMenuOption[]
 }
 
+export interface ReceptionRequest{
+    weddingId : string
+    language: string
+}
 
-export async function fetchReception(weddingId : number){
+export async function fetchReception(req : ReceptionRequest){
 
     var headers = await getAuthHeaders();
 
-    let response = await fetch(`${API_URL}/api/Reception?filter=weddingId eq ${weddingId}`, {
+    let response = await fetch
+        (`${API_URL}/api/Reception?filter=weddingId eq ${req.weddingId}&language=${req.language}`, {
         headers
     })
     if(!response.ok){

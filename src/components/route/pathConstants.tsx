@@ -1,3 +1,4 @@
+
 const PathConstants = {
     Login: "/login",
     Register: "/register",
@@ -15,7 +16,8 @@ const PathConstants = {
     Admin: "/adminconsole",
     WeddingMenu: "/weddingmenu",
     User: "/user",
-    ParticipationMenu: "/participationMenu",
+    ParticipationMenu: "/participationmenu",
+    PostMenu: "/postmenu",
 }
 
 export default PathConstants;

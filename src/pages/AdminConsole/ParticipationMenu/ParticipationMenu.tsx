@@ -37,7 +37,7 @@ function ParticipationMenu() {
         console.log(wedding)
         if(wedding){
 
-            dispatch(getParticipantsThunk({weddingId: wedding.id.toString()}))
+            dispatch(getParticipantsThunk({weddingId: wedding.id.toString(), language: language}))
         }
     
     
@@ -59,7 +59,7 @@ function ParticipationMenu() {
             var participantReq : IParticipantRequest = {
                 role: role,
                 userId: selectedUser.id.trim(),
-                wedding_id: wedding.id.toString(),
+                weddingId: wedding.id.toString(),
                 language: language,
                 isDefaultLanguage: (wedding.defaultLanguage.toUpperCase() == language.toUpperCase())  
             }

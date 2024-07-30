@@ -1,8 +1,8 @@
-import { ILocationRequest } from '../../API/CreateLocation'
+import { ITranslationLocationRequest, IUpdateLocation, IUpdateLocationRequest, IUpdateLocationTranslation } from '../../API/CreateLocation'
 import { ILocation } from '../../models/ILocation'
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks'
 import { selectLanguage } from '../../redux/selectors/selectLanguage'
-import { ICreateLocation, updateLocationThunk } from '../../redux/slices/locationSlice'
+import { addLocationTranslationThunk, updateLocationThunk } from '../../redux/slices/locationSlice'
 import LocationForm from './LocationForm'
 
 interface IProps {
@@ -13,28 +13,44 @@ function UpdateLocationForm(props: IProps) {
     const dispatch = useAppDispatch();
     const language = useAppSelector(selectLanguage).language;
 
-    function updateLocation(formData :any){
+    function updateLocation(formData :any, e:any){
+        console.log("DATA FROM FORM: ---------- UPdate Loaction ..")
         console.log(formData)
+        if(e.nativeEvent.submitter.name == "Translate"){
+          console.log("CHOOSEN TO ACTUALLY JUST ADD A TRANSLATION")
+          var locationTranslation = {
+            Title: formData.title,
+            Address: formData.address,
+            Body: formData.body,
+            Country: "",
+            Language: language
+          } as IUpdateLocationTranslation
+          dispatch(addLocationTranslationThunk({ translation: locationTranslation, locationId: props.location.id.toString() } as ITranslationLocationRequest));
+        }
 
+        else{
+
+            var locationTranslation = {
+              Title: formData.title,
+              Address: formData.address,
+              Body: formData.body,
+              Country: "",
+              Language: language
+            } as IUpdateLocationTranslation
 
             var location = {
-                title: formData.title,
-                address: formData.address,
-                placeName: "",
-                body: formData.body,
-                image: formData.img,
-                country: "",
-                region:"",
-                lat: 0,
-                lng: 0,
-            } as ILocationRequest
+                Image: formData.img,
+                Translation: locationTranslation,
+            } as IUpdateLocation
+            console.log(location)
 
             if(location){
                 console.log(formData)
-                var myLocationRequest = { location: location, reception: false, language: language} as ICreateLocation
+                var myLocationRequest = { location: location, locationId: props.location.id.toString()} as IUpdateLocationRequest
                 if(myLocationRequest)
-                    dispatch(updateLocationThunk({ location: myLocationRequest, id: props.location.id, language: language}))
+                    dispatch(updateLocationThunk(myLocationRequest))
             }
+          }
 
     }
 

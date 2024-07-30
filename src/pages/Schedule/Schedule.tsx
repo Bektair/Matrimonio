@@ -7,6 +7,7 @@ import "./Schedule.sass";
 import Summary from './Summary';
 import { Link } from 'react-router-dom';
 import PathConstants from '../../components/route/pathConstants';
+import { selectLanguage } from '../../redux/selectors/selectLanguage';
 
 function Schedule() {
 
@@ -17,8 +18,11 @@ function Schedule() {
   const currentReception = useAppSelector(selectReception)
   const currentCeremony = useAppSelector(selectCeremony)
   const wedding = useAppSelector(selectWedding)
+  const language = useAppSelector(selectLanguage).language
+
   const dispatch = useAppDispatch();
   const [activeTab, setActiveTab] = useState("Ceremony");
+
 
   useEffect(()=>{
 
@@ -26,10 +30,10 @@ function Schedule() {
     console.log(wedding)
     console.log(currentReception)
     if(!currentReception && wedding){
-      dispatch(getReception(wedding.id))
+      dispatch(getReception({weddingId: wedding.id.toString(), language: language}))
     }
     if(!currentCeremony && wedding){
-      dispatch(getCeremony(wedding.id))
+      dispatch(getCeremony({weddingId: wedding.id.toString(), language: language }))
     }
 
   }, [])

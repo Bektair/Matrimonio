@@ -36,3 +36,27 @@ export async function createReception( receptionRequest : IReceptionRequest) {
     let data = await response.json() as IReceptionResponse;
     return data;
 }
+
+export interface ITranslateReception{
+    Language: string
+    IsDefaultLanguage: boolean
+    Description: string
+}
+
+export interface ITranslateReceptionRequest {
+    translate : ITranslateReception,
+    receptionId: string
+}
+
+export async function addReceptionTranslation(req : ITranslateReceptionRequest){
+    const headers = await getAuthHeaders();
+
+    let response = await fetch(`${API_URL}/api/Reception/${req.receptionId}/Translation`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(req.translate)
+    })
+    if(!response.ok)
+        throw new Error(await response.text() || response.statusText);
+    return;
+}

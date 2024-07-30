@@ -4,15 +4,16 @@ import { IWeddingUpdate, IWeddingUpdateTranslation } from '../../API/UpdateWeddi
 import { WeddingCss } from '../../constants/weddingCssVariables';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
 import { selectWedding } from '../../redux/selectors/selectWeddingSlice';
-import { updateWeddingThunk } from '../../redux/slices/weddingSlice';
+import { addWeddingTranslationThunk, updateWeddingThunk } from '../../redux/slices/weddingSlice';
 import FontDropDownSelect from '../lists/fontDropDownSelect';
 import './weddingUpdate.sass';
 import { selectLanguage } from '../../redux/selectors/selectLanguage';
+import { IAddWeddingTranslation } from '../../API/AddWeddingTranslation';
 
 function WeddingUpdate() {
     const { register, handleSubmit } = useForm();
     let wedding = useAppSelector(selectWedding);
-    let language = useAppSelector(selectLanguage);
+    let language = useAppSelector(selectLanguage).language;
 
 
     let primaryColorElement : any = null;
@@ -39,6 +40,7 @@ function WeddingUpdate() {
     const [secoundaryFont, setSecoundaryFont] = useState("");
     const [secoundaryFontColor, setSecoundaryFontColor] = useState("");
     const [primaryFontColor, setPrimaryFontColor] = useState("");
+    const [addTranslation, setAddTranslation] = useState(false);
     
     
 
@@ -136,47 +138,61 @@ function WeddingUpdate() {
     }
 
     function updateWedding (){
-
-
-        console.log("UpdateWedding!")
+        console.log("Trying to ado the form weddingupdate ----------")
+        console.log(addTranslation)
   
         if(wedding != undefined){
-            console.log(primaryColorAlpha)
-            var alphaMain = new Number(primaryColorAlpha).toString(16);
-            console.log(alphaMain)
-            console.log("This|" + primaryColorAlpha + "|converts to|" + alphaMain)
-            
-            var colorMain = primaryColor + alphaMain;
-            var alphaSecoundary = new Number(secoundaryColorAlpha).toString(16);
-            console.log(secoundaryColorAlpha)
-            console.log(alphaSecoundary)
-            
-            var colorSecoundary = secoundaryColor + alphaSecoundary;
+            if(addTranslation){
+                var translationReq = {
+                    translation: {
+                        title: isEmpty(title) ? undefined : title,
+                        description: isEmpty(description) ? undefined : description,
+                        dresscode: isEmpty(dresscode) ? undefined : dresscode,
+                        isDefaultLanguage: false,
+                        language: language,
+                    },
+                    weddingId: wedding.id.toString()
+                } as IAddWeddingTranslation
 
-            var WeddingTranslation = {
-                Title: isEmpty(title) ? undefined : title,
-                Description: isEmpty(description) ? undefined : description,
-                Dresscode: isEmpty(dresscode) ? undefined : dresscode,
-            } as IWeddingUpdateTranslation
+                dispatch(addWeddingTranslationThunk(translationReq))
+            } else {
+                console.log(primaryColorAlpha)
+                var alphaMain = new Number(primaryColorAlpha).toString(16);
+                console.log(alphaMain)
+                console.log("This|" + primaryColorAlpha + "|converts to|" + alphaMain)
+                
+                var colorMain = primaryColor + alphaMain;
+                var alphaSecoundary = new Number(secoundaryColorAlpha).toString(16);
+                console.log(secoundaryColorAlpha)
+                console.log(alphaSecoundary)
+                
+                var colorSecoundary = secoundaryColor + alphaSecoundary;
 
-            var Wedding = {
-                PrimaryColor: colorMain,
-                SecoundaryColor: colorSecoundary,
-                PrimaryFontColor: primaryFontColor,
-                SecoundaryFontColor: secoundaryFontColor,
-                BackgroundImage: isEmpty(backgroundImage) ? undefined : backgroundImage,
-                BodyFont: primaryFont,
-                HeadingFont: secoundaryFont,
-                Picture: isEmpty(picture) ? undefined : picture,
-                Translation: WeddingTranslation,
-            } as IWeddingUpdate
+                var WeddingTranslation = {
+                    Title: isEmpty(title) ? undefined : title,
+                    Description: isEmpty(description) ? undefined : description,
+                    Dresscode: isEmpty(dresscode) ? undefined : dresscode,
+                } as IWeddingUpdateTranslation
+
+                var Wedding = {
+                    PrimaryColor: colorMain,
+                    SecoundaryColor: colorSecoundary,
+                    PrimaryFontColor: primaryFontColor,
+                    SecoundaryFontColor: secoundaryFontColor,
+                    BackgroundImage: isEmpty(backgroundImage) ? undefined : backgroundImage,
+                    BodyFont: primaryFont,
+                    HeadingFont: secoundaryFont,
+                    Picture: isEmpty(picture) ? undefined : picture,
+                    Translation: WeddingTranslation,
+                } as IWeddingUpdate
 
 
 
-            console.log("WeddingUpdate:")
-            console.log(JSON.stringify(Wedding))
+                console.log("WeddingUpdate:")
+                console.log(JSON.stringify(Wedding))
 
-            dispatch(updateWeddingThunk({ id: wedding.id.toString(), weddingUpdate: Wedding, language: language.language}))
+                dispatch(updateWeddingThunk({ id: wedding.id.toString(), weddingUpdate: Wedding, language: language}))
+            }
         }
 
 
@@ -237,6 +253,9 @@ function fontChangeInstantSecound(e: any){
     fontColorSecound.value = e.target.value;
 }
 
+function toggleAddTranslation(){
+    setAddTranslation(addTranslation ? false : true)
+}
 
 
   return (
@@ -281,11 +300,11 @@ function fontChangeInstantSecound(e: any){
             <div className='griditem-wedding'><input type='text' {...register("dresscode")} placeholder='dresscode' value={dresscode} onInput={(event : any)=>setDresscode(event.target.value)}  /></div>
             <div className='griditem-wedding'></div>
 
-
-
+            <div className='griditem-wedding'><label>AddTranslation</label></div>
+            <div className='griditem-wedding'><input type='checkbox' checked={addTranslation} onClick={toggleAddTranslation} {...register("translation")} placeholder='translation'/></div>
+            <div className='griditem-wedding'></div>
         </div>
         <button type='submit'>Update</button> 
-        <button type='submit'>Create</button> 
     </form>
   )
 }

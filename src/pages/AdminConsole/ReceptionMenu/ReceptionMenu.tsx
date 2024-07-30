@@ -9,9 +9,11 @@ import CreateReceptionForm from "../../../components/forms/createReceptionForm"
 import CreateMenuItemForm from "../../../components/forms/createMenuItemForm"
 import { IMenuOptionRequest } from "../../../API/CreateMenuOption"
 import { IMenuOption } from "../../../models/IMenuOption"
-import { createMenuOptionThunk } from "../../../redux/slices/weddingSlice"
+import { createMenuOptionThunk, getReception } from "../../../redux/slices/weddingSlice"
 import List from "../../../components/lists/genericlist"
 import { selectLanguage } from "../../../redux/selectors/selectLanguage"
+import ReceptionTranslationForm from "../../../components/forms/ReceptionTranslationForm"
+import UpdateLocationForm from "../../../components/forms/UpdateLocationForm"
 
 function ReceptionMenu() {
   const weddings = useAppSelector(selectWeddings)
@@ -24,6 +26,9 @@ function ReceptionMenu() {
       if(weddings.length < 1)
           dispatch(getAllWeddings(language))
       else{
+        if(wedding && !reception){
+          dispatch(getReception({weddingId: wedding.id.toString(), language: language}))
+        }
       }
       
   },[])
@@ -61,8 +66,10 @@ function ReceptionMenu() {
       { wedding && !reception && <><label>You can add a reception to wedding with id {wedding.id}</label>
       <CreateReceptionForm wedding_id={wedding?.id}></CreateReceptionForm></>}
       { wedding && reception && <><label>Reception</label><Summary location={reception.location} startDate={reception.startDate} endDate={reception.endDate}></Summary>
+      <UpdateLocationForm location={reception.location}></UpdateLocationForm>
       <CreateMenuItemForm menuItemAdd={menuItemAdd}></CreateMenuItemForm>
       <List<IMenuOption> listItems={reception.menuOptions} name="menuOptions" setContentFunction={setContent} onclickEvent={onMenuOptionClick} ></List>
+      <ReceptionTranslationForm receptionId={reception.id.toString()} weddingId={wedding?.id.toString()}/>
       </> }
 
     </>

@@ -1,6 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { loggermiddleware } from './middleware/loggermiddleware'
-import postSlice from './slices/postSlice'
 import weddingSlice from './slices/weddingSlice'
 import weddingsSlice from './slices/weddingsSlice'
 import authSlice from './slices/authSlice'
@@ -17,7 +16,6 @@ export enum RequestsEnum {
 //These keys define the final statevalue
 //Splitting the state into slicereducers
 const rootReducer = combineReducers({
-  posts :  postSlice,
   weddings: weddingsSlice,
   wedding: weddingSlice,
   auth: authSlice,

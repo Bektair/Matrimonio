@@ -26,9 +26,10 @@ export interface IPatchWeddingResponse {
     patched: IWeddingResponse
 }
 
-export async function patchWedding(rsvp : IWeddingUpdate, id : string, language: string){
+export async function patchWedding(weddingUpdate : IWeddingUpdate, id : string, language: string){
 
-    var patches = createJsonPatch(rsvp);
+    var patches = createJsonPatch(weddingUpdate);
+    console.log("WEDDING PATCHES!......................................Wedding patches")
     console.log(patches)
 
     const headers = await getAuthHeaders();

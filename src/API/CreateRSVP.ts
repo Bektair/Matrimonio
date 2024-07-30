@@ -11,7 +11,9 @@ export interface IRSVPCreate {
     OtherDietaryRequirements: string
     signerId: string
     weddingId: number
+    language: string
 }
+
 
 
 export async function createRSVP(rsvp : IRSVPCreate){
@@ -55,4 +57,28 @@ export async function addMenuOrder(menuOrder: IMenuOrderCreateRSVP){
          throw new Error(await response.text() || response.statusText);
      let data = await response.json() as IMenuOrderResponse;
      return { data: data, RSVP_id: menuOrder.RSVP_id};
+}
+
+export interface ITranslationRSVP{
+    body: string
+    language: string
+    isDefaultLanguage: boolean
+}
+
+export interface ITranslationRSVPRequest{
+    translation : ITranslationRSVP
+    rsvpId: string
+}
+
+export async function addTranslationRSVP(request : ITranslationRSVPRequest){
+
+    const headers = await getAuthHeaders();
+    let response = await fetch(`${API_URL}/api/RSVP/${request.rsvpId}/Translation`, {
+        headers,
+        method: "POST",
+        body: JSON.stringify(request.translation)
+     })
+     if(!response.ok)
+         throw new Error(await response.text() || response.statusText);
+    return;
 }

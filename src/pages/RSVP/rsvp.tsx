@@ -25,7 +25,7 @@ function Rsvp() {
   const { user, isAuthenticated } = useAuth0();
   const RSVPS = useAppSelector(selectRSVPS);
   const Wedding = useAppSelector(selectWedding);
-  const Language = useAppSelector(selectLanguage).language;
+  const language = useAppSelector(selectLanguage).language;
   const Auth = useAppSelector(selectAuth);
   const UserId = useAppSelector(selectAuth).id;
   const weddings = useAppSelector(selectWeddings)
@@ -49,11 +49,11 @@ function Rsvp() {
     console.log(currentRSVP)
 
     if(weddings.length == 0){
-      dispatch(getAllWeddings(Language));
+      dispatch(getAllWeddings(language));
     }
     if(Wedding != undefined){
-      dispatch(getRSVPbyWeddingAndSigner( {signerId: UserId, wedding_id: Wedding.id.toString(), language: Language} as IWeddingAndSigner))
-      dispatch(getReception(Wedding.id))
+      dispatch(getRSVPbyWeddingAndSigner( {signerId: UserId, wedding_id: Wedding.id.toString(), language: language} as IWeddingAndSigner))
+      dispatch(getReception({weddingId: Wedding.id.toString(), language: language}))
     }
     if(!isAuthenticated){
       console.log("not authenticated")

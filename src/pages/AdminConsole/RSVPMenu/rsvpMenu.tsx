@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
+import UpdateRsvpForm from '../../../components/forms/UpdateRsvpForm'
 import List from '../../../components/lists/genericlist'
 import { IRSVP } from '../../../models/IRSVP'
 import { useAppDispatch, useAppSelector } from '../../../redux/Hooks/hooks'
-import { selectRSVPS, selectWedding } from '../../../redux/selectors/selectWeddingSlice'
-import { getRSVPbyWedding } from '../../../redux/slices/weddingSlice'
 import { selectLanguage } from '../../../redux/selectors/selectLanguage'
+import { selectCeremony, selectRSVPS, selectWedding } from '../../../redux/selectors/selectWeddingSlice'
+import { getRSVPbyWedding } from '../../../redux/slices/weddingSlice'
 
 function RsvpMenu() {
     const dispatch = useAppDispatch();
     const rsvps = useAppSelector(selectRSVPS)
     const wedding = useAppSelector(selectWedding)
+    const ceremony = useAppSelector(selectCeremony)
     const language = useAppSelector(selectLanguage).language
     const [rsvp, setRSVP] = useState<IRSVP>(); 
 
@@ -39,10 +41,10 @@ function RsvpMenu() {
 
 
   return (
-    <>
-        
+    <>  
         <List setContentFunction={getContent} onclickEvent={onClickEvent} listItems={rsvps}  name='rsvp'></List>
         <label>Id selected: {rsvp?.id}</label>
+        {rsvp && wedding &&<UpdateRsvpForm rsvp={rsvp} wedding_id={wedding?.id.toString()} ceremony={ceremony}></UpdateRsvpForm>}
         <></>
     </>
   )

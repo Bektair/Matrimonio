@@ -3,8 +3,9 @@ import { API_URL } from "../constants/environment";
 import getAuthHeaders from "./SetAuthHeaders";
 //import getAuthHeaders from "./setAuthHeaders"; For authentication
 
-interface IParams {
+export interface PostRequest {
     weddingId: string,
+    language: string
 }
 
 export interface IPostResponse {
@@ -17,13 +18,13 @@ export interface IPostResponse {
 
 
 
-export async function fetchPosts({ weddingId }: IParams ) : Promise<IPostResponse[]> {
+export async function fetchPosts({ weddingId, language }: PostRequest ) : Promise<IPostResponse[]> {
     //const headers = await getAuthHeaders(); For Authentication
     console.log("wedding id passed to middleware=" + weddingId)
 
     const headers = await getAuthHeaders();
 
-    let response = await fetch(`${API_URL}/api/Post?$filter=weddingId eq ${Number(weddingId)}`, {
+    let response = await fetch(`${API_URL}/api/Post?$filter=weddingId eq ${Number(weddingId)}&language=${language}`, {
        headers
     })
     if(!response.ok)

@@ -8,7 +8,6 @@ import { useEffect } from "react"
 import { useAppDispatch } from "../../redux/Hooks/hooks"
 import { selectLanguage } from "../../redux/selectors/selectLanguage"
 import { Languages } from "../../constants/supportedLanguages"
-import { Dropdown } from "react-bootstrap"
 import LangDropDown from "../lists/langDropDown"
 
 function Navbar() {

@@ -3,9 +3,7 @@ import { ILocation } from "../models/ILocation";
 import getAuthHeaders from "./SetAuthHeaders";
 
 
-interface IParams {
-    weddingId: string
-}
+
 
 export interface ICeremonyResponse {
     id: number
@@ -18,11 +16,15 @@ export interface ICeremonyResponse {
     isDefaultLanguage: boolean
 }
 
+export interface CeremonyRequest{
+    weddingId : string
+    language: string
+}
 
-export async function fetchCeremonies() : Promise<ICeremonyResponse[]> {
+export async function fetchCeremonies(resonse : CeremonyRequest) : Promise<ICeremonyResponse[]> {
     const headers = await getAuthHeaders();
 
-    let response = await fetch(`${API_URL}/api/ReligiousCeremony`, {
+    let response = await fetch(`${API_URL}/api/ReligiousCeremony?language${resonse.language}`, {
        headers
     })
     if(!response.ok)
@@ -31,10 +33,10 @@ export async function fetchCeremonies() : Promise<ICeremonyResponse[]> {
     return data;
 }
 
-export async function fetchCeremony({weddingId} : IParams) {
+export async function fetchCeremony(req : CeremonyRequest) {
     const headers = await getAuthHeaders();
 
-    let response = await fetch(`${API_URL}/api/ReligiousCeremony?$filter=weddingId eq ${Number(weddingId)}`, {
+    let response = await fetch(`${API_URL}/api/ReligiousCeremony?$filter=weddingId eq ${Number(req.weddingId)}&language=${req.language.toUpperCase()}`, {
        headers
     })
     

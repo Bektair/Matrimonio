@@ -18,7 +18,7 @@ export const UpdateRSVPbutton = (props : sentProps) => {
             status: status,
             deadline: undefined,
             numberOfGuests: undefined,
-            OtherDietaryRequirements: undefined,
+            otherDietaryRequirements: undefined,
             signerId: undefined,
             weddingId: undefined,
             menuOrders: undefined

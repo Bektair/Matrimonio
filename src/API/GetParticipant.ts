@@ -5,6 +5,7 @@ import getAuthHeaders from "./SetAuthHeaders"
 export interface IParticipantGetRequest {
     weddingId: string
     role? : string
+    language: string
 }
 
 
@@ -16,8 +17,8 @@ export async function fetchParticipants(props : IParticipantGetRequest) : Promis
 
 
     const headers = await getAuthHeaders();
-    var roleExtra =  (props.role) ? `?role=${props.role}` : ""
-    let response = await fetch(`${API_URL}/api/Wedding/participants/${props.weddingId}` + roleExtra, {
+    var roleExtra =  (props.role) ? `&role=${props.role}` : ""
+    let response = await fetch(`${API_URL}/api/Wedding/participants/${props.weddingId}?language=${props.language}` + roleExtra, {
        headers
     })
     if(!response.ok)

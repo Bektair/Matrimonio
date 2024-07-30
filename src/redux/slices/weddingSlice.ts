@@ -1,14 +1,14 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { ICeremonyRequest, createCeremony } from '../../API/CreateCeremony'
+import { ICeremonyRequest, ITranslateCeremonyRequest, addCeremonyTranslation, createCeremony } from '../../API/CreateCeremony'
 import { IMenuOptionRequest, createAddMenuOption } from '../../API/CreateMenuOption'
 import { IParticipantRequest, addParticipant } from '../../API/CreateParticipant'
-import { IReceptionRequest, createReception } from '../../API/CreateReception'
-import { fetchCeremony } from '../../API/GetCeremony'
+import { IReceptionRequest, ITranslateReceptionRequest, addReceptionTranslation, createReception } from '../../API/CreateReception'
+import { CeremonyRequest, fetchCeremony } from '../../API/GetCeremony'
 import { IParticipantGetRequest, fetchParticipants } from '../../API/GetParticipant'
 import { fetchRSVP, fetchRSVPWedding, fetchRSVPWeddingWithLang, IWeddingAndSigner } from '../../API/GetRSVP'
-import { fetchReception } from '../../API/GetReception'
-import { fetchWedding } from '../../API/GetWeddings'
-import { IMenuOrderCreateRSVP, IRSVPCreate, addMenuOrder, createRSVP } from '../../API/CreateRSVP'
+import { fetchReception, ReceptionRequest } from '../../API/GetReception'
+import { fetchWedding, IWeddingRequest } from '../../API/GetWeddings'
+import { IMenuOrderCreateRSVP, IRSVPCreate, ITranslationRSVPRequest, addMenuOrder, addTranslationRSVP, createRSVP } from '../../API/CreateRSVP'
 import { ICeremonyUpdate, updateCeremonyRequest } from '../../API/UpdateCeremony'
 import { IRSVPUpdate, patchRSVP } from '../../API/UpdateRSVP'
 import { IWeddingUpdate, patchWedding } from '../../API/UpdateWedding'
@@ -21,6 +21,9 @@ import { IWedding } from '../../models/IWedding'
 import { getMenuOrders } from '../../API/GetMenuOrders'
 import { IMenuOrder } from '../../models/IMenuOrder'
 import { deleteMenuOrder } from '../../API/DeleteMenuOrder'
+import { addWeddingTranslation, IAddWeddingTranslation } from '../../API/AddWeddingTranslation'
+import { fetchPosts, PostRequest } from '../../API/GetPosts'
+import { addPostTranslation, IPostTranslationRequest } from '../../API/UpdatePost'
 
 
 interface sliceState  {
@@ -94,6 +97,7 @@ const weddingSlice = createSlice( {
             state.wedding=updatedWedding;
 
         },
+        resetWedding: ()=> initialState
     },
     extraReducers: (builder) =>  {
         builder.addCase(getAWedding.fulfilled, (state, action)=>{
@@ -391,19 +395,29 @@ const weddingSlice = createSlice( {
                 copy[indexToChange].menuOrders.splice(index, 1);
                 state.rsvps = copy;
             }
-        })
-
-
+        }),
+        builder.addCase(getAllPostsInWedding.fulfilled, (state, action)=>{
+            let posts = action.payload.map((post : any) => {
+              return {
+                id: post.id,
+                title: post.title,
+                body: post.body,
+                wedding_id: post.weddingId,
+                author_id: post.authorId
+              } 
+            })
+            state.posts = posts;
+          })
     }
 })
-export const { setWedding, changeSecondaryColor } = weddingSlice.actions
+export const { setWedding, changeSecondaryColor, resetWedding } = weddingSlice.actions
 
 export const getAWedding = createAsyncThunk(
     'wedding/getWedding',
     //Inside thunk function
-    async (wedding_id : number)=> {
+    async (req : IWeddingRequest)=> {
         try {
-          const wedding = await fetchWedding({weddingId: wedding_id.toString()});
+          const wedding = await fetchWedding(req);
           
           return wedding;
         }catch (err){
@@ -431,12 +445,27 @@ export const updateWeddingThunk = createAsyncThunk(
     }
 )
 
+
+
+export const addWeddingTranslationThunk = createAsyncThunk(
+    'wedding/addTranslation',
+    async(translation : IAddWeddingTranslation) => {
+        try{
+            return await addWeddingTranslation(translation)
+        }catch(error){
+            console.log(error)
+            return undefined;
+        }
+    }
+)
+
+
 export const getCeremony = createAsyncThunk(
     'wedding/setCeremony',
     //Inside thunk function
-    async (wedding_id : number)=> {
+    async (request : CeremonyRequest)=> {
         try {
-          const ceremony = await fetchCeremony({weddingId: wedding_id.toString()});
+          const ceremony = await fetchCeremony(request);
           return ceremony;
         }catch (err){
           console.log(err)
@@ -448,9 +477,9 @@ export const getCeremony = createAsyncThunk(
 export const getReception = createAsyncThunk(
     'wedding/setReception',
     //Inside thunk function
-    async (wedding_id : number)=> {
+    async (req : ReceptionRequest)=> {
         try {
-          const reception = await fetchReception(wedding_id);
+          const reception = await fetchReception(req);
           return reception;
         }catch (err){
           console.log(err)
@@ -503,10 +532,6 @@ export const getRSVPbyWedding = createAsyncThunk(
     }
 )
 
-
-
-
-
 export const getRSVPbyWeddingAndSigner = createAsyncThunk(
     'wedding/getRSVPbyWeddingAndSigner',
     //Inside thunk function
@@ -518,6 +543,18 @@ export const getRSVPbyWeddingAndSigner = createAsyncThunk(
         }catch (err){
           console.log(err)
           return undefined;
+        }
+    }
+)
+
+export const addTranslationRSVPThunk = createAsyncThunk(
+    'rsvp/addTranslation',
+    async (translationCreateReq : ITranslationRSVPRequest)=>{
+        try{
+            await addTranslationRSVP(translationCreateReq);
+        }catch(err){
+            console.log(err)
+            return undefined;
         }
     }
 )
@@ -553,12 +590,37 @@ export const createCeremonyThunk = createAsyncThunk(
     }
 )
 
+export const addCeremonyTranslationThunk = createAsyncThunk(
+    'wedding/ceremony/translation',
+    async(translationRequest : ITranslateCeremonyRequest) => {
+        try{
+            await addCeremonyTranslation(translationRequest);
+        } catch(err){
+            console.log(err)
+            return undefined
+        }
+    }
+)
+
+
 export const createReceptionThunk = createAsyncThunk(
     'wedding/createReception',
     async(createReceptionRequest: IReceptionRequest)=> {
         try {
             const reception = await createReception(createReceptionRequest);
             return reception
+        } catch(err){
+            console.log(err)
+            return undefined
+        }
+    }
+)
+
+export const addReceptionTranslationThunk = createAsyncThunk(
+    'wedding/reception/translation',
+    async(translationRequest : ITranslateReceptionRequest) => {
+        try{
+            await addReceptionTranslation(translationRequest);
         } catch(err){
             console.log(err)
             return undefined
@@ -584,7 +646,7 @@ export const addParticipantThunk = createAsyncThunk(
     'wedding/addParticipant',
     async(participantRequest: IParticipantRequest)=> {
         try {
-            const participant = await addParticipant({participantrequest: participantRequest});
+            const participant = await addParticipant(participantRequest);
             return participant
         } catch(err){
             console.log(err)
@@ -598,7 +660,7 @@ export const getParticipantsThunk = createAsyncThunk(
     async(participantRequest: IParticipantGetRequest)=> {
         try {
             console.log("INSIDE Participantrequest")
-            const participants = await fetchParticipants({ weddingId: participantRequest.weddingId, role: participantRequest.role });
+            const participants = await fetchParticipants(participantRequest);
             return participants
         } catch(err){
             console.log(err)
@@ -653,6 +715,31 @@ export const deleteMenuOrderThunk = createAsyncThunk(
     }
 )
 
+export const getAllPostsInWedding = createAsyncThunk(
+    'posts/setPosts',
+    //Inside thunk function
+    async (req : PostRequest)=> {
+        try {
+          const posts = await fetchPosts(req);
+          return posts;
+        }catch (err){
+          return [];
+        }
+    }
+  )
 
+  export const addPostTranslationThunk = createAsyncThunk(
+    'posts/Translation',
+    //Inside thunk function
+    async (req : IPostTranslationRequest)=> {
+        try {
+          await addPostTranslation(req);
+        }catch (err){
+            console.log(err)
+          return undefined;
+        }
+    }
+  )
+  
 
 export default weddingSlice.reducer

@@ -9,9 +9,9 @@ export interface IRSVPUpdate {
     deadline: number | undefined
     status: string | undefined
     numberOfGuests: number | undefined
-    OtherDietaryRequirements: string | undefined
+    otherDietaryRequirements: string | undefined
     signerId: string | undefined
-    weddingId: number | undefined
+    weddingId: string | undefined
     menuOrders: IMenuOrder[] | undefined
 }
 

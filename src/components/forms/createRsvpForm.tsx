@@ -5,11 +5,13 @@ import { IRSVPCreate } from '../../API/CreateRSVP';
 import '../../_index.sass';
 import { IUser } from '../../models/IUser';
 import { IWedding } from '../../models/IWedding';
-import { useAppDispatch } from '../../redux/Hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
 import { createRSVPThunk } from '../../redux/slices/weddingSlice';
 import './createRsvpForm.sass';
 import { selectCeremony } from '../../redux/selectors/selectWeddingSlice';
 import { RSVPStatus } from '../../models/IRSVP';
+import { selectLanguage } from '../../redux/selectors/selectLanguage';
+import { IReligiousCeremony } from '../../models/IReligiousCeremony';
 
 interface IProps {
     user: IUser | undefined
@@ -19,8 +21,9 @@ interface IProps {
 function CreateRsvpForm(props : IProps) {
     const { register, handleSubmit } = useForm();
     const numberOfGuestsOutput = useRef<HTMLLabelElement>(null);
-    const ceremony = useSelector(selectCeremony)
-    const [textareaBody, setTextAreaBody] = useState(setDefaultTextBody())
+    const ceremony = useAppSelector(selectCeremony)
+    const language = useAppSelector(selectLanguage).language
+    const [textareaBody, setTextAreaBody] = useState(setDefaultTextBody(ceremony))
     const dispatch = useAppDispatch()
     
     function rangeUpdate(event : any){
@@ -45,7 +48,8 @@ function CreateRsvpForm(props : IProps) {
                 numberOfGuests: formData.numberOfGuests,
                 signerId: props.user.id.includes("|") ?  props.user.id.split("|")[1] : props.user.id,
                 weddingId: props.wedding.id,
-                status: RSVPStatus.Pending
+                status: RSVPStatus.Pending,
+                language: language
             } as IRSVPCreate
             console.log(props.user)
             console.log(JSON.stringify(rsvp))
@@ -53,25 +57,6 @@ function CreateRsvpForm(props : IProps) {
             dispatch(createRSVPThunk(rsvp))
         }
 
-
-      }
-  
-
-    function setDefaultTextBody(){
-        var defaultText = ""
-        if(ceremony!=null && ceremony!=undefined){
-            var date = new Date(ceremony.startDate);
-            defaultText = `We are glad to invite you to our wedding ${date.getDate()+"/" + (date.getMonth()+1) +"/"+date.getFullYear()} 
-            The ceremony will be held in ${ceremony.location.title}, shown in the map beneath. 
-            Please respond by clicking accept or decline, The Deadline to answer is {deadline}.
-            For more information visit the rest of the website, we look forward to meeting you`
-        }
-        return defaultText;
-    }
-
-    function fromAmericanToEUDate(americanDate : string){
-        var splitAmerican = americanDate.split("-")
-        return splitAmerican[2] + "/" + splitAmerican[1] + "/" + splitAmerican[0] 
 
     }
 
@@ -108,6 +93,25 @@ function CreateRsvpForm(props : IProps) {
         <button id='userCreateRSVPButton' type='submit'>createRSVP</button>
     </form>
   )
+}
+
+export function fromAmericanToEUDate(americanDate : string){
+    var splitAmerican = americanDate.split("-")
+    return splitAmerican[2] + "/" + splitAmerican[1] + "/" + splitAmerican[0] 
+
+}
+
+
+export function setDefaultTextBody(ceremony? : IReligiousCeremony){
+    var defaultText = ""
+    if(ceremony!=null && ceremony!=undefined){
+        var date = new Date(ceremony.startDate);
+        defaultText = `We are glad to invite you to our wedding ${date.getDate()+"/" + (date.getMonth()+1) +"/"+date.getFullYear()} 
+        The ceremony will be held in ${ceremony.location.title}, shown in the map beneath. 
+        Please respond by clicking accept or decline, The Deadline to answer is {deadline}.
+        For more information visit the rest of the website, we look forward to meeting you`
+    }
+    return defaultText;
 }
 
 export default CreateRsvpForm

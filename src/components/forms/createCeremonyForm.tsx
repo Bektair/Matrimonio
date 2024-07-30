@@ -12,9 +12,6 @@ interface IProps {
     wedding_id: number
 }
 
-
-
-
 function CreateCeremonyForm(props : IProps) {
   const locations = useAppSelector(selectLocations);
   const dispatch = useAppDispatch();
@@ -34,6 +31,7 @@ function CreateCeremonyForm(props : IProps) {
   function ceremonyFormHandler(formdata : any){
 
     console.log(formdata)
+    
     if(location){
       var ceremony : ICeremonyRequest = {
         description: formdata.description,
@@ -63,7 +61,7 @@ function CreateCeremonyForm(props : IProps) {
             <label>Start: <input {...register("start_date")} type='datetime-local'></input></label>
             <label>End: <input {...register("end_date")} type='datetime-local'></input></label>
             <label>Description: <textarea {...register("description")}></textarea></label>
-            <button type='submit'>Send</button>
+            <button type='submit' name='Add'>Send</button>
           </form>
         </div>
     </>

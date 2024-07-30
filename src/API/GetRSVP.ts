@@ -35,7 +35,7 @@ export async function fetchRSVPWedding(rsvpFetch : fetchRSVPWeddingWithLang) : P
     console.log("TRYING TO FETCH RSVP")
     const headers = await getAuthHeaders();
 
-    let response = await fetch(`${API_URL}/api/RSVP/${rsvpFetch.weddingId}?language=${rsvpFetch.language}`, {
+    let response = await fetch(`${API_URL}/api/RSVP/Wedding/${rsvpFetch.weddingId}?language=${rsvpFetch.language}`, {
        headers
     })
     if(!response.ok)

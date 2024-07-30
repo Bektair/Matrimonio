@@ -23,6 +23,7 @@ import Rsvp from './pages/RSVP/rsvp.tsx'
 import Ceremony from './pages/Schedule/Ceremony/Ceremony.tsx'
 import Reception from './pages/Schedule/Reception/Reception.tsx'
 import Schedule from './pages/Schedule/Schedule.tsx'
+import PostMenu from './pages/AdminConsole/PostMenu/PostMenu.tsx'
 
 export const App : React.FC = () => {
   
@@ -51,6 +52,7 @@ export const App : React.FC = () => {
             <Route path={PathConstants.RSVPMenu} element={<ProtectedAdminRoute auth={auth}><RsvpMenu/></ProtectedAdminRoute>} />
             <Route path={PathConstants.User} element={<ProtectedAdminRoute auth={auth}><UserCreationMenu/></ProtectedAdminRoute>} />
             <Route path={PathConstants.ParticipationMenu} element={<ProtectedAdminRoute auth={auth}><ParticipationMenu/></ProtectedAdminRoute>} />
+            <Route path={PathConstants.PostMenu} element={<ProtectedAdminRoute auth={auth}><PostMenu/></ProtectedAdminRoute>} />
           </Route>
         </Routes>
   )

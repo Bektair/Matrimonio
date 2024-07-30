@@ -9,6 +9,7 @@ import { selectWeddings } from "../../../redux/selectors/selectWeddingsSlice"
 import { getAllWeddings } from "../../../redux/slices/weddingsSlice"
 import Summary from "../../Schedule/Summary"
 import { selectLanguage } from "../../../redux/selectors/selectLanguage"
+import TranslationCeremonyForm from "../../../components/forms/TranslationCeremonyForm"
 
 function CeremonyMenu() {
 
@@ -39,6 +40,7 @@ function CeremonyMenu() {
           <label>Ceremony</label>
           <Summary location={currentLocation ?? ceremony.location} startDate={ceremony.startDate} endDate={ceremony.endDate}></Summary>
           <UpdateLocationForm location={ceremony.location}></UpdateLocationForm>
+          <TranslationCeremonyForm ceremonyId={ceremony.id.toString()} weddingId={wedding?.id.toString()}/>
         </> }
         
     </>

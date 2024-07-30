@@ -1,11 +1,10 @@
 import { API_URL } from "../constants/environment";
-import { useAppSelector } from "../redux/Hooks/hooks";
-import { selectLanguage } from "../redux/selectors/selectLanguage";
 import getAuthHeaders from "./SetAuthHeaders";
 
 
-interface IParams {
+export interface IWeddingRequest {
     weddingId: string
+    language: string
 }
 
 export interface IWeddingResponse {
@@ -44,11 +43,7 @@ export async function fetchWeddings(language: string) : Promise<IWeddingResponse
 }
 
 export async function fetchWeddingsWithParticipant(userId : string, language: string) : Promise<IWeddingResponse[]> {
-
     console.log("TRYING TO FETCH")
-    
-
-
     const headers = await getAuthHeaders();
 
     let response = await fetch(`${API_URL}/api/Wedding/participant/${userId}?language=${language.toUpperCase()}`, {
@@ -63,10 +58,10 @@ export async function fetchWeddingsWithParticipant(userId : string, language: st
 
 
 
-export async function fetchWedding({weddingId} : IParams)  {
+export async function fetchWedding({weddingId, language} : IWeddingRequest)  {
     const headers = await getAuthHeaders();
 
-    let response = await fetch(`${API_URL}/api/Wedding?$filter=weddingId eq ${Number(weddingId)}`, {
+    let response = await fetch(`${API_URL}/api/Wedding?$filter=id eq ${Number(weddingId)}&language=${language}`, {
        headers
     })
     if(!response.ok)

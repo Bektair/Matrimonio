@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
-import {getAllPostsInWedding } from '../../redux/slices/postSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { store } from '../../redux/store';
 import { IPost } from '../../models/IPost';
-import { selectWedding } from '../../redux/selectors/selectWeddingSlice';
-import { selectPosts } from '../../redux/selectors/selectPosts';
+import { selectPosts, selectWedding } from '../../redux/selectors/selectWeddingSlice';
+import { getAllPostsInWedding } from '../../redux/slices/weddingSlice';
+import { selectLanguage } from '../../redux/selectors/selectLanguage';
 
 
 
@@ -12,8 +11,8 @@ function Posts() {
   const dispatch = useAppDispatch()
 
   let currentWedding = useAppSelector(selectWedding);
+  let language = useAppSelector(selectLanguage).language;
   let posts = useAppSelector(selectPosts)
-  let postState = store.getState().posts.posts.length
 
   
   useEffect(()=>{
@@ -23,7 +22,7 @@ function Posts() {
     let wedding_id = currentWedding?.id.toString();
      if(wedding_id != undefined){
 
-       dispatch(getAllPostsInWedding(Number(wedding_id))) //Dispatch Event
+       dispatch(getAllPostsInWedding({weddingId: wedding_id, language: language})) //Dispatch Event
        console.log("Test TEST -----------")
       }
      
@@ -45,7 +44,7 @@ function Posts() {
   };
 
   return (
-      <div>posts length of postsarray  {postState} {posts.length}
+      <div>posts length of postsarray {posts.length}
           <ul>
             {renderPost()}
           </ul>

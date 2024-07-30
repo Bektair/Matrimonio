@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import './langDropDown.sass'
 import '../../_index.sass'
-import { useAppDispatch } from '../../redux/Hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
 import { setLangState } from '../../redux/slices/langSlice';
+import { getAllPostsInWedding, getAWedding, getCeremony, getParticipantsThunk, getReception, getRSVPbyWedding, resetWedding, setWedding } from '../../redux/slices/weddingSlice';
+import { selectCeremony, selectParticipants, selectPosts, selectReception, selectRSVPS, selectWedding } from '../../redux/selectors/selectWeddingSlice';
+import { selectLanguage } from '../../redux/selectors/selectLanguage';
 
 interface IProps{
     defaultOptionIndex: number 
@@ -15,13 +18,19 @@ export interface Option{
     selectedOptionImg : string
 }
 
-
-
-
-
 const LangDropDown = (o : IProps) => {
+
     const dispatch = useAppDispatch();
-  
+    const wedding = useAppSelector(selectWedding);
+    const ceremony = useAppSelector(selectCeremony);
+    const reception = useAppSelector(selectReception);
+    const participants = useAppSelector(selectParticipants);
+    const rsvps = useAppSelector(selectRSVPS);
+    const posts = useAppSelector(selectPosts);
+
+
+
+
     useEffect(()=>{
     }, [])
 
@@ -42,6 +51,22 @@ const [display, setDisplay] = useState('none');
         setDisplay(display === 'none' ? 'block' : 'none');
         setSelectedOption(selection);
         dispatch(setLangState({language: option.target.lang}))
+        if(wedding){
+            dispatch(getAWedding({weddingId: wedding?.id.toString(), language: option.target.lang}))
+            console.log("TRIGGERS _--------------------------------_ GettingWedding again")
+            if(ceremony)
+                dispatch(getCeremony({weddingId: wedding?.id.toString(), language: option.target.lang}))
+            if(reception)
+                dispatch(getReception({weddingId: wedding?.id.toString(), language: option.target.lang}))            
+            if(participants)
+                dispatch(getParticipantsThunk({weddingId: wedding?.id.toString(), language: option.target.lang}))                        
+            if(rsvps)
+                dispatch(getRSVPbyWedding({weddingId: wedding?.id.toString(), language: option.target.lang}))                        
+            if(posts)
+                dispatch(getAllPostsInWedding({weddingId: wedding?.id.toString(), language: option.target.lang}))                        
+        
+        }
+        //dispatch(resetWedding())
     }
 
   return (
