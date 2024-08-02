@@ -1,6 +1,4 @@
 import { API_URL } from "../constants/environment";
-import { useAppSelector } from "../redux/Hooks/hooks";
-import { selectLanguage } from "../redux/selectors/selectLanguage";
 import getAuthHeaders from "./SetAuthHeaders";
 
 

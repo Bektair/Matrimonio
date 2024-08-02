@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import PathConstants from '../../components/route/pathConstants';
 import { clientId, domain, redirectUri } from '../../constants/environment';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
+import { selectLanguage } from '../../redux/selectors/selectLanguage';
 import { selectCeremony, selectReception, selectWedding } from '../../redux/selectors/selectWeddingSlice';
 import { getCeremony, getReception } from '../../redux/slices/weddingSlice';
 import "./Schedule.sass";
 import Summary from './Summary';
-import { Link } from 'react-router-dom';
-import PathConstants from '../../components/route/pathConstants';
-import { selectLanguage } from '../../redux/selectors/selectLanguage';
-import { useTranslation } from 'react-i18next';
 
 function Schedule() {
 
@@ -23,7 +23,7 @@ function Schedule() {
 
   const dispatch = useAppDispatch();
   const [activeTab, setActiveTab] = useState("Ceremony");
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
 
 
   useEffect(()=>{

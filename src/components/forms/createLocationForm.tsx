@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { ILocationRequest } from "../../API/CreateLocation";
 import { useAppDispatch, useAppSelector } from "../../redux/Hooks/hooks";
+import { selectLanguage } from "../../redux/selectors/selectLanguage";
 import { selectCeremony } from "../../redux/selectors/selectWeddingSlice";
-import { ICreateLocation, createLocationThunk } from "../../redux/slices/locationSlice";
+import { createLocationThunk } from "../../redux/slices/locationSlice";
 import LocationForm from "./LocationForm";
 import './createLocationForm.sass';
-import { selectLanguage } from "../../redux/selectors/selectLanguage";
 
 function CreateLocationForm() {
     const dispatch = useAppDispatch();

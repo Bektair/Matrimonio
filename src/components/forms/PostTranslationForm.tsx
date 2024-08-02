@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { IPost } from "../../models/IPost"
+import { IPost } from "../../models/IPost";
 import { useAppDispatch, useAppSelector } from "../../redux/Hooks/hooks";
 import { selectLanguage } from "../../redux/selectors/selectLanguage";
 import { addPostTranslationThunk } from "../../redux/slices/weddingSlice";
@@ -14,7 +14,7 @@ function PostTranslationForm({post} : IProps) {
     const language = useAppSelector(selectLanguage).language;
 
 
-    function AddTranslation(formdata : any, e: any){
+    function AddTranslation(formdata : any){
 
         console.log(formdata)
 
@@ -25,6 +25,7 @@ function PostTranslationForm({post} : IProps) {
             isDefaultLanguage: false,
             language: language
         } }))
+        
 
     }
 

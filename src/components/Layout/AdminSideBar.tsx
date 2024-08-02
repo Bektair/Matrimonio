@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
+import { IWeddingAndSigner } from '../../API/GetRSVP';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { getCeremony, getRSVPbyWeddingAndSigner, getReception, setWedding } from '../../redux/slices/weddingSlice';
-import { getAllWeddings,  } from '../../redux/slices/weddingsSlice';
-import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
-import { selectCeremony, selectReception, selectWedding } from '../../redux/selectors/selectWeddingSlice';
 import { selectAuth } from '../../redux/selectors/selectAuth';
 import { selectLanguage } from '../../redux/selectors/selectLanguage';
-import { IWeddingAndSigner } from '../../API/GetRSVP';
+import { selectCeremony, selectReception, selectWedding } from '../../redux/selectors/selectWeddingSlice';
+import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
+import { getCeremony, getRSVPbyWeddingAndSigner, getReception, setWedding } from '../../redux/slices/weddingSlice';
+import { getAllWeddings, } from '../../redux/slices/weddingsSlice';
 
 
 function AdminSideBar() {
@@ -43,12 +43,12 @@ function AdminSideBar() {
 
     function setCeremonyEvent() {
         if(wedding != undefined)
-            dispatch(getCeremony(wedding.id))
+            dispatch(getCeremony({weddingId: wedding.id.toString(), language: language}))
     }
 
     function setReceptionEvent() {
         if(wedding != undefined)
-            dispatch(getReception(wedding.id))
+            dispatch(getReception({weddingId: wedding.id.toString(), language: language}))
     }
 
 

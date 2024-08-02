@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import './langDropDown.sass'
-import '../../_index.sass'
-import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { setLangState } from '../../redux/slices/langSlice';
-import { getAllPostsInWedding, getAWedding, getCeremony, getParticipantsThunk, getReception, getRSVPbyWedding, resetWedding, setWedding } from '../../redux/slices/weddingSlice';
-import { selectCeremony, selectParticipants, selectPosts, selectReception, selectRSVPS, selectWedding } from '../../redux/selectors/selectWeddingSlice';
-import { selectLanguage } from '../../redux/selectors/selectLanguage';
 import { useTranslation } from 'react-i18next';
+import '../../_index.sass';
+import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
+import { selectCeremony, selectParticipants, selectPosts, selectReception, selectRSVPS, selectWedding } from '../../redux/selectors/selectWeddingSlice';
+import { setLangState } from '../../redux/slices/langSlice';
+import { getAllPostsInWedding, getAWedding, getCeremony, getParticipantsThunk, getReception, getRSVPbyWedding } from '../../redux/slices/weddingSlice';
+import './langDropDown.sass';
 
 interface IProps{
     defaultOptionIndex: number 
@@ -28,7 +27,7 @@ const LangDropDown = (o : IProps) => {
     const participants = useAppSelector(selectParticipants);
     const rsvps = useAppSelector(selectRSVPS);
     const posts = useAppSelector(selectPosts);
-    const { i18n, t } = useTranslation();
+    const { i18n } = useTranslation();
 
 
 

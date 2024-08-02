@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../redux/Hooks/hooks";
-import { selectWedding } from "../../redux/selectors/selectWeddingSlice"
-import './home.sass'
+import { selectWedding } from "../../redux/selectors/selectWeddingSlice";
+import './home.sass';
 
 
 export const Home = () => {
 const wedding = useAppSelector(selectWedding);
-const { i18n, t } = useTranslation();
+const { t } = useTranslation();
 
 console.log("OK loading Home")
 

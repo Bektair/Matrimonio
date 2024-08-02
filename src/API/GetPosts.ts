@@ -18,13 +18,13 @@ export interface IPostResponse {
 
 
 
-export async function fetchPosts({ weddingId, language }: PostRequest ) : Promise<IPostResponse[]> {
+export async function fetchPosts(postReq : PostRequest ) : Promise<IPostResponse[]> {
     //const headers = await getAuthHeaders(); For Authentication
-    console.log("wedding id passed to middleware=" + weddingId)
+    console.log("wedding id passed to middleware=" + postReq.weddingId)
 
     const headers = await getAuthHeaders();
 
-    let response = await fetch(`${API_URL}/api/Post?$filter=weddingId eq ${Number(weddingId)}&language=${language}`, {
+    let response = await fetch(`${API_URL}/api/Post?$filter=weddingId eq ${Number(postReq.weddingId)}&language=${postReq.language}`, {
        headers
     })
     if(!response.ok)

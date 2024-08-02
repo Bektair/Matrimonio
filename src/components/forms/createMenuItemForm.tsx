@@ -1,12 +1,11 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { IMenuOptionCreate } from '../../API/CreateReception';
-import './createMenuItemForm.sass'
-import { Allergen } from '../../constants/allergens';
 import Select from 'react-select';
+import { IMenuOptionCreate } from '../../API/CreateReception';
 import { DishTags } from '../../constants/dishtags';
 import { useAppSelector } from '../../redux/Hooks/hooks';
 import { selectLanguage } from '../../redux/selectors/selectLanguage';
+import './createMenuItemForm.sass';
 
 interface IProps {
     menuItemAdd : any
@@ -21,9 +20,7 @@ export interface SelectValue{
 function CreateMenuItemForm(props : IProps) {
     const { register, handleSubmit } = useForm();
     const [image, setImage] = useState("")
-    const allergenOptions = Object.values(Allergen).map((s)=> {return {value: s, label: s.toString()}})
     const dishTagOptions = Object.values(DishTags).map((s)=> {return {value: s, label: s.toString()}})
-    const [allergens, setAllergens] = useState<SelectValue[]>([]);
     const [tags, setTags] = useState<SelectValue[]>([]);
     const language = useAppSelector(selectLanguage).language;
 
@@ -31,7 +28,6 @@ function CreateMenuItemForm(props : IProps) {
     function menuItemFormHandler(formdata: any){
         console.log(formdata)
 
-        var allergensString = allergens.map((x)=>x.value).toString();
         var tagsString = tags.map((x)=>x.value.toString()).toString();
         
 
@@ -50,26 +46,11 @@ function CreateMenuItemForm(props : IProps) {
         setImage(e.target.value)
     }
 
-    function setAllergensOnChange(e: any){
-        console.log(e)
-        setAllergens(e)
-
-    }
-
     function setTagsOnChange(e: any){
         console.log(e)
         setTags(e)
     }
 
-    // function getAllergenOptions(){
-    //     var allergens : JSX.Element[] = [];
-
-    //     allergenOptions.forEach(allergenOption => {
-    //         allergenOption.toString()
-    //         allergens.push(<label>{allergenOption}<input {...register('allergen_chk')} type='checkbox' name='allergen_chk' value={allergenOption}/></label>)
-    //     });
-    //     return allergens;
-    // }
 
     //Can I add the menu from the RSVP, that kind of items here as a display?
     //First add alergens and stuff
@@ -79,16 +60,6 @@ function CreateMenuItemForm(props : IProps) {
         <form id='menuOptionForm' onSubmit={handleSubmit(menuItemFormHandler)}>
             <label>DishName:</label>
             <input {...register("dishname")} type='text' placeholder='dishname'/>
-            <label className='multi-select-menuOption'>Allergens:</label>
-            <Select
-                isMulti
-                name="allergens"
-                options={allergenOptions}
-                className="basic-multi-select"
-                classNamePrefix="select"
-                onChange={setAllergensOnChange}
-                placeholder='Select Allergens'
-            />
             <label className='multi-select-menuOption'>Tags:</label>
             <Select 
                 isMulti

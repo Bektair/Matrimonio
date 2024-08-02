@@ -6,7 +6,7 @@ interface sentProps{
 
 export const LogoutButton = (props: sentProps) => {
   const { logout } = useAuth0();
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
 
 
   const handleLogout = async () => {

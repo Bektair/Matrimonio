@@ -1,10 +1,9 @@
-import List from './genericlist'
-import { IWedding } from '../../models/IWedding'
+import { IWedding } from '../../models/IWedding';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
-import { getCeremony, getReception, setWedding } from '../../redux/slices/weddingSlice';
-import { replaceWedding } from '../../redux/slices/weddingsSlice';
 import { selectLanguage } from '../../redux/selectors/selectLanguage';
-import { selectWedding } from '../../redux/selectors/selectWeddingSlice';
+import { getCeremony, setWedding } from '../../redux/slices/weddingSlice';
+import { replaceWedding } from '../../redux/slices/weddingsSlice';
+import List from './genericlist';
 
 
 interface IProps {

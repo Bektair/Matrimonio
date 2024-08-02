@@ -4,9 +4,9 @@ import getAuthHeaders from "./SetAuthHeaders";
 
 
 
-export async function updatePost(params:any) {
+// export async function updatePost(params:any) {
     
-}
+// }
 
 export interface IPostTranslationRequest{
     translation: IPostTranslation

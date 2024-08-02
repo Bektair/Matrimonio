@@ -1,20 +1,16 @@
+import { useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+import { Languages } from "../../constants/supportedLanguages"
 import { selectAuth } from "../../redux/selectors/selectAuth"
 import { LoginButton } from "../buttons/login-button"
 import { LogoutButton } from "../buttons/logout-button"
-import PathConstants from '../route/pathConstants'
-import { useEffect } from "react"
-import { useAppDispatch } from "../../redux/Hooks/hooks"
-import { selectLanguage } from "../../redux/selectors/selectLanguage"
-import { Languages } from "../../constants/supportedLanguages"
 import LangDropDown from "../lists/langDropDown"
-import { useTranslation } from "react-i18next"
+import PathConstants from '../route/pathConstants'
 
 function Navbar() {
   const {isAuthenticated, isLoading, user} = useSelector(selectAuth)
-  const dispatch = useAppDispatch();
-  const language = useSelector(selectLanguage);
   const { t } = useTranslation();
 
   useEffect(()=>{

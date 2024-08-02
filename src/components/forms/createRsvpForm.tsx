@@ -1,17 +1,16 @@
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 import { IRSVPCreate } from '../../API/CreateRSVP';
 import '../../_index.sass';
+import { RSVPStatus } from '../../models/IRSVP';
+import { IReligiousCeremony } from '../../models/IReligiousCeremony';
 import { IUser } from '../../models/IUser';
 import { IWedding } from '../../models/IWedding';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
+import { selectLanguage } from '../../redux/selectors/selectLanguage';
+import { selectCeremony } from '../../redux/selectors/selectWeddingSlice';
 import { createRSVPThunk } from '../../redux/slices/weddingSlice';
 import './createRsvpForm.sass';
-import { selectCeremony } from '../../redux/selectors/selectWeddingSlice';
-import { RSVPStatus } from '../../models/IRSVP';
-import { selectLanguage } from '../../redux/selectors/selectLanguage';
-import { IReligiousCeremony } from '../../models/IReligiousCeremony';
 
 interface IProps {
     user: IUser | undefined

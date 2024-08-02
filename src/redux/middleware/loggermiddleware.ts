@@ -1,6 +1,4 @@
-import { PayloadAction } from "@reduxjs/toolkit";
 import { Middleware, UnknownAction, isAction } from "redux";
-import { IPostResponse, fetchPosts } from "../../API/GetPosts";
 
 //BEFORE IT REACHES THE REDUCER
 
@@ -12,17 +10,17 @@ export const loggermiddleware : Middleware<{}, any> = storeAPI => next => async 
         var unknownAction  = action as UnknownAction;
         switch(unknownAction.type){
 
-            case("post_slice/getPosts"): {
-                var payloadAction = unknownAction as PayloadAction<string>
-                console.log("Setting posts")
-                var posts  = await fetchPosts({weddingId: payloadAction.payload});
-                console.log(posts)
-                modifiedAction = {
-                    type: unknownAction.type,
-                    payload: posts
-                } as PayloadAction<IPostResponse[]>
-                break;
-            }
+            // case("post_slice/getPosts"): {
+            //     var payloadAction = unknownAction as PayloadAction<string>
+            //     console.log("Setting posts")
+            //     var posts  = await fetchPosts({weddingId: payloadAction.payload, language: payloadAction.payload});
+            //     console.log(posts)
+            //     modifiedAction = {
+            //         type: unknownAction.type,
+            //         payload: posts
+            //     } as PayloadAction<IPostResponse[]>
+            //     break;
+            // }
             default: { 
                 console.log("other / default action" + unknownAction.type)
             }
