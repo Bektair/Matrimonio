@@ -1,10 +1,11 @@
 interface IProps {
   id: string
+  infoText: string
 }
 function RSVPExpiredInvite(props : IProps) {
   return (
     <div key={props.id+"-declined-past-due"}>
-      <label>You failed to answer the invite within the deadline</label>
+      <label>{props.infoText}</label>
     </div>
   )
 }

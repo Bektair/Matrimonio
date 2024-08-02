@@ -20,6 +20,7 @@ import RSVPPending from './RSVPPending';
 import './rsvp.sass';
 import { selectLanguage } from '../../redux/selectors/selectLanguage';
 import { IWeddingAndSigner } from '../../API/GetRSVP';
+import { useTranslation } from 'react-i18next';
 function Rsvp() {
 
   const { user, isAuthenticated } = useAuth0();
@@ -33,6 +34,7 @@ function Rsvp() {
   const currentRSVP = useAppSelector(state => selectRSVPByAuthId(state, Auth ? Auth.id : undefined))
   const [currentMenuItem, setCurrentMenuItem] = useState();
   const [selectedMenuOrder, setSelectedMenuOrder] = useState<IMenuOrder>();
+  const { t } = useTranslation();
 
   const mode = import.meta.env.MODE;
   console.log("MODE")
@@ -82,31 +84,31 @@ function Rsvp() {
     switch (rsvp.status) {
       case RSVPStatus.Pending:
         elements.push(<label>{rsvp.body}</label>)
-        elements.push(<RSVPPending key={rsvp.id+"-"+rsvp.status} id={rsvp.id}></RSVPPending>)
+        elements.push(<RSVPPending infoText={t("RSVPpending")} key={rsvp.id+"-"+rsvp.status} id={rsvp.id}></RSVPPending>)
         break;
       case RSVPStatus.Accepted:
         console.log("DEADLINE " + rsvp.deadline)
         if(rsvp.deadline > Date.now()){
           console.log("Klarte Deadline :)")
-          elements.push(<RSVPAllreadyAccepted id={rsvp.id} key={rsvp.id+"-"+rsvp.status}></RSVPAllreadyAccepted>)
+          elements.push(<RSVPAllreadyAccepted infoText={t("RSVPaccepted")} id={rsvp.id} key={rsvp.id+"-"+rsvp.status}></RSVPAllreadyAccepted>)
         } else {
-          elements.push(<RSVPAllreadyAcceptedPastDue id={rsvp.id} key={rsvp.id+"-"+rsvp.status}></RSVPAllreadyAcceptedPastDue>)
+          elements.push(<RSVPAllreadyAcceptedPastDue infoText={t("RSVPacceptedPastDue")} id={rsvp.id} key={rsvp.id+"-"+rsvp.status}></RSVPAllreadyAcceptedPastDue>)
         }
         break;
       case RSVPStatus.Declined:
         if(rsvp.deadline  > Date.now()){
-          elements.push(<RSVPDeclined id={rsvp.id} key={rsvp.id+"-"+rsvp.status}></RSVPDeclined>)
+          elements.push(<RSVPDeclined infoText={t("RSVPdeclined")} id={rsvp.id} key={rsvp.id+"-"+rsvp.status}></RSVPDeclined>)
         }
         else {
-          elements.push(<RSVPDeclinedPastDue id={rsvp.id} key={rsvp.id+"-"+rsvp.status}></RSVPDeclinedPastDue>)
+          elements.push(<RSVPDeclinedPastDue infoText={t("RSVPdeclinedPastDue")}  id={rsvp.id} key={rsvp.id+"-"+rsvp.status}></RSVPDeclinedPastDue>)
         }
         break;
       case RSVPStatus.PastDeadline:
-        elements.push(<RSVPExpiredInvite id={rsvp.id} key={rsvp.id+"-"+rsvp.status}></RSVPExpiredInvite>);
+        elements.push(<RSVPExpiredInvite infoText={t("RSVPexpiredInvite")} id={rsvp.id} key={rsvp.id+"-"+rsvp.status}></RSVPExpiredInvite>);
         break;
     
       default:
-        elements.push(<div key={rsvp.id + "-wrong-status"}>Wrong status set on RSVP, check with support</div>)
+        elements.push(<div key={rsvp.id + "-wrong-status"}>{t("errorWrongStatus")}</div>)
         break;
     }
     return elements
@@ -140,7 +142,7 @@ function Rsvp() {
 
   return (
     <>
-      <h1>Hello {user?.name}!</h1> 
+      <h1>{t("hello")} {user?.name}!</h1> 
       <div className='RSVP-invite-button'>
         { Auth && Auth.id  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP &&
           <> 
@@ -153,17 +155,17 @@ function Rsvp() {
 
       { Auth && Auth.id  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP && currentRSVP.status == RSVPStatus.Accepted &&
         <>
-          <h2>Dietary Requirements</h2>
+          <h2>{t("orderMenu")}</h2>
         <div className='DietaryMenu'>
           <RSVPDietaryMenu rsvp={currentRSVP} setCurrentMenuItem={setMenuItem}></RSVPDietaryMenu>
           {currentMenuItem &&
             <CreateMenuOrderForm rsvp_id={currentRSVP.id} menuOptionId={currentMenuItem}></CreateMenuOrderForm>}
         </div>
-          <h2>Current Orders</h2>
+          <h2>{t("currentOrders")}</h2>
         <div className='ordersList'>
           <List<IMenuOrder> name='menuOrders' listItems={currentRSVP.menuOrders} onclickEvent={(e)=> selectMenuOrder(e)} 
             setContentFunction={contentMenuOrders} ></List>
-          <button type='button' onClick={sendDeleteMenuOrder}>Delete Order</button>
+          <button type='button' onClick={sendDeleteMenuOrder}>{t("deleteOrder")}</button>
         </div>
         </>
       }

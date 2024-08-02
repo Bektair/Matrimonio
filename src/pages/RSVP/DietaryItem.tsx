@@ -64,8 +64,6 @@ function dessertRadioSelected(event : any){
 
 
 return (
-
-
     <label className={`dietary-item ${selectedItem}`}  id={item.id.toString()} key={item.id.toString()+"-"+item.name}> 
         <img src={item.image}></img>
         <div>{item.name}</div>
@@ -75,7 +73,6 @@ return (
         <input type="radio" name="isSelectedDessert"  onChange={dessertRadioSelected} defaultChecked={item.selected}></input>}
         <div>
             <div>Tags:</div>
-
             {
                 setTags()
             }

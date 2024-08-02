@@ -9,13 +9,16 @@ import { useAppDispatch } from "../../redux/Hooks/hooks"
 import { selectLanguage } from "../../redux/selectors/selectLanguage"
 import { Languages } from "../../constants/supportedLanguages"
 import LangDropDown from "../lists/langDropDown"
+import { useTranslation } from "react-i18next"
 
 function Navbar() {
   const {isAuthenticated, isLoading, user} = useSelector(selectAuth)
   const dispatch = useAppDispatch();
   const language = useSelector(selectLanguage);
+  const { t } = useTranslation();
 
   useEffect(()=>{
+    
   }, [])
 
   //https://www.svgrepo.com/collection/flags-collection-4/2
@@ -48,10 +51,10 @@ function Navbar() {
               <div className='logo-img'><img className="small-logo" alt="website-logo" src={"/logo.svg"}></img></div>
               <div className="logo-text"><span id="orange">Marry</span><span id="green">Monio</span></div>
             </Link></li>
-            <li className="nav-item"><Link to={PathConstants.Home}>Home</Link></li>
+            <li className="nav-item"><Link to={PathConstants.Home}>{t("home")}</Link></li>
             <li className="nav-item"><Link to={PathConstants.RSVP}>RSVP</Link></li>
-            <li className="nav-item"><Link to={PathConstants.Schedule}>Scedule</Link></li>
-            <li className="nav-item"><Link to={PathConstants.Posts}>Posts</Link></li>
+            <li className="nav-item"><Link to={PathConstants.Schedule}>{t("schedule")}</Link></li>
+            <li className="nav-item"><Link to={PathConstants.Posts}>{t("posts")}</Link></li>
             <li className="nav-item"><Link to={PathConstants.Profile}><img className='profile-picture-nav' src={user?.picture}></img></Link></li>
             <li className="nav-item"><LangDropDown style="language-picture" defaultOptionIndex={0} options={GetOptions()}></LangDropDown></li>
             {  process.env.NODE_ENV === 'development' && isLoading ? <li className="nav-item"><div className="list-loader-navbar"></div></li> : 

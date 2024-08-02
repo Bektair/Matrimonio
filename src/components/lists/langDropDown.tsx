@@ -6,6 +6,7 @@ import { setLangState } from '../../redux/slices/langSlice';
 import { getAllPostsInWedding, getAWedding, getCeremony, getParticipantsThunk, getReception, getRSVPbyWedding, resetWedding, setWedding } from '../../redux/slices/weddingSlice';
 import { selectCeremony, selectParticipants, selectPosts, selectReception, selectRSVPS, selectWedding } from '../../redux/selectors/selectWeddingSlice';
 import { selectLanguage } from '../../redux/selectors/selectLanguage';
+import { useTranslation } from 'react-i18next';
 
 interface IProps{
     defaultOptionIndex: number 
@@ -27,6 +28,7 @@ const LangDropDown = (o : IProps) => {
     const participants = useAppSelector(selectParticipants);
     const rsvps = useAppSelector(selectRSVPS);
     const posts = useAppSelector(selectPosts);
+    const { i18n, t } = useTranslation();
 
 
 
@@ -46,11 +48,15 @@ const [display, setDisplay] = useState('none');
         console.log(option)
         console.log(option.target.id)
         var selection = option.currentTarget.id.split("-")[0];
+
+
         console.log(selection);
         console.log(option.target.lang);
         setDisplay(display === 'none' ? 'block' : 'none');
         setSelectedOption(selection);
         dispatch(setLangState({language: option.target.lang}))
+        i18n.changeLanguage(option.target.lang);
+
         if(wedding){
             dispatch(getAWedding({weddingId: wedding?.id.toString(), language: option.target.lang}))
             console.log("TRIGGERS _--------------------------------_ GettingWedding again")

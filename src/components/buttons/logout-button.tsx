@@ -1,10 +1,13 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { useTranslation } from "react-i18next";
 interface sentProps{
   className: string
 }
 
 export const LogoutButton = (props: sentProps) => {
   const { logout } = useAuth0();
+  const { i18n, t } = useTranslation();
+
 
   const handleLogout = async () => {
     await logout({
@@ -13,7 +16,7 @@ export const LogoutButton = (props: sentProps) => {
   
   return (
     <button className={props.className} onClick={handleLogout}>
-      Log out
+      {t("logOut")}
     </button>
   );
 };

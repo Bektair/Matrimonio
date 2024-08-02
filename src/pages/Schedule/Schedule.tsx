@@ -8,6 +8,7 @@ import Summary from './Summary';
 import { Link } from 'react-router-dom';
 import PathConstants from '../../components/route/pathConstants';
 import { selectLanguage } from '../../redux/selectors/selectLanguage';
+import { useTranslation } from 'react-i18next';
 
 function Schedule() {
 
@@ -22,6 +23,7 @@ function Schedule() {
 
   const dispatch = useAppDispatch();
   const [activeTab, setActiveTab] = useState("Ceremony");
+  const { i18n, t } = useTranslation();
 
 
   useEffect(()=>{
@@ -44,20 +46,20 @@ function Schedule() {
   return (
     <>
       <div className='schedule-tabs'>
-        <label className={`schedule-tab ${activeTab == "Ceremony" ? "schedule-tab-selected" : "schedule-tab-not-selected"}`}>Ceremony<input type='radio' onClick={() => setActiveTab("Ceremony")} name='scheduleEvents' defaultChecked={true}/></label>
-        <label className={`schedule-tab ${activeTab == "Reception" ? "schedule-tab-selected" : "schedule-tab-not-selected"}`}>Reception<input  type='radio' onClick={() => setActiveTab("Reception")} name='scheduleEvents'/></label>
+        <label className={`schedule-tab ${activeTab == "Ceremony" ? "schedule-tab-selected" : "schedule-tab-not-selected"}`}>{t("ceremony")}<input type='radio' onClick={() => setActiveTab("Ceremony")} name='scheduleEvents' defaultChecked={true}/></label>
+        <label className={`schedule-tab ${activeTab == "Reception" ? "schedule-tab-selected" : "schedule-tab-not-selected"}`}>{t("reception")}<input  type='radio' onClick={() => setActiveTab("Reception")} name='scheduleEvents'/></label>
       </div>
       <div className='schedule-background'>
         { currentReception && activeTab=="Reception" &&
           <>
             <Summary location={currentReception.location} startDate={currentReception.startDate} endDate={currentReception.endDate}></Summary>
-            <label className="nav-item">For more info <Link to={PathConstants.Reception}>Reception</Link></label>
+            <label className="nav-item">For more info <Link to={PathConstants.Reception}>{t("reception")}</Link></label>
           </>
         }
         { currentCeremony && activeTab=="Ceremony" &&
           <>
             <Summary location={currentCeremony.location} startDate={currentCeremony.startDate} endDate={currentCeremony.endDate}></Summary> 
-            <label className="nav-item">For more info <Link to={PathConstants.Ceremony}>Ceremony</Link></label>
+            <label className="nav-item">For more info <Link to={PathConstants.Ceremony}>{t("ceremony")}</Link></label>
           </>
         }
       </div>
