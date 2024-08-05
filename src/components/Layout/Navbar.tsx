@@ -51,7 +51,7 @@ function Navbar() {
             <li className="nav-item"><Link to={PathConstants.RSVP}>RSVP</Link></li>
             <li className="nav-item"><Link to={PathConstants.Schedule}>{t("schedule")}</Link></li>
             <li className="nav-item"><Link to={PathConstants.Posts}>{t("posts")}</Link></li>
-            <li className="nav-item"><Link to={PathConstants.Profile}><img className='profile-picture-nav' src={user?.picture}></img></Link></li>
+            <li className="nav-item"><Link to={PathConstants.Profile}><img className='profile-picture-nav' src={user?.profile ?? user?.picture ?? ""}></img></Link></li>
             <li className="nav-item"><LangDropDown style="language-picture" defaultOptionIndex={0} options={GetOptions()}></LangDropDown></li>
             {  process.env.NODE_ENV === 'development' && isLoading ? <li className="nav-item"><div className="list-loader-navbar"></div></li> : 
               !isAuthenticated ? 

@@ -36,7 +36,7 @@ const usersSlice = createSlice({
 })
 
 export const getAllUsers: any = createAsyncThunk(
-    'users/setUsers',
+    'users/getUsers',
     //Inside thunk function
     async ()=> {
         var users;
