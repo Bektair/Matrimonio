@@ -27,7 +27,7 @@ function Rsvp() {
   const RSVPS = useAppSelector(selectRSVPS);
   const Wedding = useAppSelector(selectWedding);
   const language = useAppSelector(selectLanguage).language;
-  const { dbId } = useAppSelector(selectAuth);
+  const { dbId, id } = useAppSelector(selectAuth);
   const weddings = useAppSelector(selectWeddings)
   const dispatch = useAppDispatch();
   const currentRSVP = useAppSelector(state => selectRSVPByAuthId(state, dbId))
@@ -35,13 +35,14 @@ function Rsvp() {
   const [selectedMenuOrder, setSelectedMenuOrder] = useState<IMenuOrder>();
   const { t } = useTranslation();
 
+
   const mode = import.meta.env.MODE;
   console.log("MODE")
   console.log(mode)
 
   useEffect(()=>{
     //TODO fjern, kun for testing
-
+    var actualId = dbId ? dbId : id
  
     console.log("ALL good")
     console.log(RSVPS)
@@ -52,7 +53,7 @@ function Rsvp() {
       dispatch(getAllWeddings(language));
     }
     if(Wedding != undefined){
-      dispatch(getRSVPbyWeddingAndSigner( {signerId: dbId, wedding_id: Wedding.id.toString(), language: language} as IWeddingAndSigner))
+      dispatch(getRSVPbyWeddingAndSigner( {signerId: actualId, wedding_id: Wedding.id.toString(), language: language} as IWeddingAndSigner))
       dispatch(getReception({weddingId: Wedding.id.toString(), language: language}))
     }
     if(!isAuthenticated){
