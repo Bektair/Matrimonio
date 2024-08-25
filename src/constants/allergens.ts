@@ -34,115 +34,115 @@ export const allergenMap = new Map([
     [Allergen.Almonds, 
         new Map([
             [Languages.English, "Almonds"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Mandorle"]
         ]
     )],
     [Allergen.Barley, 
         new Map([
             [Languages.English, "Barley"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Orzo"]
         ]
     )],
     [Allergen.BrazilNuts, 
         new Map([
             [Languages.English, "BrazilNuts"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Noci Brasiliane"]
         ]
     )],
     [Allergen.Cashew, 
         new Map([
             [Languages.English, "Cashew"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Anacardi"]
         ]
     )],
     [Allergen.Celery, 
         new Map([
             [Languages.English, "Celery"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Sedano"]
         ]
     )],
     [Allergen.Crustaceans, 
         new Map([
             [Languages.English, "Crustaceans"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Crostacei"]
         ]
     )],
     [Allergen.Eggs, 
         new Map([
             [Languages.English, "Eggs"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Uovo"]
         ]
     )],
     [Allergen.Fish, 
         new Map([
             [Languages.English, "Fish"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Pesce"]
         ]
     )],
     [Allergen.Hazelnuts, 
         new Map([
             [Languages.English, "Hazelnuts"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Nocciole"]
         ]
     )],
     [Allergen.Legumes, 
         new Map([
             [Languages.English, "Legumes"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Legumi"]
         ]
     )],
     [Allergen.Lupin, 
         new Map([
             [Languages.English, "Lupin"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Lupini"]
         ]
     )],
     [Allergen.Macadamia, 
         new Map([
             [Languages.English, "Macadamia"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Noci Macadamia"]
         ]
     )],
     [Allergen.Milk, 
         new Map([
             [Languages.English, "Milk"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Latte"]
         ]
     )],
     [Allergen.Molluscs, 
         new Map([
             [Languages.English, "Molluscs"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Molluschi"]
         ]
     )],
     [Allergen.Mustard, 
         new Map([
             [Languages.English, "Mustard"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Senape"]
         ]
     )],
     [Allergen.None, 
         new Map([
             [Languages.English, "None"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Nessuna"]
         ]
     )],
     [Allergen.Oats, 
         new Map([
             [Languages.English, "Oats"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Avena"]
         ]
     )],
     [Allergen.Pecans, 
         new Map([
             [Languages.English, "Pecans"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Noci Pecan"]
         ]
     )],
     [Allergen.Pistachio, 
         new Map([
             [Languages.English, "Pistachio"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Pistacchio"]
         ]
     )],
     [Allergen.QueenslandNut, 
@@ -154,37 +154,37 @@ export const allergenMap = new Map([
     [Allergen.Rye, 
         new Map([
             [Languages.English, "Rye"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Segale"]
         ]
     )],
     [Allergen.Sesame, 
         new Map([
             [Languages.English, "Sesame"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Sesamo"]
         ]
     )],
     [Allergen.Soya, 
         new Map([
             [Languages.English, "Soya"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Soia"]
         ]
     )],
     [Allergen.SulphurDioxide, 
         new Map([
             [Languages.English, "SulphurDioxide"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Solfiti"]
         ]
     )],
     [Allergen.Walnuts, 
         new Map([
             [Languages.English, "Walnuts"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Noci"]
         ]
     )],
     [Allergen.Wheat, 
         new Map([
             [Languages.English, "Wheat"],
-            [Languages.Italian, "testy"]
+            [Languages.Italian, "Grano"]
         ]
     )],
 ])
