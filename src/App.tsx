@@ -24,6 +24,7 @@ import Ceremony from './pages/Schedule/Ceremony/Ceremony.tsx'
 import Reception from './pages/Schedule/Reception/Reception.tsx'
 import Schedule from './pages/Schedule/Schedule.tsx'
 import PostMenu from './pages/AdminConsole/PostMenu/PostMenu.tsx'
+import PostDetails from './pages/Posts/postDetails.tsx'
 
 export const App : React.FC = () => {
   
@@ -47,6 +48,7 @@ export const App : React.FC = () => {
             <Route path={PathConstants.Profile} element={<Profile/>} />
             <Route path={PathConstants.Create} element={<Create/>} />
             <Route path={PathConstants.Posts} element={<Posts/>} />
+            <Route path={PathConstants.PostsDetails+"/:id"} element={<PostDetails/>} />
             <Route path={PathConstants.Admin} element={<ProtectedAdminRoute auth={auth}><AdminConsole/></ProtectedAdminRoute>} />
             <Route path={PathConstants.WeddingMenu} element={<ProtectedAdminRoute auth={auth}><Weddingsmenu/></ProtectedAdminRoute>} />
             <Route path={PathConstants.RSVPMenu} element={<ProtectedAdminRoute auth={auth}><RsvpMenu/></ProtectedAdminRoute>} />

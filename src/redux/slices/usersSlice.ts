@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IUser } from "../../models/IUser";
-import { GetUsers } from "../../API/ManagementAPI/CreateUser";
+import { getUsers } from "../../API/GetUser";
 
 type sliceState = {
     users: IUser[]
@@ -18,31 +18,31 @@ const usersSlice = createSlice({
     },
     extraReducers: (builder) =>  {
         builder.addCase(getAllUsers.fulfilled, (state, action)=>{
-            let users = action.payload.map((wedding: any) => {
+            let users = action.payload.map((user: any) => {
                 return { 
-                    id: wedding.id,
-                    firstName: wedding.firstName,
-                    lastName: wedding.lastName,
-                    profilePicture: wedding.profilePicture ?? "",
-                    email: wedding.email,
-                    nickname: wedding.nickname,
-                    email_Verified: wedding.email_Verified
+                    id: user.id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    profilePicture: user.profilePicture ?? "",
+                    email: user.email,
+                    nickname: user.nickname,
+                    email_Verified: user.email_Verified
                 }
             }) 
 
             state.users = users;
-        })    
+        })
     }
 })
 
-export const getAllUsers: any = createAsyncThunk(
+export const getAllUsers = createAsyncThunk(
     'users/getUsers',
     //Inside thunk function
     async ()=> {
         var users;
 
         try {
-          users = await GetUsers();
+          users = await getUsers();
         }catch (err){
             console.log("error:"+ err)
         }

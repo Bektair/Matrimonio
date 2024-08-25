@@ -1,16 +1,20 @@
-import { useAuth0 } from "@auth0/auth0-react"
-import { useEffect } from "react"
-import { useDispatch } from "react-redux"
-import { setAuthState } from "../../redux/slices/authSlice"
+import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect } from "react";
+import { IUserRequest } from "../../API/CreateUser";
+import { createUserThunk, getUserByEmailThunk, setAuthState } from "../../redux/slices/authSlice";
+
 import Cookies from 'js-cookie';
+import { useAppDispatch } from "../../redux/Hooks/hooks";
 
 
 
 function useAuthListener() {
   const {isAuthenticated, user, isLoading, getAccessTokenSilently} = useAuth0()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   var isAdmin = false; 
+  var isSocial = false;
   useEffect(()=>{
+    if(!user?.sub?.match("auth0")) isSocial = true
 
     const getToken = (async () => {
       
@@ -18,10 +22,18 @@ function useAuthListener() {
       console.log("postingToken" + id)
       var token = await getAccessTokenSilently()
       Cookies.set('token', token, { expires: 7, secure: true})
+      dispatch(setAuthState({isAuthenticated, user, isLoading, id, isAdmin, dbId: "", profilePic:"", isSocial}))
       console.log("----------------------------------UserListener")
       console.log(user)
-      dispatch(setAuthState({isAuthenticated, user, isLoading, id, isAdmin}))
+      dispatch(getUserByEmailThunk());
 
+      if(user && id && user.email && user.email_verified){
+        var userReq : IUserRequest = { Id: id, FirstName: user.name, LastName: user.given_name, ProfilePicture: user.picture, 
+          Email: user.email, Nickname: user.nickname, Email_Verified: user.email_verified
+        }
+        if(userReq)
+          dispatch(createUserThunk(userReq))
+      }
       return token;
     })
 
@@ -43,7 +55,7 @@ function useAuthListener() {
 
     } else {
       var id = user?.sub?.split("|")[1];
-      dispatch(setAuthState({isAuthenticated, user, isLoading, id, isAdmin}))
+      dispatch(setAuthState({isAuthenticated, user, isLoading, id, isAdmin, dbId: "", profilePic:"", isSocial}))
     }
     
 

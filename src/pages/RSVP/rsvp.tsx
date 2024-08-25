@@ -27,11 +27,10 @@ function Rsvp() {
   const RSVPS = useAppSelector(selectRSVPS);
   const Wedding = useAppSelector(selectWedding);
   const language = useAppSelector(selectLanguage).language;
-  const Auth = useAppSelector(selectAuth);
-  const UserId = useAppSelector(selectAuth).id;
+  const { dbId } = useAppSelector(selectAuth);
   const weddings = useAppSelector(selectWeddings)
   const dispatch = useAppDispatch();
-  const currentRSVP = useAppSelector(state => selectRSVPByAuthId(state, Auth ? Auth.id : undefined))
+  const currentRSVP = useAppSelector(state => selectRSVPByAuthId(state, dbId))
   const [currentMenuItem, setCurrentMenuItem] = useState();
   const [selectedMenuOrder, setSelectedMenuOrder] = useState<IMenuOrder>();
   const { t } = useTranslation();
@@ -45,7 +44,6 @@ function Rsvp() {
 
  
     console.log("ALL good")
-    console.log(Auth)
     console.log(RSVPS)
     console.log(Wedding)
     console.log(currentRSVP)
@@ -54,7 +52,7 @@ function Rsvp() {
       dispatch(getAllWeddings(language));
     }
     if(Wedding != undefined){
-      dispatch(getRSVPbyWeddingAndSigner( {signerId: UserId, wedding_id: Wedding.id.toString(), language: language} as IWeddingAndSigner))
+      dispatch(getRSVPbyWeddingAndSigner( {signerId: dbId, wedding_id: Wedding.id.toString(), language: language} as IWeddingAndSigner))
       dispatch(getReception({weddingId: Wedding.id.toString(), language: language}))
     }
     if(!isAuthenticated){
@@ -117,7 +115,13 @@ function Rsvp() {
 
 
   function contentMenuOrders(e: IMenuOrder){
-    return `${e.name} ${e.isAdult} ${e.alergens} ${e.menuOptionId}`
+    var content = "";
+    if(e.name) content += e.name + ","
+    if(e.alergens) content += e.alergens + ","
+    if(e.menuOptionId) content += e.menuOptionId + ","
+    console.log(e)
+    console.log(content)
+    return `${content.substring(0, content.length-1)}`
   }
 
   function setMenuItem(e: any){
@@ -144,7 +148,7 @@ function Rsvp() {
     <>
       <h1>{t("hello")} {user?.name}!</h1> 
       <div className='RSVP-invite-button'>
-        { Auth && Auth.id  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP &&
+        { dbId  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP &&
           <> 
             {renderSwitchRSVPState(currentRSVP)}
             
@@ -153,7 +157,7 @@ function Rsvp() {
         }
       </div>
 
-      { Auth && Auth.id  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP && currentRSVP.status == RSVPStatus.Accepted &&
+      { dbId && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP && currentRSVP.status == RSVPStatus.Accepted &&
         <>
           <h2>{t("orderMenu")}</h2>
         <div className='DietaryMenu'>

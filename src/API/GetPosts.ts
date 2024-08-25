@@ -1,6 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { API_URL } from "../constants/environment";
 import getAuthHeaders from "./SetAuthHeaders";
+import { IImage } from "../models/IImage";
 //import getAuthHeaders from "./setAuthHeaders"; For authentication
 
 export interface PostRequest {
@@ -13,7 +14,9 @@ export interface IPostResponse {
     title: string,
     body: string,
     authorId: number,
-    weddingId: number
+    weddingId: number,
+    images: IImage[]
+    language: string
 }
 
 

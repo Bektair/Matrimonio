@@ -16,7 +16,7 @@ import { updateUserThunk } from '../../redux/slices/authSlice';
 import { IUserUpdate, IUserUpdateRequest } from '../../API/UpdateUser';
 
 function Profile() {
-  const {user, isAuthenticated, id } = useSelector(selectAuth);
+  const {user, isAuthenticated, dbId, isSocial, profilePic } = useSelector(selectAuth);
   var navigate = useNavigate()
   const dispatch = useAppDispatch();
   const weddings = useSelector(selectWeddings);
@@ -32,16 +32,18 @@ function Profile() {
       navigate("/login")
     }
 
-    if(id)
-      dispatch(getWeddingsByParticipant({participantId: id, language: language})) 
+    if(dbId)
+      dispatch(getWeddingsByParticipant({participantId: dbId, language: language})) 
 
   }, [])
   
-  function addProfilePicture(){
+  function addProfilePicture(isSocial : boolean){
     var fileInput = document.getElementById('fileInput');
-    if(fileInput)
+    alert(isSocial)
+    if(fileInput && !isSocial)
       fileInput.click();
-
+    if(isSocial)
+      alert("This picture is imported from facebook and cannot be changed")
   }
 
   const handleFileChange = (event : any) => {
@@ -51,13 +53,13 @@ function Profile() {
         reader.onloadend = () => {
             console.log("ReaderInner")
             setSelectedFile(reader.result);
-            if(id){
+            if(dbId){
               var uUpdate : IUserUpdate = {
                 profilePicture: reader.result?.toString() ?? "" ,
               };
         
               var updateDispatch : IUserUpdateRequest = {
-                id: id,
+                id: dbId,
                 userUpdate: uUpdate
               };
               console.log("UPDATE_USER----------------------------")
@@ -77,8 +79,8 @@ function Profile() {
   return (
     <>
     <div className='profilePage'>
-      <div className='profilePictureContainer' onClick={addProfilePicture}>
-        <HoverImage srcOriginal={user?.profile ?? user?.picture ?? ""} srcHoover={editImage}></HoverImage>
+      <div className='profilePictureContainer' onClick={()=>addProfilePicture(isSocial)}>
+        <HoverImage srcOriginal={profilePic ?? user?.picture ?? ""} srcHoover={editImage}></HoverImage>
         <input
                 type="file"
                 id="fileInput"

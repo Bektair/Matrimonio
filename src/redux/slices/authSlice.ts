@@ -1,6 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { User } from "@auth0/auth0-react";
 import { IUserUpdateRequest, patchUser } from "../../API/UpdateUser";
+import { createUser, IUserRequest } from "../../API/CreateUser";
+import { getUserByEmail } from "../../API/GetUser";
 
 
 type sliceState = {
@@ -9,6 +11,9 @@ type sliceState = {
     isAdmin: boolean,
     user: User | undefined,
     id: string | undefined
+    dbId: string | undefined
+    profilePic: string | undefined
+    isSocial: boolean
 }
 
 
@@ -18,7 +23,10 @@ const initialState: sliceState = {
     isAdmin: false,
     isLoading: true,
     user: undefined,
-    id: undefined
+    id: undefined,
+    dbId: undefined,
+    profilePic: undefined,
+    isSocial: false
 }
 
 export const authSlice = createSlice({
@@ -31,6 +39,7 @@ export const authSlice = createSlice({
             state.isLoading = action.payload.isLoading;
             state.isAdmin = action.payload.isAdmin;
             state.id = action.payload.id;
+            state.isSocial = action.payload.isSocial;
         }
     },
     extraReducers: (builder) =>  {
@@ -44,15 +53,40 @@ export const authSlice = createSlice({
                     if(payload.email) state.user.email=payload.email;
                     if(payload.email_Verified) state.user.email_verified = payload.email_Verified;
                     if(payload.nickname) state.user.nickname = payload.nickname;
-                    if(payload.profilePicture) state.user.profile = payload.profilePicture;
+                    if(payload.profilePicture && !state.isSocial) state.profilePic = payload.profilePicture;
                     if(payload.firstName) state.user.name = payload.firstName;
                     if(payload.lastName)state.user.given_name = payload.lastName;
                     if(payload.language)state.user.locale = payload.language;
+
                 }            
             }   
+        }),
+        builder.addCase(getUserByEmailThunk.fulfilled, (state, action) =>{
+            console.log("DB ID GOTTEN_-------------------!!!-------")
+            console.log(action.payload)
+            console.log(state)
+            state.dbId = action.payload?.id
+            if(!state.isSocial){
+                state.profilePic = action.payload?.profilePicture
+            }
         })
     }
 })
+
+export const getUserByEmailThunk = createAsyncThunk(
+    'users/getByEmail',
+    //Inside thunk function
+    async ()=> {
+        var user;
+
+        try {
+          user = await getUserByEmail();
+        }catch (err){
+            console.log("error:"+ err)
+        }
+        return user;
+    }
+  )
 
 export const updateUserThunk = createAsyncThunk(
     'users/update',
@@ -69,6 +103,21 @@ export const updateUserThunk = createAsyncThunk(
     }
   )
 
+  export const createUserThunk = createAsyncThunk(
+    'users/update',
+    //Inside thunk function
+    async (userCreate : IUserRequest)=> {
+        var user;
+        console.log("ATTEMPTING TO CREATE A USER...........................")
+        console.log(userCreate)
+        try {
+          user = await createUser(userCreate);
+        }catch (err){
+            console.log("error:"+ err)
+        }
+        return user;
+    }
+  )
 
 export const { setAuthState } = authSlice.actions
 export default authSlice.reducer

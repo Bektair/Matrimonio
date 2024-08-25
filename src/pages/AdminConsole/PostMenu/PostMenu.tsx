@@ -6,6 +6,7 @@ import { selectLanguage } from "../../../redux/selectors/selectLanguage";
 import List from "../../../components/lists/genericlist";
 import { IPost } from "../../../models/IPost";
 import PostTranslationForm from "../../../components/forms/PostTranslationForm";
+import CreatePostForm from "../../../components/forms/createPostForm";
 
 function PostMenu() {
     const dispatch = useAppDispatch();
@@ -27,7 +28,11 @@ function PostMenu() {
   return (
     <>
      <List<IPost> listItems={posts} name="posts" setContentFunction={setContentFunction} onclickEvent={(e)=>setCurrentPost(e)} ></List>
-     {currentPost && <PostTranslationForm post={currentPost} ></PostTranslationForm>}
+     {currentPost && <PostTranslationForm post={currentPost} ></PostTranslationForm> }
+     {currentPost && <CreatePostForm post={currentPost}></CreatePostForm>}
+     {!currentPost && <CreatePostForm post={currentPost}></CreatePostForm>}
+
+
      
     </>
   )

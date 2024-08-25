@@ -10,7 +10,7 @@ import LangDropDown from "../lists/langDropDown"
 import PathConstants from '../route/pathConstants'
 
 function Navbar() {
-  const {isAuthenticated, isLoading, user} = useSelector(selectAuth)
+  const {isAuthenticated, isLoading, user, profilePic} = useSelector(selectAuth)
   const { t } = useTranslation();
 
   useEffect(()=>{
@@ -24,15 +24,15 @@ function Navbar() {
 
     options.push({
       selectedOptionName: Languages.English,
-      selectedOptionImg: "https://res.cloudinary.com/dgegmm2pt/image/upload/v1721396516/united-kingdom-svgrepo-com_e2v4gs.svg"
+      selectedOptionImg: "https://res.cloudinary.com/dgegmm2pt/image/upload/v1724574963/united-kingdom-uk-svgrepo-com_d1wc2u.svg"
     })
     options.push({
       selectedOptionName: Languages.Italian,
-      selectedOptionImg: "https://res.cloudinary.com/dgegmm2pt/image/upload/v1721396516/italy-svgrepo-com_yzwhgr.svg"
+      selectedOptionImg: "https://res.cloudinary.com/dgegmm2pt/image/upload/v1724574870/flag-for-flag-italy-svgrepo-com_h3hjwv.svg"
     })
     options.push({
       selectedOptionName: Languages.Norwegian,
-      selectedOptionImg: "https://res.cloudinary.com/dgegmm2pt/image/upload/v1721396517/norway-svgrepo-com_ehm11t.svg"
+      selectedOptionImg: "https://res.cloudinary.com/dgegmm2pt/image/upload/v1724574963/flag-for-flag-norway-svgrepo-com_he0eo2.svg"
     })
     return options;
   }
@@ -51,7 +51,7 @@ function Navbar() {
             <li className="nav-item"><Link to={PathConstants.RSVP}>RSVP</Link></li>
             <li className="nav-item"><Link to={PathConstants.Schedule}>{t("schedule")}</Link></li>
             <li className="nav-item"><Link to={PathConstants.Posts}>{t("posts")}</Link></li>
-            <li className="nav-item"><Link to={PathConstants.Profile}><img className='profile-picture-nav' src={user?.profile ?? user?.picture ?? ""}></img></Link></li>
+            <li className="nav-item"><Link to={PathConstants.Profile}><img className='profile-picture-nav' src={profilePic ?? user?.picture ?? ""}></img></Link></li>
             <li className="nav-item"><LangDropDown style="language-picture" defaultOptionIndex={0} options={GetOptions()}></LangDropDown></li>
             {  process.env.NODE_ENV === 'development' && isLoading ? <li className="nav-item"><div className="list-loader-navbar"></div></li> : 
               !isAuthenticated ? 

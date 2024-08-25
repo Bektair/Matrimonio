@@ -27,6 +27,7 @@ function Weddingsmenu() {
             <h1>Weddingsmenu</h1>
             <button onClick={function() {dispatch(getAllWeddings(language))}}>clickme</button>
             <WeddingList weddings={weddings}></WeddingList>
+            <div></div>
             <CreateWeddingForm></CreateWeddingForm>
             <WeddingUpdate></WeddingUpdate>
         </div>

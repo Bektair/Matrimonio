@@ -27,7 +27,6 @@ export interface IPatchWeddingResponse {
 }
 
 export async function patchWedding(weddingUpdate : IWeddingUpdate, id : string, language: string){
-
     var patches = createJsonPatch(weddingUpdate);
     console.log("WEDDING PATCHES!......................................Wedding patches")
     console.log(patches)

@@ -4,21 +4,17 @@ import { IPost } from '../../models/IPost';
 import { selectPosts, selectWedding } from '../../redux/selectors/selectWeddingSlice';
 import { getAllPostsInWedding } from '../../redux/slices/weddingSlice';
 import { selectLanguage } from '../../redux/selectors/selectLanguage';
-
+import Post from './post';
+import './posts.sass'
 
 
 function Posts() {
   const dispatch = useAppDispatch()
-
   let currentWedding = useAppSelector(selectWedding);
   let language = useAppSelector(selectLanguage).language;
   let posts = useAppSelector(selectPosts)
 
-  
   useEffect(()=>{
-
-
-    
     let wedding_id = currentWedding?.id.toString();
      if(wedding_id != undefined){
 
@@ -28,16 +24,12 @@ function Posts() {
      
   }, [])
 
-  const Post = ({ value } : any) => {
-    const {body, id, title} = value
-    console.log(value);
-    return <li>{title} {body} {id}</li>
-  }
+
 
   function renderPost() {
     if(posts.length > 0)
       return posts.map((post : IPost) => (
-        <Post key={post.id} value={post}/>
+        <Post key={post.id} post={post}/>
       ));
     else
       return <li></li>
@@ -45,7 +37,7 @@ function Posts() {
 
   return (
       <div>posts length of postsarray {posts.length}
-          <ul>
+          <ul className='postsGrid'>
             {renderPost()}
           </ul>
       </div>

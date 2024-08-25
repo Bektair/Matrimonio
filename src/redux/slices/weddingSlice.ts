@@ -23,7 +23,8 @@ import { IMenuOrder } from '../../models/IMenuOrder'
 import { deleteMenuOrder } from '../../API/DeleteMenuOrder'
 import { addWeddingTranslation, IAddWeddingTranslation } from '../../API/AddWeddingTranslation'
 import { fetchPosts, PostRequest } from '../../API/GetPosts'
-import { addPostTranslation, IPostTranslationRequest } from '../../API/UpdatePost'
+import { addPostTranslation, IPostTranslationRequest, PostUpdateRequest, updatePost } from '../../API/UpdatePost'
+import { createPost, IPostCreate } from '../../API/CreatePost'
 
 
 interface sliceState  {
@@ -403,11 +404,34 @@ const weddingSlice = createSlice( {
                 title: post.title,
                 body: post.body,
                 wedding_id: post.weddingId,
-                author_id: post.authorId
+                author_id: post.authorId,
+                images: post.images,
+                language: post.language
               } 
             })
             state.posts = posts;
-          })
+        }),
+        builder.addCase(createPostInWedding.fulfilled, (state, action)=>{
+            var postResponse = action.payload;
+            if(postResponse && postResponse.id == state.wedding?.id){
+                var post = {
+                    author_id: postResponse.authorId,
+                    body: postResponse.body,
+                    id: postResponse.id,
+                    images: postResponse.images,
+                    language: postResponse.language,
+                    title: postResponse.title,
+                    wedding_id: postResponse.weddingId
+                } as IPost
+
+                state.posts.push(post);
+            }
+        }),
+        builder.addCase(updatePostThunk.fulfilled, (state, action)=>{
+            var postResponse = action.payload;
+            console.log("POST RESPONSEEEEEEEEEE!!")
+            console.log(postResponse)
+        })
     }
 })
 export const { setWedding, changeSecondaryColor, resetWedding } = weddingSlice.actions
@@ -728,6 +752,34 @@ export const getAllPostsInWedding = createAsyncThunk(
     }
   )
 
+  export const createPostInWedding = createAsyncThunk(
+    'post/createPost',
+    async(req: IPostCreate) => {
+        try {
+         var createdPost =  await createPost(req);
+        }catch (err){
+            console.log(err)
+          return undefined;
+        }
+
+        return createdPost;
+    }
+  )
+
+  export const updatePostThunk= createAsyncThunk(
+    'post/updatePost',
+    async(req: PostUpdateRequest) =>{
+        try{
+            var updatedPost = await updatePost(req);
+        }
+        catch(err){
+            console.log(err)
+            return undefined
+        }
+        return updatedPost;
+    }
+  )
+
   export const addPostTranslationThunk = createAsyncThunk(
     'posts/Translation',
     //Inside thunk function
@@ -740,6 +792,7 @@ export const getAllPostsInWedding = createAsyncThunk(
         }
     }
   )
+
   
 
 export default weddingSlice.reducer

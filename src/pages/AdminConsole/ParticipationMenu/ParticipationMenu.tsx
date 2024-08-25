@@ -30,7 +30,7 @@ function ParticipationMenu() {
 
 
     useEffect(()=> {
-        setTimeout(function() {dispatch(getAllUsers());}, 500)
+        setTimeout(function() {dispatch(getAllUsers());}, 1)
         setTimeout(function() {dispatch(getAllWeddings(language));}, 10)
 
         console.log("TRYING TO RENDER BOYS!!!!!!!!!!!!")
@@ -79,7 +79,7 @@ function ParticipationMenu() {
       }
 
       function setContentParticipant(e: IParticipant){
-        var user = users.find((user) => user.id == e.id)
+        var user = users.find((user : any) => user.id == e.id)
         return `${user?.nickname}, ${user?.firstName} ${user?.lastName}, ${e.role}`
       }
     
