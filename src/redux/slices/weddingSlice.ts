@@ -431,6 +431,7 @@ const weddingSlice = createSlice( {
             var postResponse = action.payload;
             console.log("POST RESPONSEEEEEEEEEE!!")
             console.log(postResponse)
+            console.log(state)
         })
     }
 })

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import PathConstants from "../../components/route/pathConstants";
 import { ImageRoles } from "../../constants/imageRoles";
 import { IPost } from "../../models/IPost";
-import './post.sass'
-import PathConstants from "../../components/route/pathConstants";
+import './post.sass';
 
 interface IProps {
     post: IPost
@@ -11,7 +11,7 @@ interface IProps {
 
 const Post = ( value : IProps) => {
     const navigate = useNavigate()
-    const {body, id, title, language, images} = value.post
+    const {id, title, images} = value.post
     console.log(value);
 
     var mainImage = images.find((i)=> i.role == ImageRoles.MainImage)
