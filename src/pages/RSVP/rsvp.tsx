@@ -34,6 +34,7 @@ function Rsvp() {
   const [currentMenuItem, setCurrentMenuItem] = useState();
   const [selectedMenuOrder, setSelectedMenuOrder] = useState<IMenuOrder>();
   const { t } = useTranslation();
+  const [actualId] = useState(dbId ? dbId : id);
 
 
   const mode = import.meta.env.MODE;
@@ -42,7 +43,6 @@ function Rsvp() {
 
   useEffect(()=>{
     //TODO fjern, kun for testing
-    var actualId = dbId ? dbId : id
  
     console.log("ALL good")
     console.log(RSVPS)
@@ -149,7 +149,7 @@ function Rsvp() {
     <>
       <h1>{t("hello")} {user?.name}!</h1> 
       <div className='RSVP-invite-button'>
-        { dbId  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP &&
+        { actualId  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP &&
           <> 
             {renderSwitchRSVPState(currentRSVP)}
             
@@ -158,7 +158,7 @@ function Rsvp() {
         }
       </div>
 
-      { dbId && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP && currentRSVP.status == RSVPStatus.Accepted &&
+      { actualId && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP && currentRSVP.status == RSVPStatus.Accepted &&
         <>
           <h2>{t("orderMenu")}</h2>
         <div className='DietaryMenu'>
