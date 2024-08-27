@@ -25,6 +25,7 @@ import Reception from './pages/Schedule/Reception/Reception.tsx'
 import Schedule from './pages/Schedule/Schedule.tsx'
 import PostMenu from './pages/AdminConsole/PostMenu/PostMenu.tsx'
 import PostDetails from './pages/Posts/postDetails.tsx'
+import Authorize from './pages/Auth/authorize.tsx'
 
 export const App : React.FC = () => {
   
@@ -37,6 +38,7 @@ export const App : React.FC = () => {
         <Routes>
           <Route element={<Layout/>}> 
             <Route path={PathConstants.Home} element={<Home/>} />
+            <Route path={PathConstants.Authorize} element={<Authorize/>} />
             <Route path={PathConstants.Login} element={<Login/>} />
             <Route path={PathConstants.Register} element={<Register/>} />
             <Route path={PathConstants.Ceremony} element={<Ceremony/>} />

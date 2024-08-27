@@ -18,7 +18,8 @@ const PathConstants = {
     User: "/user",
     ParticipationMenu: "/participationmenu",
     PostMenu: "/postmenu",
-    PostsDetails: "/postdetails"
+    PostsDetails: "/postdetails",
+    Authorize: "/authorize"
 }
 
 export default PathConstants;
