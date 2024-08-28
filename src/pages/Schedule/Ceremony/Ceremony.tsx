@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/Hooks/hooks"
 import { selectCeremony, selectWedding } from "../../../redux/selectors/selectWeddingSlice"
 import { getCeremony } from "../../../redux/slices/weddingSlice";
 import { selectLanguage } from "../../../redux/selectors/selectLanguage";
+import { isFuture } from "../../../utils/dateCompare";
 
 function Ceremony() {
   const ceremony = useAppSelector(selectCeremony)
@@ -25,7 +26,11 @@ function Ceremony() {
       <div className="reception-content">
         <h2>{ceremony.location.title}</h2>
         <img src={ceremony.location.image}></img>
-        <label>{new Date(ceremony.startDate).toLocaleString()}-{new Date(ceremony.endDate).toLocaleTimeString()}</label>        
+
+        { isFuture(ceremony.endDate) ? 
+          <label>{new Date(ceremony.startDate).toLocaleString()}-{new Date(ceremony.endDate).toLocaleTimeString()}</label> 
+          : <label>{new Date(ceremony.startDate).toLocaleString()}</label> 
+        }        
         <label>{ceremony.description}</label>
       </div> :  <div>Ceremony not added yet</div>
 

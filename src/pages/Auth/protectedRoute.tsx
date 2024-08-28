@@ -7,7 +7,7 @@ function ProtectedRoute({children, auth} : any) {
     if(isAuthenticated) return children
 
   return (
-    <Navigate to="/"></Navigate>
+    <Navigate to="/authorize"></Navigate>
   )
 }
 

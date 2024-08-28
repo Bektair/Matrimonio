@@ -1,15 +1,16 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { IWeddingAndSigner } from '../../API/GetRSVP';
 import CreateMenuOrderForm from '../../components/forms/createMenuOrderForm';
 import List from '../../components/lists/genericlist';
 import { IMenuOrder } from '../../models/IMenuOrder';
 import { IRSVP, RSVPStatus } from '../../models/IRSVP';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
 import { selectAuth } from '../../redux/selectors/selectAuth';
+import { selectLanguage } from '../../redux/selectors/selectLanguage';
 import { selectRSVPByAuthId, selectRSVPS, selectWedding } from '../../redux/selectors/selectWeddingSlice';
-import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
 import { IMenuOrderDelete, deleteMenuOrderThunk, getMenuOrdersThunk, getRSVPbyWeddingAndSigner, getReception } from '../../redux/slices/weddingSlice';
-import { getAllWeddings } from '../../redux/slices/weddingsSlice';
 import RSVPAllreadyAccepted from './RSVPAllreadyAccepted';
 import RSVPAllreadyAcceptedPastDue from './RSVPAllreadyAcceptedPastDue';
 import RSVPDeclined from './RSVPDeclined';
@@ -18,9 +19,6 @@ import RSVPDietaryMenu from './RSVPDietaryMenu';
 import RSVPExpiredInvite from './RSVPExpiredInvite';
 import RSVPPending from './RSVPPending';
 import './rsvp.sass';
-import { selectLanguage } from '../../redux/selectors/selectLanguage';
-import { IWeddingAndSigner } from '../../API/GetRSVP';
-import { useTranslation } from 'react-i18next';
 function Rsvp() {
 
   const { user, isAuthenticated } = useAuth0();
@@ -28,7 +26,6 @@ function Rsvp() {
   const Wedding = useAppSelector(selectWedding);
   const language = useAppSelector(selectLanguage).language;
   const { dbId, id } = useAppSelector(selectAuth);
-  const weddings = useAppSelector(selectWeddings)
   const dispatch = useAppDispatch();
   const currentRSVP = useAppSelector(state => selectRSVPByAuthId(state, dbId))
   const [currentMenuItem, setCurrentMenuItem] = useState();
@@ -49,9 +46,6 @@ function Rsvp() {
     console.log(Wedding)
     console.log(currentRSVP)
 
-    if(weddings.length == 0){
-      dispatch(getAllWeddings(language));
-    }
     if(Wedding != undefined){
       dispatch(getRSVPbyWeddingAndSigner( {signerId: actualId, wedding_id: Wedding.id.toString(), language: language} as IWeddingAndSigner))
       dispatch(getReception({weddingId: Wedding.id.toString(), language: language}))

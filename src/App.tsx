@@ -37,20 +37,20 @@ export const App : React.FC = () => {
   return (
         <Routes>
           <Route element={<Layout/>}> 
-            <Route path={PathConstants.Home} element={<Home/>} />
+            <Route path={PathConstants.Home} element={<ProtectedRoute auth={auth}><Home/></ProtectedRoute>} />
             <Route path={PathConstants.Authorize} element={<Authorize/>} />
-            <Route path={PathConstants.Login} element={<Login/>} />
-            <Route path={PathConstants.Register} element={<Register/>} />
-            <Route path={PathConstants.Ceremony} element={<Ceremony/>} />
+            <Route path={PathConstants.Login} element={<ProtectedRoute auth={auth}><Login/></ProtectedRoute>} />
+            <Route path={PathConstants.Register} element={<ProtectedRoute auth={auth}><Register/></ProtectedRoute>} />
+            <Route path={PathConstants.Ceremony} element={<ProtectedRoute auth={auth}><Ceremony/></ProtectedRoute>} />
             <Route path={PathConstants.CeremonyMenu} element={<ProtectedAdminRoute auth={auth}><CeremonyMenu/></ProtectedAdminRoute>} />
             <Route path={PathConstants.RSVP} element={<ProtectedRoute auth={auth}><Rsvp/></ProtectedRoute>} />
-            <Route path={PathConstants.Reception} element={<Reception/>} />
+            <Route path={PathConstants.Reception} element={<ProtectedRoute auth={auth}><Reception/></ProtectedRoute>} />
             <Route path={PathConstants.ReceptionMenu} element={<ProtectedAdminRoute auth={auth}><ReceptionMenu/></ProtectedAdminRoute>} />
-            <Route path={PathConstants.Schedule} element={<Schedule/>} />
-            <Route path={PathConstants.Profile} element={<Profile/>} />
-            <Route path={PathConstants.Create} element={<Create/>} />
-            <Route path={PathConstants.Posts} element={<Posts/>} />
-            <Route path={PathConstants.PostsDetails+"/:id"} element={<PostDetails/>} />
+            <Route path={PathConstants.Schedule} element={<ProtectedRoute auth={auth}><Schedule/></ProtectedRoute>} />
+            <Route path={PathConstants.Profile} element={<ProtectedRoute auth={auth}><Profile/></ProtectedRoute>} />
+            <Route path={PathConstants.Create} element={<ProtectedRoute auth={auth}><Create/></ProtectedRoute>} />
+            <Route path={PathConstants.Posts} element={<ProtectedRoute auth={auth}><Posts/></ProtectedRoute>} />
+            <Route path={PathConstants.PostsDetails+"/:id"} element={<ProtectedRoute auth={auth}><PostDetails/></ProtectedRoute>} />
             <Route path={PathConstants.Admin} element={<ProtectedAdminRoute auth={auth}><AdminConsole/></ProtectedAdminRoute>} />
             <Route path={PathConstants.WeddingMenu} element={<ProtectedAdminRoute auth={auth}><Weddingsmenu/></ProtectedAdminRoute>} />
             <Route path={PathConstants.RSVPMenu} element={<ProtectedAdminRoute auth={auth}><RsvpMenu/></ProtectedAdminRoute>} />

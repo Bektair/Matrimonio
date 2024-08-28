@@ -23,7 +23,7 @@ function Authorize() {
 
   
   return (
-    <div>authorize</div>
+    <div>Authorizing... Redirect to login..</div>
   )
 }
 

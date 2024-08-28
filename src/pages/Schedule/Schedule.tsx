@@ -38,7 +38,7 @@ function Schedule() {
       dispatch(getCeremony({weddingId: wedding.id.toString(), language: language }))
     }
 
-  }, [])
+  }, [currentReception, currentCeremony])
 
   
 

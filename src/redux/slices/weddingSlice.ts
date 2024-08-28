@@ -98,7 +98,17 @@ const weddingSlice = createSlice( {
             state.wedding=updatedWedding;
 
         },
-        resetWedding: ()=> initialState
+        resetWedding: ()=> initialState,
+        resetAllButWedding: (state) => {
+            return {
+                wedding: state.wedding,
+                ceremony: initialState.ceremony,
+                participants: initialState.participants,
+                posts: initialState.posts,
+                reception: initialState.reception,
+                rsvps: initialState.rsvps
+            }
+        }
     },
     extraReducers: (builder) =>  {
         builder.addCase(getAWedding.fulfilled, (state, action)=>{
@@ -435,7 +445,7 @@ const weddingSlice = createSlice( {
         })
     }
 })
-export const { setWedding, changeSecondaryColor, resetWedding } = weddingSlice.actions
+export const { setWedding, changeSecondaryColor, resetWedding, resetAllButWedding } = weddingSlice.actions
 
 export const getAWedding = createAsyncThunk(
     'wedding/getWedding',

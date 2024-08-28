@@ -11,6 +11,8 @@ import { useAppDispatch } from "../../redux/Hooks/hooks";
 function useAuthListener() {
   const {isAuthenticated, user, isLoading, getAccessTokenSilently} = useAuth0()
   const dispatch = useAppDispatch()
+
+
   var isAdmin = false; 
   var isSocial = false;
   useEffect(()=>{

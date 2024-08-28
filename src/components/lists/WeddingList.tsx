@@ -1,7 +1,7 @@
 import { IWedding } from '../../models/IWedding';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
 import { selectLanguage } from '../../redux/selectors/selectLanguage';
-import { getCeremony, setWedding } from '../../redux/slices/weddingSlice';
+import { getCeremony, resetAllButWedding, setWedding } from '../../redux/slices/weddingSlice';
 import { replaceWedding } from '../../redux/slices/weddingsSlice';
 import List from './genericlist';
 
@@ -22,6 +22,7 @@ function WeddingList(props : IProps){
       
         dispatch(setWedding({wedding: selectedItem}));
         dispatch(replaceWedding(selectedItem));
+        dispatch(resetAllButWedding())
 
         if(props.ceremony) dispatch(getCeremony({weddingId: selectedItem.id.toString(), language: language}))
         if(props.reception) dispatch(getCeremony({weddingId: selectedItem.id.toString(), language: language }))

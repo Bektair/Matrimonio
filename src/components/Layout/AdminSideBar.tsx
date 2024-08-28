@@ -1,16 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { IWeddingAndSigner } from '../../API/GetRSVP';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
 import { selectAuth } from '../../redux/selectors/selectAuth';
 import { selectLanguage } from '../../redux/selectors/selectLanguage';
 import { selectCeremony, selectReception, selectWedding } from '../../redux/selectors/selectWeddingSlice';
-import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
-import { getCeremony, getRSVPbyWeddingAndSigner, getReception, setWedding } from '../../redux/slices/weddingSlice';
-import { getAllWeddings, } from '../../redux/slices/weddingsSlice';
+import { getCeremony, getRSVPbyWeddingAndSigner, getReception } from '../../redux/slices/weddingSlice';
 
 
 function AdminSideBar() {
-    const weddings = useAppSelector(selectWeddings)
     const dispatch = useAppDispatch();
     const [visible, setVisible] = useState("visible")
     const wedding = useAppSelector(selectWedding)
@@ -20,26 +17,7 @@ function AdminSideBar() {
     const language = useAppSelector(selectLanguage).language;
 
 
-    useEffect(()=>{
-        if(weddings.length > 0)
-            dispatch(setWedding({wedding: weddings[0]}));
-        else{
-            dispatch(getAllWeddings(language));
-        }
 
-
-    }, [])
-
-
-    function setWeddingEvent() {
-        if(weddings.length > 0)
-            dispatch(setWedding({
-                wedding: weddings[0], 
-            }));
-        else{
-            dispatch(getAllWeddings(language));
-        }
-    }
 
     function setCeremonyEvent() {
         if(wedding != undefined)
@@ -74,7 +52,7 @@ function AdminSideBar() {
   return (
     <div id='adminSidebar' style={getVisibillity()}>
         <button onClick={setInvisible}>HideBar</button>
-        <button onClick={setWeddingEvent}>SetWedding</button>
+        {/* <button onClick={setWeddingEvent}>SetWedding</button> */}
         <label>Wedding: {wedding?.id}</label>
         <button onClick={setCeremonyEvent}>SetCeremony</button>
         <label>Ceremony: {ceremony?.id}</label>
@@ -82,7 +60,7 @@ function AdminSideBar() {
         <button onClick={setReceptionEvent}>SetReception</button>
         <label>Reception: {reception?.id}</label>
         <button onClick={printRSVP}>printRSVP</button>
-        <button onClick={setWeddingEvent}>SetWedding</button>
+        {/* <button onClick={setWeddingEvent}>SetWedding</button> */}
     </div>
     
   )

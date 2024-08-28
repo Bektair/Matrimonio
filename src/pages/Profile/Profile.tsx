@@ -12,7 +12,7 @@ import { selectLanguage } from '../../redux/selectors/selectLanguage';
 import { useTranslation } from 'react-i18next';
 import HoverImage from '../../components/images/HooverImage';
 import { editImage } from '../../constants/svgImages';
-import { updateUserThunk } from '../../redux/slices/authSlice';
+import { getUserByEmailThunk, updateUserThunk } from '../../redux/slices/authSlice';
 import { IUserUpdate, IUserUpdateRequest } from '../../API/UpdateUser';
 
 function Profile() {
@@ -23,7 +23,8 @@ function Profile() {
   const language = useSelector(selectLanguage).language;
   const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<string | ArrayBuffer | null>(null);
-  
+
+
   useEffect(()=>{
     console.log(user)
 
@@ -34,8 +35,11 @@ function Profile() {
 
     if(dbId)
       dispatch(getWeddingsByParticipant({participantId: dbId, language: language})) 
+    else
+      dispatch(getUserByEmailThunk());
 
-  }, [])
+
+  }, [dbId])
   
   function addProfilePicture(isSocial : boolean){
     var fileInput = document.getElementById('fileInput');
