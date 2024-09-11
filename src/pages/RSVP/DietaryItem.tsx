@@ -28,7 +28,7 @@ function setTags(){
         tagsCsv+=item.tags[i]+","
     }
     
-    var element = <div  key={`tags`}>{tagsCsv.substring(0, tagsCsv.length-1)}</div>
+    var element = <div  key={`tags`} className='dietary-item-tag'>{tagsCsv.substring(0, tagsCsv.length-1)}</div>
     return element
 }
 
@@ -72,7 +72,7 @@ return (
         { IsDessert &&
         <input type="radio" name="isSelectedDessert"  onChange={dessertRadioSelected} defaultChecked={item.selected}></input>}
         <div>
-            <div>Tags:</div>
+            <div className='dietary-item-tags'>Tags:</div>
             {
                 setTags()
             }

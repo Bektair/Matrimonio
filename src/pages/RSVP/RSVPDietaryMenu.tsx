@@ -1,31 +1,44 @@
+import { useEffect } from 'react';
 import '../../_index.sass';
+import { IMenuOrder } from '../../models/IMenuOrder';
 import { IRSVP } from '../../models/IRSVP';
 import { IReception } from '../../models/IReception';
 import { useAppSelector } from '../../redux/Hooks/hooks';
 import { selectReception } from '../../redux/selectors/selectWeddingSlice';
 import DietaryItem from './DietaryItem';
 import './RSVPDietaryMenu.sass';
+import { IMenuOption } from '../../models/IMenuOption';
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
     rsvp: IRSVP
+    menuOrders: IMenuOrder[]
     setCurrentMenuItem: any
 }
 
 
 function RSVPDietaryMenu(props : IProps) {
-
     const reception = useAppSelector(selectReception);
 
+    useEffect(()=>{
+        console.log("UPDATEDDDDDDDDDDDDDDDDD RSVPDIETARYMENU")
+        console.log(props.menuOrders)
+        
+    }, [props.menuOrders])
 
-    function renderDietaryItems (reception : IReception){
+    function renderDietaryItems (menuOptions : IMenuOption[]){
         var allElements = [];
         var dinnerElements = [];
         var dessertElements = [];
-        var menuOptions = reception.menuOptions;
         for (let index = 0; index < menuOptions.length; index++) {
             const element = menuOptions[index];
-            var copy = props.rsvp.menuOrders.slice();
-            var orders = copy.filter((x)=> x.menuOptionId == element.id).length;
+            console.log("UPDATEDDDDDDDDDDDDDDDDD MenuOptions")
+            console.log(element)
+            console.log(props.menuOrders)
+    
+
+            var orders = props.menuOrders.filter((word)=> word.menuOptionId == element.id).length;
+            console.log(orders)
 
             var IsSelected = false
             if(element.tags.match("Dinner")){
@@ -55,7 +68,7 @@ function RSVPDietaryMenu(props : IProps) {
     <div>
         <div>
             <form>                
-                { reception && renderDietaryItems(reception)}
+                { reception && renderDietaryItems(reception.menuOptions)}
             </form>
         </div>
     </div>

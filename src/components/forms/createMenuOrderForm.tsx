@@ -15,7 +15,7 @@ interface IProps {
 
 function CreateMenuOrderForm(props: IProps) {
     const allergenOptions = Object.values(Allergen).map((s)=> {return {value: s, label: s.toString()}})
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset  } = useForm();
     const [allergens, setAllergens] = useState<SelectValue[]>([]);
     const dispatch = useAppDispatch();
 
@@ -31,13 +31,20 @@ function CreateMenuOrderForm(props: IProps) {
         console.log(formdata)
 
         var allergensString = allergens.map((x)=> "," + x.value).toString();
-        var otherAllergens = formdata.OtherAllergens ? formdata.OtherAllergens : "" ;
-        if(otherAllergens = ""){
+        console.log(formdata.otherAllergens)
+        var otherAllergens = formdata.otherAllergens ? formdata.otherAllergens : "" ;
+        
+        console.log("ALLERGENS COMING UP!_____________________-")
+        console.log(otherAllergens)
+
+        if(otherAllergens == "" || otherAllergens.trim().startsWith(",")){
           allergensString = allergensString.substring(1); //Remove initial ,
         }
 
+        console.log(allergensString)
+
         var menuItem : IMenuOrderCreate = {
-            alergens: otherAllergens + allergensString,
+            alergens: (otherAllergens + allergensString).replace(",,", ","),
             name: formdata.name,
             menuOptionId: Number(props.menuOptionId)
         } 
@@ -51,20 +58,26 @@ function CreateMenuOrderForm(props: IProps) {
         console.log(menuOrderCreate)
 
         dispatch(addMenuOrderOption(menuOrderCreate))
+        setAllergens([]);
+        reset();
+        console.log("");
     }
 
   return (
     <>
     <h3>MenuOrder</h3>
-    <form className='createMenuOrder' onSubmit={handleSubmit(menuOrderFormHandler)}>
+    <form className='createMenuOrder' id='createMenuOrder' onSubmit={handleSubmit(menuOrderFormHandler)}>
       <label className='menuOrderItem' >
-        Name:
+        <p>Name:</p>
         <input {...register('name')} type="text" placeholder="Name"></input>  
       </label>
       <label className='menuOrderItem allergens'>
+            <p>Allergens:</p>
             <Select
                 isMulti
+                isClearable
                 name="allergens"
+                value={allergens}
                 options={allergenOptions}
                 className="basic-multi-select"
                 classNamePrefix="select"
@@ -73,7 +86,7 @@ function CreateMenuOrderForm(props: IProps) {
             />
             <input {...register('otherAllergens')} type='text' placeholder='other Allergens'></input>
       </label>
-      <button type='submit' className='addMenuOrder'>AddMenuOrder</button>
+      <button type='submit' className='addMenuOrder'>AddOrder</button>
     </form>
     </>
   )

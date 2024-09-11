@@ -31,6 +31,9 @@ i18n.use(initReactI18next).init({
               orderMenu: "Place your dinner orders here:",
               currentOrders: "Current Orders:",
               deleteOrder: "Delete Order",
+              are_you_sure_you_want_to_select: "Are you sure you want to select",
+              decline: "Decline",
+              accept: "Accept"
             },
         },
         IT: {
@@ -45,7 +48,7 @@ i18n.use(initReactI18next).init({
             reception: "Ricevimento",
             logOut: "Esci",
             RSVPpending: "Invito in sospeso",
-            RSVPaccepted: "Kai gi " + 
+            RSVPaccepted: "" + 
                           "You have allready accepted this invitation do you want to change your answer?",
             RSVPacceptedPastDue: "" +
                           "You allready said yes to the invitation and the RSVP has expired the deadline if you choose to cancel it is permanent",
@@ -58,6 +61,14 @@ i18n.use(initReactI18next).init({
             errorWrongStatus: "" +
                           "Wrong status set on RSVP, check with support"
             },
+            are_you_sure_you_want_to_select: "Are you sure you want to select",
+            enterWedding: "Enter any wedding you participate in:",
+            hello: "Ciao",
+            orderMenu: "Place your dinner orders here:",
+            currentOrders: "Current Orders:",
+            deleteOrder: "Delete Order",
+            decline: "Decline",
+            accept: "Accept"
           }
         },
     },

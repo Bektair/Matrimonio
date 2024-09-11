@@ -6,7 +6,7 @@ export interface IMenuOrderResponse {
     name: string
     alergens: string
     isAdult: boolean
-    MenuOptionId: number
+    menuOptionId: number
 }
 
 export interface IMenuOrderResponseWithRSVPID{

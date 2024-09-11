@@ -55,8 +55,8 @@ function Navbar() {
             <li className="nav-item"><LangDropDown style="language-picture" defaultOptionIndex={0} options={GetOptions()}></LangDropDown></li>
             {  process.env.NODE_ENV === 'development' && isLoading ? <li className="nav-item"><div className="list-loader-navbar"></div></li> : 
               !isAuthenticated ? 
-              <li className="nav-item"><LoginButton className="" key="login"></LoginButton></li> :
-              <li className="nav-item"><LogoutButton className="" key="logout"></LogoutButton></li>
+              <li className="nav-item"><LoginButton className="login-btn" key="login"></LoginButton></li> :
+              <li className="nav-item"><LogoutButton className="logout-btn" key="logout"></LogoutButton></li>
             }
         </ul>
     </div>

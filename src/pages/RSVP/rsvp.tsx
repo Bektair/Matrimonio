@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
 import { selectAuth } from '../../redux/selectors/selectAuth';
 import { selectLanguage } from '../../redux/selectors/selectLanguage';
 import { selectRSVPByAuthId, selectRSVPS, selectWedding } from '../../redux/selectors/selectWeddingSlice';
-import { IMenuOrderDelete, deleteMenuOrderThunk, getMenuOrdersThunk, getRSVPbyWeddingAndSigner, getReception } from '../../redux/slices/weddingSlice';
+import { IMenuOrderDelete, deleteMenuOrderThunk, getRSVPbyWeddingAndSigner, getReception } from '../../redux/slices/weddingSlice';
 import RSVPAllreadyAccepted from './RSVPAllreadyAccepted';
 import RSVPAllreadyAcceptedPastDue from './RSVPAllreadyAcceptedPastDue';
 import RSVPDeclined from './RSVPDeclined';
@@ -46,7 +46,7 @@ function Rsvp() {
     console.log(Wedding)
     console.log(currentRSVP)
 
-    if(Wedding != undefined){
+    if(Wedding != undefined && !currentRSVP){
       dispatch(getRSVPbyWeddingAndSigner( {signerId: actualId, wedding_id: Wedding.id.toString(), language: language} as IWeddingAndSigner))
       dispatch(getReception({weddingId: Wedding.id.toString(), language: language}))
     }
@@ -56,12 +56,11 @@ function Rsvp() {
     if(currentRSVP){
       console.log("ACTUALY?------------------------------ SEnt a currentrsvp dispatch?")
       console.log(currentRSVP)
-
-      dispatch(getMenuOrdersThunk(Number(currentRSVP.id)));
+      
+      // dispatch(getMenuOrdersThunk(Number(currentRSVP.id)));
     }
-    
-
-  }, [])
+  
+  }, [currentRSVP?.menuOrders])
 
 
   // function updateRSVP(rsvp : IRSVPUpdate, id: string){Declined
@@ -112,7 +111,7 @@ function Rsvp() {
   function contentMenuOrders(e: IMenuOrder){
     var content = "";
     if(e.name) content += e.name + ","
-    if(e.alergens) content += e.alergens + ","
+    if(e.alergens && e.alergens.length > 0) content += e.alergens + ","
     if(e.menuOptionId) content += e.menuOptionId + ","
     console.log(e)
     console.log(content)
@@ -146,8 +145,6 @@ function Rsvp() {
         { actualId  && RSVPS && RSVPS.length > 0 && Wedding && currentRSVP &&
           <> 
             {renderSwitchRSVPState(currentRSVP)}
-            
-            
           </>
         }
       </div>
@@ -156,7 +153,7 @@ function Rsvp() {
         <>
           <h2>{t("orderMenu")}</h2>
         <div className='DietaryMenu'>
-          <RSVPDietaryMenu rsvp={currentRSVP} setCurrentMenuItem={setMenuItem}></RSVPDietaryMenu>
+          <RSVPDietaryMenu rsvp={currentRSVP} menuOrders={currentRSVP.menuOrders} setCurrentMenuItem={setMenuItem}></RSVPDietaryMenu>
           {currentMenuItem &&
             <CreateMenuOrderForm rsvp_id={currentRSVP.id} menuOptionId={currentMenuItem}></CreateMenuOrderForm>}
         </div>

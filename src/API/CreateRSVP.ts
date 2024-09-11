@@ -56,6 +56,9 @@ export async function addMenuOrder(menuOrder: IMenuOrderCreateRSVP){
      if(!response.ok)
          throw new Error(await response.text() || response.statusText);
      let data = await response.json() as IMenuOrderResponse;
+
+    console.log(data)
+
      return { data: data, RSVP_id: menuOrder.RSVP_id};
 }
 

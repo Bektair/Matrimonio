@@ -7,27 +7,9 @@
 header
   margin-right: 15%
   margin-left: 15%
+  z-index: 999
 
 
-@media (max-width: 700px)
-  .header-div
-    height: 5%
-    width:  100%
-    background-color: white
-    position: fixed
-    bottom: 0
-    font-size: small
-  
-  li a
-    --size-navbutton-padding: 2vh
-    --size-navbutton-margin-left: 0.2vh
-    --size-navbutton-margin-right: 0.2vh
-
-  #orange
-    display: none
-
-  #green
-    display: none
 
 li.nav-item a
   padding-left: var(--size-navbutton-padding, 1.5vh)
@@ -140,5 +122,54 @@ li a
   padding-right: 1rem
   // background-color: var(--button-color)
   
+@media (max-width: 700px)
+  .header-div
+    width:  100%
+    background-color: white
+    position: fixed
+    bottom: 0
+    font-size: small
+  
+  header
+    margin-left: 0
+    margin-right: 0
 
+  li a
+    --size-navbutton-padding: 1.25vh
+    --size-navbutton-margin-left: 0.1vh
+    --size-navbutton-margin-right: 0.1vh
 
+  #orange
+    display: none
+
+  #green
+    display: none
+
+  #logo-container
+    width: 0.2vh
+    margin-right: 0.6vh
+
+  .profile-picture-nav
+    width: 4vh
+
+  .language-picture
+    width: 4vh
+    height: 6vh
+
+  .logout-btn
+    display: none
+  
+  .login-btn
+    display: none
+
+@media (max-width: 365px)
+  .nav-item:first-child
+    display: none
+  
+  li a
+    --size-navbutton-padding: 0
+    --size-navbutton-margin-left: 0.1vh
+    --size-navbutton-margin-right: 0.1vh
+
+  
+  

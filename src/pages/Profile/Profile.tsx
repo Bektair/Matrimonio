@@ -43,7 +43,6 @@ function Profile() {
   
   function addProfilePicture(isSocial : boolean){
     var fileInput = document.getElementById('fileInput');
-    alert(isSocial)
     if(fileInput && !isSocial)
       fileInput.click();
     if(isSocial)

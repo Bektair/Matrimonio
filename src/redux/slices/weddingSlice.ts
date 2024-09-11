@@ -360,7 +360,7 @@ const weddingSlice = createSlice( {
                             name: menuOrder.name,
                             alergens: menuOrder.alergens,
                             isAdult: menuOrder.isAdult,
-                            menuOptionId: menuOrder.MenuOptionId
+                            menuOptionId: menuOrder.menuOptionId
                         } as IMenuOrder
                     })
 
@@ -385,12 +385,11 @@ const weddingSlice = createSlice( {
                 var indexToChange = state.rsvps.findIndex((rsvp)=> rsvp.id == payload?.RSVP_id.toString());
                 var copy = state.rsvps.slice();
 
-
                 var menuOrder : IMenuOrder = {
                     alergens: payload.data.alergens,
                     id: payload.data.id.toString(),
                     isAdult: payload.data.isAdult,
-                    menuOptionId: payload.data.MenuOptionId,
+                    menuOptionId: payload.data.menuOptionId,
                     name: payload.data.name
                 } 
                 copy[indexToChange].menuOrders.push(menuOrder);

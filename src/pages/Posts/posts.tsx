@@ -36,7 +36,7 @@ function Posts() {
   };
 
   return (
-      <div>posts length of postsarray {posts.length}
+      <div>
           <ul className='postsGrid'>
             {renderPost()}
           </ul>

@@ -25,6 +25,17 @@ export const selectRSVPByAuthId = (state: RootState, AuthId: string | undefined)
     return state.wedding.rsvps[index];
 }
 
+export const selectRSVPMenuOrders = (state: RootState, AuthId: string | undefined) =>{
+    var rsvp = selectRSVPByAuthId(state, AuthId);
+    if(!rsvp?.id)
+        return undefined
+    var index = state.wedding.rsvps.findIndex((rsvp :any)=>rsvp.id == rsvp.id)
+    return state.wedding.rsvps[index].menuOrders;
+
+}
+
+
+
 export const selectReception = (state: RootState) => {
     return state.wedding.reception;
 }
