@@ -1,14 +1,12 @@
 import { useEffect } from 'react';
 import '../../_index.sass';
+import { IMenuOption } from '../../models/IMenuOption';
 import { IMenuOrder } from '../../models/IMenuOrder';
 import { IRSVP } from '../../models/IRSVP';
-import { IReception } from '../../models/IReception';
 import { useAppSelector } from '../../redux/Hooks/hooks';
 import { selectReception } from '../../redux/selectors/selectWeddingSlice';
 import DietaryItem from './DietaryItem';
 import './RSVPDietaryMenu.sass';
-import { IMenuOption } from '../../models/IMenuOption';
-import { useTranslation } from 'react-i18next';
 
 interface IProps {
     rsvp: IRSVP
