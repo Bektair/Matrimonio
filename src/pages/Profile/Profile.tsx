@@ -16,7 +16,7 @@ import { getUserByEmailThunk, updateUserThunk } from '../../redux/slices/authSli
 import { IUserUpdate, IUserUpdateRequest } from '../../API/UpdateUser';
 
 function Profile() {
-  const {user, isAuthenticated, dbId, isSocial, profilePic } = useSelector(selectAuth);
+  const {user, isAuthenticated, dbId, isSocial, profilePic, id } = useSelector(selectAuth);
   var navigate = useNavigate()
   const dispatch = useAppDispatch();
   const weddings = useSelector(selectWeddings);
@@ -35,6 +35,8 @@ function Profile() {
 
     if(dbId)
       dispatch(getWeddingsByParticipant({participantId: dbId, language: language})) 
+    else if(id)
+      dispatch(getWeddingsByParticipant({participantId: id, language: language})) 
     else
       dispatch(getUserByEmailThunk());
 
