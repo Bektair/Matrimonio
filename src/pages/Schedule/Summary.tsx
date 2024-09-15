@@ -19,6 +19,7 @@ function Summary(props: IProps) {
                     : <label>{new Date(props.startDate).toLocaleString()}</label> 
                 }        
                 <iframe
+                    className="location-frame"
                     width="600"
                     height="450"
                     loading="lazy"
