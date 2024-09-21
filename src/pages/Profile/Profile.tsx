@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { selectAuth } from '../../redux/selectors/selectAuth';
 import WeddingList from '../../components/lists/WeddingList';
 import { useAppDispatch } from '../../redux/Hooks/hooks';
-import { getWeddingsByParticipant } from '../../redux/slices/weddingsSlice';
+import { getAllWeddings } from '../../redux/slices/weddingsSlice';
 import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice';
 import { selectLanguage } from '../../redux/selectors/selectLanguage';
 import { useTranslation } from 'react-i18next';
@@ -34,9 +34,9 @@ function Profile() {
     }
 
     if(dbId)
-      dispatch(getWeddingsByParticipant({participantId: dbId, language: language})) 
+      dispatch(getAllWeddings(language)) 
     else if(id)
-      dispatch(getWeddingsByParticipant({participantId: id, language: language})) 
+      dispatch(getAllWeddings(language)) 
     else
       dispatch(getUserByEmailThunk());
 
