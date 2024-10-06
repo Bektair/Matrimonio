@@ -30,7 +30,8 @@ function CreateWeddingForm() {
       secoundaryFontColor: WeddingDefaults.DEFAULT_FONT_COLOR_SECOUNDARY,
       title: e.target.title.value,
       isDefaultLanguage: true,
-      language: e.target.language.value
+      language: e.target.language.value,
+      RSVPBody: ""
     }))
 
     setTimeout(function () {

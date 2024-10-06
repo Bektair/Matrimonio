@@ -1,17 +1,17 @@
 import { Suspense, useEffect } from 'react'
 import { Outlet } from "react-router-dom"
+import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks'
+import { selectAuth } from '../../redux/selectors/selectAuth'
+import { selectLanguage } from '../../redux/selectors/selectLanguage'
+import { selectWedding } from '../../redux/selectors/selectWeddingSlice'
+import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice'
+import { getUserByEmailThunk } from '../../redux/slices/authSlice'
+import { getCeremony, getReception, getRSVPbyWedding, setWedding } from '../../redux/slices/weddingSlice'
+import { getAllWeddings } from '../../redux/slices/weddingsSlice'
+import AdminSideBar from './AdminSideBar'
 import Footer from "./Footer"
 import Header from "./Header"
 import './Layout.sass'
-import AdminSideBar from './AdminSideBar'
-import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks'
-import { selectWeddings } from '../../redux/selectors/selectWeddingsSlice'
-import { selectAuth } from '../../redux/selectors/selectAuth'
-import { selectLanguage } from '../../redux/selectors/selectLanguage'
-import { getCeremony, getReception, getRSVPbyWedding, resetAllButWedding, setWedding } from '../../redux/slices/weddingSlice'
-import { getUserByEmailThunk } from '../../redux/slices/authSlice'
-import { getAllWeddings, getWeddingsByParticipant } from '../../redux/slices/weddingsSlice'
-import { selectWedding } from '../../redux/selectors/selectWeddingSlice'
 
 
 export default function Layout() {
