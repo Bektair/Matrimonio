@@ -36,7 +36,7 @@ const weddingsSlice = createSlice( {
         builder.addCase(getWeddingsByParticipant.fulfilled, (state, action)=>{
 
             let weddings = action.payload.map((wedding : any) => {
-                var test  : IWedding =  { 
+                var temp  : IWedding =  { 
                     id: wedding.id,
                     primaryColor: wedding.primaryColor,
                     secoundaryColor: wedding.secoundaryColor,
@@ -51,9 +51,10 @@ const weddingsSlice = createSlice( {
                     title: wedding.title,
                     isDefaultLanguage: wedding.isDefaultLanguage,
                     language: wedding.language,
-                    defaultLanguage: wedding.defaultLanguage
+                    defaultLanguage: wedding.defaultLanguage,
+                    RSVPBody: wedding.rsvpBody
                 }
-                return test;
+                return temp;
             })
             console.log(weddings) 
             state.weddings = weddings;
@@ -62,9 +63,11 @@ const weddingsSlice = createSlice( {
         }),
         builder.addCase(getAllWeddings.fulfilled, (state, action)=>{
 
+            console.log("WEDDINGS RETURNED------------------------------------")
+            console.log(action.payload)
 
             let weddings = action.payload.map((wedding : any) => {
-                var test  : IWedding =  { 
+                var temp  : IWedding =  { 
                     id: wedding.id,
                     primaryColor: wedding.primaryColor,
                     secoundaryColor: wedding.secoundaryColor,
@@ -79,9 +82,10 @@ const weddingsSlice = createSlice( {
                     title: wedding.title,
                     isDefaultLanguage: wedding.isDefaultLanguage,
                     language: wedding.language,
-                    defaultLanguage: wedding.defaultLanguage
+                    defaultLanguage: wedding.defaultLanguage,
+                    RSVPBody: wedding.rsvpBody
                 }
-                return test;
+                return temp;
             })
             state.weddings = weddings;
         }),
@@ -103,7 +107,8 @@ const weddingsSlice = createSlice( {
                     primaryFontColor: "",
                     secoundaryFontColor: "",
                     picture: "",
-                    defaultLanguage: payload.language
+                    defaultLanguage: payload.language,
+                    RSVPBody: payload.RSVPBody
                 } 
 
                 return {

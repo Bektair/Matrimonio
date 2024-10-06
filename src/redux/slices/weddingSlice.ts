@@ -81,7 +81,8 @@ const weddingSlice = createSlice( {
                 title: payload.title,
                 isDefaultLanguage: payload.isDefaultLanguage,
                 language: payload.language,
-                defaultLanguage: payload.defaultLanguage
+                defaultLanguage: payload.defaultLanguage,
+                RSVPBody: payload.RSVPBody
             } 
 
             return {
@@ -130,7 +131,8 @@ const weddingSlice = createSlice( {
                     description: payload.description,
                     isDefaultLanguage: payload.isDefaultLanguage,
                     language: payload.language,
-                    defaultLanguage: payload.defaultLanguage
+                    defaultLanguage: payload.defaultLanguage,
+                    RSVPBody: payload.RSVPBody
                 } 
 
                 state.wedding = wedding;
@@ -159,7 +161,8 @@ const weddingSlice = createSlice( {
                     title: payload.title,
                     isDefaultLanguage: payload.isDefaultLanguage,
                     language: payload.language,
-                    defaultLanguage: payload.defaultLanguage
+                    defaultLanguage: payload.defaultLanguage,
+                    RSVPBody: payload.RSVPBody
                 } 
                 console.log(updatedWedding)
 
@@ -202,8 +205,23 @@ const weddingSlice = createSlice( {
                 state.ceremony = undefined;
             }
         }),
-        builder.addCase(createRSVPThunk.fulfilled, ()=>{
+        builder.addCase(createRSVPThunk.fulfilled, (state, action)=>{
             console.log("Created RSVP")
+            if(action.payload){
+                let rsvp : IRSVP = {
+                    body: action.payload.body,
+                    deadline: Date.parse(action.payload.deadline),
+                    id: action.payload.id.toString(),
+                    menuOrders: action.payload.menuOrders,
+                    numberOfGuests: action.payload.numberOfGuests,
+                    otherDietaryRequirements: action.payload.otherDietaryRequirements,
+                    signer: action.payload.signer,
+                    status: action.payload.status
+                }
+
+                state.rsvps.push(rsvp)
+            }
+
         }),
         builder.addCase(updateRSVPThunk.fulfilled, (state, action)=>{
             console.log("updated RSVP")
@@ -526,11 +544,13 @@ export const createRSVPThunk = createAsyncThunk(
     'wedding/postRSVP',
     //Inside thunk function
     async (RSVP : IRSVPCreate)=> {
+        let response;
         try {
-          await createRSVP(RSVP);
+            response = await createRSVP(RSVP);
         }catch (err){
           console.log(err)
         }
+        return response;
     }
 )
 

@@ -12,7 +12,6 @@ function useAuthListener() {
   const {isAuthenticated, user, isLoading, getAccessTokenSilently} = useAuth0()
   const dispatch = useAppDispatch()
 
-
   var isAdmin = false; 
   var isSocial = false;
   useEffect(()=>{
@@ -53,11 +52,13 @@ function useAuthListener() {
       }
       console.log("IsAdmin?")
       console.log(isAdmin)
+      
 
 
     } else {
       var id = user?.sub?.split("|")[1];
       dispatch(setAuthState({isAuthenticated, user, isLoading, id, isAdmin, dbId: "", profilePic:"", isSocial}))
+      
     }
     
 

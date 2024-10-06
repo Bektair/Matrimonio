@@ -1,5 +1,6 @@
 import { API_URL } from "../constants/environment";
 import { IMenuOrderResponse } from "./GetMenuOrders";
+import { IRSVPResponse } from "./GetRSVP";
 import getAuthHeaders from "./SetAuthHeaders";
 
 
@@ -25,6 +26,9 @@ export async function createRSVP(rsvp : IRSVPCreate){
      })
      if(!response.ok)
          throw new Error(await response.text() || response.statusText);
+
+    let data = await response.json() as IRSVPResponse;
+    return data;
 }
 
 export interface IMenuOrderCreate{

@@ -19,6 +19,7 @@ export interface IWeddingUpdateTranslation {
     Description: string
     Dresscode: string 
     Title: string
+    RSVPBody : string
 }
 
 export interface IPatchWeddingResponse {

@@ -14,5 +14,6 @@ export interface IWedding {
     dresscode: string,
     language: string
     isDefaultLanguage: boolean,
-    defaultLanguage: string
+    defaultLanguage: string,
+    RSVPBody : string
 }

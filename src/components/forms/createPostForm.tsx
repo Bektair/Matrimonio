@@ -155,9 +155,9 @@ function CreatePostForm({post} : IProps) {
             <img className="imagePreview" src={post?.images.find((img)=>img.role == ImageRoles.SideImage)?.uri}/>
         </ul>
         <div>
-            <button type="button" onClick={()=>append({ uri: "http://test.com", role: { value: ImageRoles.None, label: ImageRoles.None}})}>Add</button>
+            <button type="button" onClick={()=>append({ uri: "http://test.com", role: { value: ImageRoles.None, label: ImageRoles.None}})}>AddImage</button>
             { post  &&<button type="submit" name='Update'>Update</button>}
-            <button type="submit" name='AddNew'>Add</button>
+            <button type="submit" name='AddNew'>Create</button>
         </div>
     </form>
   )

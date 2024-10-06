@@ -22,7 +22,8 @@ export interface IWeddingResponse {
     title: string
     description: string
     dresscode: string
-    defaultLanguage: string
+    defaultLanguage: string,
+    RSVPBody : string
 }
 
 

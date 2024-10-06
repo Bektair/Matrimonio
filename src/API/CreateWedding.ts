@@ -21,6 +21,7 @@ export interface IWeddingRequest {
     dresscode: string
     title : string
     picture : string
+    RSVPBody : string
 }
 
 export async function createWedding({ weddingRequest } : IParams) {

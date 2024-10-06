@@ -9,8 +9,8 @@ import { IRSVP, RSVPStatus } from '../../models/IRSVP';
 import { useAppDispatch, useAppSelector } from '../../redux/Hooks/hooks';
 import { selectAuth } from '../../redux/selectors/selectAuth';
 import { selectLanguage } from '../../redux/selectors/selectLanguage';
-import { selectRSVPByAuthId, selectRSVPS, selectWedding } from '../../redux/selectors/selectWeddingSlice';
-import { IMenuOrderDelete, deleteMenuOrderThunk, getRSVPbyWeddingAndSigner, getReception } from '../../redux/slices/weddingSlice';
+import { selectCeremony, selectRSVPByAuthId, selectRSVPS, selectWedding } from '../../redux/selectors/selectWeddingSlice';
+import { IMenuOrderDelete, createRSVPThunk, deleteMenuOrderThunk, getCeremony, getRSVPbyWeddingAndSigner, getReception } from '../../redux/slices/weddingSlice';
 import RSVPAllreadyAccepted from './RSVPAllreadyAccepted';
 import RSVPAllreadyAcceptedPastDue from './RSVPAllreadyAcceptedPastDue';
 import RSVPDeclined from './RSVPDeclined';
@@ -19,11 +19,13 @@ import RSVPDietaryMenu from './RSVPDietaryMenu';
 import RSVPExpiredInvite from './RSVPExpiredInvite';
 import RSVPPending from './RSVPPending';
 import './rsvp.sass';
+import { IRSVPCreate } from '../../API/CreateRSVP';
 function Rsvp() {
 
   const { user, isAuthenticated } = useAuth0();
   const RSVPS = useAppSelector(selectRSVPS);
   const Wedding = useAppSelector(selectWedding);
+  const Ceremony = useAppSelector(selectCeremony);
   const language = useAppSelector(selectLanguage).language;
   const { dbId, id } = useAppSelector(selectAuth);
   const dispatch = useAppDispatch();
@@ -46,8 +48,35 @@ function Rsvp() {
     console.log(Wedding)
     console.log(currentRSVP)
 
-    if(Wedding != undefined && !currentRSVP){
-      dispatch(getRSVPbyWeddingAndSigner( {signerId: actualId, wedding_id: Wedding.id.toString(), language: language} as IWeddingAndSigner))
+    if(Wedding != undefined && !currentRSVP){     
+      if(Ceremony){
+        var startDate = new Date(Ceremony.startDate)
+      
+        var twoMonthsBefore = new Date(
+          startDate.getFullYear(),
+          startDate.getMonth() - 2, 
+          startDate.getDate()
+        );
+        console.log("CREATE RSVP PLEASE!")
+        console.log(Wedding)
+        var rsvpcreate : IRSVPCreate = {
+          body: Wedding.RSVPBody,
+          deadline: Ceremony.startDate - twoMonthsBefore.valueOf(),
+          language: Wedding.language,
+          signerId: dbId ? dbId : id ?? "",
+          status: RSVPStatus.Pending,
+          weddingId: Wedding.id,
+          numberOfGuests: 1,
+          OtherDietaryRequirements: ""
+        }
+        dispatch(createRSVPThunk(rsvpcreate))
+      }
+      else {
+        dispatch(getCeremony({ weddingId: Wedding.id.toString(), language: language}))
+      }
+      
+
+      //dispatch(getRSVPbyWeddingAndSigner( {signerId: actualId, wedding_id: Wedding.id.toString(), language: language} as IWeddingAndSigner))
       dispatch(getReception({weddingId: Wedding.id.toString(), language: language}))
     }
     if(!isAuthenticated){
@@ -56,11 +85,10 @@ function Rsvp() {
     if(currentRSVP){
       console.log("ACTUALY?------------------------------ SEnt a currentrsvp dispatch?")
       console.log(currentRSVP)
-      
       // dispatch(getMenuOrdersThunk(Number(currentRSVP.id)));
-    }
+    } 
   
-  }, [currentRSVP?.menuOrders])
+  }, [currentRSVP, Ceremony])
 
 
   // function updateRSVP(rsvp : IRSVPUpdate, id: string){Declined

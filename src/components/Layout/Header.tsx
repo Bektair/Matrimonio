@@ -1,8 +1,10 @@
 
-import './Header.sass'
-import Navbar from './Navbar'
+import './Header.sass';
+import Navbar from './Navbar';
 
 function Header() {
+
+
   return (
     <header>
       <div className="header-div">
