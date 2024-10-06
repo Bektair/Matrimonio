@@ -3,7 +3,7 @@
 function Footer() {
   return (
     <footer>
-      <p>Test</p>
+      <p>Contact ous: oyvind.reitan3@gmail.com</p>
     </footer>
   )
 }
