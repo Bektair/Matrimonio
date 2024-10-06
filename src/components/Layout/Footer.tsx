@@ -1,9 +1,12 @@
+import { useTranslation } from "react-i18next";
 
 
 function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer>
-      <p>Contact ous: oyvind.reitan3@gmail.com</p>
+      <p>{t("ContactOus")}:</p> <p>oyvind.reitan3@gmail.com</p>
     </footer>
   )
 }
