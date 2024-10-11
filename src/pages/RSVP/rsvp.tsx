@@ -27,12 +27,12 @@ function Rsvp() {
   const Ceremony = useAppSelector(selectCeremony);
   const language = useAppSelector(selectLanguage).language;
   const { dbId, id } = useAppSelector(selectAuth);
+  const [actualId] = useState(dbId ? dbId : id);
   const dispatch = useAppDispatch();
-  const currentRSVP = useAppSelector(state => selectRSVPByAuthId(state, dbId))
+  const currentRSVP = useAppSelector(state => selectRSVPByAuthId(state, dbId ? dbId : id))
   const [currentMenuItem, setCurrentMenuItem] = useState();
   const [selectedMenuOrder, setSelectedMenuOrder] = useState<IMenuOrder>();
   const { t } = useTranslation();
-  const [actualId] = useState(dbId ? dbId : id);
 
 
   const mode = import.meta.env.MODE;
