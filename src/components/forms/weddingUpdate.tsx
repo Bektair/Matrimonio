@@ -35,6 +35,7 @@ function WeddingUpdate() {
     const [picture, setPicture] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [rsvpBody, setRsvpBody] = useState("");
     const [dresscode, setDresscode] = useState("");
     const [primaryFont, setPrimaryFont] = useState("");
     const [secoundaryFont, setSecoundaryFont] = useState("");
@@ -68,6 +69,7 @@ function WeddingUpdate() {
             setTitle(wedding.title ?? "#d84444");
             setDescription(wedding.description ?? "#d84444");
             setDresscode(wedding.dresscode ?? "Nice");
+            setRsvpBody(wedding.RSVPBody ?? "Hello, do you wish to attend our wedding")
             console.log(wedding)
             console.log("PRIMARY COLOR:" + primaryColor)
             console.log("secoundaryColor:" + secoundaryColor)
@@ -150,6 +152,7 @@ function WeddingUpdate() {
                         dresscode: isEmpty(dresscode) ? undefined : dresscode,
                         isDefaultLanguage: false,
                         language: language,
+                        rsvpBody: rsvpBody
                     },
                     weddingId: wedding.id.toString()
                 } as IAddWeddingTranslation
@@ -172,6 +175,7 @@ function WeddingUpdate() {
                     Title: isEmpty(title) ? undefined : title,
                     Description: isEmpty(description) ? undefined : description,
                     Dresscode: isEmpty(dresscode) ? undefined : dresscode,
+                    RSVPBody: isEmpty(rsvpBody) ? undefined : rsvpBody,
                 } as IWeddingUpdateTranslation
 
                 var Wedding = {

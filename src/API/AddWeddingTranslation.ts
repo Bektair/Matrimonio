@@ -6,7 +6,8 @@ export interface ITranslation {
     isDefaultLanguage: boolean
     title:string,
     description:string,
-    dresscode:string
+    dresscode:string,
+    rsvpBody: string
 }
 
 export interface IAddWeddingTranslation {
