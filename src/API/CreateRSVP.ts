@@ -1,4 +1,5 @@
 import { API_URL } from "../constants/environment";
+import { convertToUUID } from "../utils/guidConverter";
 import { IMenuOrderResponse } from "./GetMenuOrders";
 import { IRSVPResponse } from "./GetRSVP";
 import getAuthHeaders from "./SetAuthHeaders";
@@ -19,6 +20,10 @@ export interface IRSVPCreate {
 
 export async function createRSVP(rsvp : IRSVPCreate){
     const headers = await getAuthHeaders();
+    
+    if(rsvp.signerId.length < 32)
+        rsvp.signerId = convertToUUID(rsvp.signerId);
+
     let response = await fetch(`${API_URL}/api/RSVP`, {
         headers,
         method: "POST",
