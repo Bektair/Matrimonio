@@ -19,6 +19,7 @@ import RSVPDietaryMenu from './RSVPDietaryMenu';
 import RSVPExpiredInvite from './RSVPExpiredInvite';
 import RSVPPending from './RSVPPending';
 import './rsvp.sass';
+import { convertToUUID } from '../../utils/guidConverter';
 function Rsvp() {
 
   const { user, isAuthenticated } = useAuth0();
@@ -27,9 +28,9 @@ function Rsvp() {
   const Ceremony = useAppSelector(selectCeremony);
   const language = useAppSelector(selectLanguage).language;
   const { dbId, id } = useAppSelector(selectAuth);
-  const [actualId] = useState(dbId ? dbId : id);
+  const [actualId] = useState(dbId ? dbId : convertToUUID(id ?? ""));
   const dispatch = useAppDispatch();
-  const currentRSVP = useAppSelector(state => selectRSVPByAuthId(state, dbId ? dbId : id))
+  const currentRSVP = useAppSelector(state => selectRSVPByAuthId(state, dbId ? dbId : convertToUUID(id ?? "")))
   const [currentMenuItem, setCurrentMenuItem] = useState();
   const [selectedMenuOrder, setSelectedMenuOrder] = useState<IMenuOrder>();
   const { t } = useTranslation();

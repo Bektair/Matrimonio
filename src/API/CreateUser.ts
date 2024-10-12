@@ -13,8 +13,11 @@ export interface IUserRequest {
 }
 
 
+
 export async function createUser(participantrequest : IUserRequest) {
     const headers = await getAuthHeaders();
+    participantrequest.Id = convertToUUID(participantrequest.Id)
+    
 
 let response = await fetch(`${API_URL}/api/User/Social`, {
         method: "POST",
