@@ -18,7 +18,7 @@ console.log("OK loading Home")
   return (
     <>
       <div className="wedding-main">
-        <h2>{wedding?.title}</h2>
+        <h1>{wedding?.title}</h1>
         <img src={wedding?.picture}/>
         <label>{t("dresscode")} {wedding?.dresscode}</label>
         <label>{wedding?.description}</label>
