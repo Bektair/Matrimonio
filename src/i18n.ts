@@ -33,7 +33,8 @@ i18n.use(initReactI18next).init({
               deleteOrder: "Delete Order",
               are_you_sure_you_want_to_select: "Are you sure you want to select",
               decline: "Decline",
-              accept: "Accept"
+              accept: "Accept",
+              receptionStartTime: "The reception starts after the ceremony"
             },
         },
         IT: {

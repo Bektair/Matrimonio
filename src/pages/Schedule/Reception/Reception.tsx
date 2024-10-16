@@ -4,13 +4,15 @@ import { selectReception, selectWedding } from "../../../redux/selectors/selectW
 import './Reception.sass'
 import { selectLanguage } from "../../../redux/selectors/selectLanguage"
 import { getReception } from "../../../redux/slices/weddingSlice"
-import { isFuture } from "../../../utils/dateCompare"
+import { useTranslation } from "react-i18next"
 
 function Reception() {
   const wedding = useAppSelector(selectWedding)
   const language = useAppSelector(selectLanguage).language
   const dispatch = useAppDispatch();
   const reception = useAppSelector(selectReception)
+  const { t } = useTranslation();
+
   useEffect(()=> {
     console.log("TRYING TO RENDER BOYS!!!!!!!!!!!!")
     console.log(wedding)
@@ -24,6 +26,7 @@ function Reception() {
       <div className="reception-content">
         <h2>{reception.location.title}</h2>
         <img src={reception.location.image}></img>
+        <label>{t("receptionStartTime")}</label>
         {/* { isFuture(reception.endDate) ? 
           <label>{new Date(reception.startDate).toLocaleString()}-{new Date(reception.endDate).toLocaleTimeString()}</label> 
           : <label>{new Date(reception.startDate).toLocaleString()}</label> 
