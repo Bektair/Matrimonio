@@ -9,19 +9,20 @@ function PostDetails() {
     const { id } = useParams();
     const posts = useAppSelector(selectPosts);
     var post = posts.find((p)=> p.id.toString() == id);
-    const markdown = "## Hello, \n**World** World!"
+    // const markdown = "## Hello, \n**World** World!"
 
   return (
     <>    
         <h2>{post?.title}</h2>
         <img className="mainImage" src={post?.images.find((img)=> img.role == ImageRoles.MainImage)?.uri}/>
         
+        {/* { post?.images.find((img)=> img.role == ImageRoles.SideImage) ?? 
         <div className="sideBar">    
           <img className="sideImage" src={post?.images.find((img)=> img.role == ImageRoles.SideImage)?.uri}/>
           <p>Fine</p>
-        </div>
-        <p>{post?.body}</p>
-        <Markdown>{markdown}</Markdown>
+        </div> } */}
+
+        <Markdown>{post?.body}</Markdown>
     </>
   )
 }
