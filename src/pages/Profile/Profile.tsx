@@ -97,8 +97,8 @@ function Profile() {
       <LogoutButton className=''></LogoutButton>
     </div>
     { (weddings.length > 1) ?
-      <h2>{t("enterWedding")}</h2> &&
-      <WeddingList  weddings={weddings}></WeddingList> :
+      <><h2>{t("enterWedding")}</h2>
+      <WeddingList  weddings={weddings}></WeddingList></> :
       <></>
     }
     </>
