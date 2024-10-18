@@ -15,9 +15,9 @@ function Summary(props: IProps) {
         <div>
             <div className='summaryTab'>
                 <h3>{props.location.title}</h3>
-                { props.showDate && isFuture(props.endDate) ? 
+                { props.showDate ? isFuture(props.endDate) ? 
                    <label>{new Date(props.startDate).toLocaleString()}-{new Date(props.endDate).toLocaleTimeString()}</label> 
-                    : <label>{new Date(props.startDate).toLocaleString()}</label> 
+                    : <label>{new Date(props.startDate).toLocaleString()}</label> : <></>
                 }        
                 <iframe
                     className="location-frame"
