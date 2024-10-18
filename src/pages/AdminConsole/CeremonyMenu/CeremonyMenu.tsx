@@ -38,7 +38,7 @@ function CeremonyMenu() {
         <CreateCeremonyForm wedding_id={wedding?.id}></CreateCeremonyForm></>}
         { ceremony && wedding && <>
           <label>Ceremony</label>
-          <Summary location={currentLocation ?? ceremony.location} startDate={ceremony.startDate} endDate={ceremony.endDate}></Summary>
+          <Summary location={currentLocation ?? ceremony.location} startDate={ceremony.startDate} endDate={ceremony.endDate} showDate={true}></Summary>
           <UpdateLocationForm location={ceremony.location}></UpdateLocationForm>
           <TranslationCeremonyForm ceremonyId={ceremony.id.toString()} weddingId={wedding?.id.toString()}/>
         </> }

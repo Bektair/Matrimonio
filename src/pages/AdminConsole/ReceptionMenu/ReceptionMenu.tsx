@@ -65,7 +65,7 @@ function ReceptionMenu() {
       <WeddingList weddings={weddings} reception={true}></WeddingList>
       { wedding && !reception && <><label>You can add a reception to wedding with id {wedding.id}</label>
       <CreateReceptionForm wedding_id={wedding?.id}></CreateReceptionForm></>}
-      { wedding && reception && <><label>Reception</label><Summary location={reception.location} startDate={reception.startDate} endDate={reception.endDate}></Summary>
+      { wedding && reception && <><label>Reception</label><Summary location={reception.location} startDate={reception.startDate} endDate={reception.endDate} showDate={false}></Summary>
       <UpdateLocationForm location={reception.location}></UpdateLocationForm>
       <CreateMenuItemForm menuItemAdd={menuItemAdd}></CreateMenuItemForm>
       <List<IMenuOption> listItems={reception.menuOptions} name="menuOptions" setContentFunction={setContent} onclickEvent={onMenuOptionClick} ></List>
