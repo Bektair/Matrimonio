@@ -7,6 +7,7 @@ interface IProps {
     location : ILocation
     startDate: number
     endDate: number
+    showDate: boolean
 }
 
 function Summary(props: IProps) {
@@ -14,7 +15,7 @@ function Summary(props: IProps) {
         <div>
             <div className='summaryTab'>
                 <h3>{props.location.title}</h3>
-                { isFuture(props.endDate) ? 
+                { props.showDate && isFuture(props.endDate) ? 
                    <label>{new Date(props.startDate).toLocaleString()}-{new Date(props.endDate).toLocaleTimeString()}</label> 
                     : <label>{new Date(props.startDate).toLocaleString()}</label> 
                 }        

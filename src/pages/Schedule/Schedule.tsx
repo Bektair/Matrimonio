@@ -52,13 +52,13 @@ function Schedule() {
       <div className='schedule-background'>
         { currentReception && activeTab=="Reception" &&
           <>
-            <Summary location={currentReception.location} startDate={currentReception.startDate} endDate={currentReception.endDate}></Summary>
+            <Summary location={currentReception.location} startDate={currentReception.startDate} endDate={currentReception.endDate} showDate={false}></Summary>
             <label className="nav-item">For more info <Link to={PathConstants.Reception}>{t("reception")}</Link></label>
           </>
         }
         { currentCeremony && activeTab=="Ceremony" &&
           <>
-            <Summary location={currentCeremony.location} startDate={currentCeremony.startDate} endDate={currentCeremony.endDate}></Summary> 
+            <Summary location={currentCeremony.location} startDate={currentCeremony.startDate} endDate={currentCeremony.endDate} showDate={true}></Summary> 
             <label className="nav-item">For more info <Link to={PathConstants.Ceremony}>{t("ceremony")}</Link></label>
           </>
         }
