@@ -34,7 +34,8 @@ i18n.use(initReactI18next).init({
               are_you_sure_you_want_to_select: "Are you sure you want to select this option",
               decline: "Decline",
               accept: "Accept",
-              ContactEmail: "oyvind.reitan3@gmail.com"
+              contactOus: "Contact ous",
+              contactEmail: "oyvind.reitan3@gmail.com"
             },
         },
         IT: {
@@ -60,8 +61,7 @@ i18n.use(initReactI18next).init({
             RSVPexpiredInvite: "" +
                           "You failed to answer the invite within the deadline",
             errorWrongStatus: "" +
-                          "Wrong status set on RSVP, check with support"
-            },
+              "Wrong status set on RSVP, check with support",
             are_you_sure_you_want_to_select: "Sei sicuro di voler scegliere questa opzione",
             enterWedding: "Enter any wedding you participate in:",
             hello: "Ciao",
@@ -70,9 +70,11 @@ i18n.use(initReactI18next).init({
             deleteOrder: "Delete Order",
             decline: "Rifiuta",
             accept: "Accetta",
-            ContactEmail: "carla.arrigo@hotmail.it"
-          }
+            contactOus: "Contact ous",
+            contactEmail: "carla.arrigo@hotmail.it"
+          },
         },
+      },
     },
 );
 
