@@ -31,10 +31,10 @@ i18n.use(initReactI18next).init({
               orderMenu: "Place your dinner orders here:",
               currentOrders: "Current Orders:",
               deleteOrder: "Delete Order",
-              are_you_sure_you_want_to_select: "Are you sure you want to select",
+              are_you_sure_you_want_to_select: "Are you sure you want to select this option",
               decline: "Decline",
               accept: "Accept",
-              receptionStartTime: "The reception starts after the ceremony"
+              ContactEmail: "oyvind.reitan3@gmail.com"
             },
         },
         IT: {
@@ -62,14 +62,15 @@ i18n.use(initReactI18next).init({
             errorWrongStatus: "" +
                           "Wrong status set on RSVP, check with support"
             },
-            are_you_sure_you_want_to_select: "Are you sure you want to select",
+            are_you_sure_you_want_to_select: "Sei sicuro di voler scegliere questa opzione",
             enterWedding: "Enter any wedding you participate in:",
             hello: "Ciao",
             orderMenu: "Place your dinner orders here:",
             currentOrders: "Current Orders:",
             deleteOrder: "Delete Order",
-            decline: "Decline",
-            accept: "Accept"
+            decline: "Rifiuta",
+            accept: "Accetta",
+            ContactEmail: "carla.arrigo@hotmail.it"
           }
         },
     },

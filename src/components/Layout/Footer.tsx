@@ -6,7 +6,7 @@ function Footer() {
 
   return (
     <footer>
-      <p>{t("ContactOus")}:</p> <p>oyvind.reitan3@gmail.com</p>
+      <p>{t("ContactOus")}:</p> <p>{t("ContactEmail")}</p>
     </footer>
   )
 }
