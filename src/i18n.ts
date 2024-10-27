@@ -34,7 +34,7 @@ i18n.use(initReactI18next).init({
               are_you_sure_you_want_to_select: "Are you sure you want to select this option",
               decline: "Decline",
               accept: "Accept",
-              contactOus: "Contact ous",
+              contactOus: "Contact us",
               contactEmail: "oyvind.reitan3@gmail.com"
             },
         },
@@ -70,7 +70,7 @@ i18n.use(initReactI18next).init({
             deleteOrder: "Delete Order",
             decline: "Rifiuta",
             accept: "Accetta",
-            contactOus: "Contact ous",
+            contactOus: "Contattaci",
             contactEmail: "carla.arrigo@hotmail.it"
           },
         },
