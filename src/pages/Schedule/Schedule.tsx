@@ -59,7 +59,6 @@ function Schedule() {
         { currentCeremony && activeTab=="Ceremony" &&
           <>
             <Summary location={currentCeremony.location} startDate={currentCeremony.startDate} endDate={currentCeremony.endDate} showDate={true}></Summary> 
-            <label className="nav-item">For more info <Link to={PathConstants.Ceremony}>{t("ceremony")}</Link></label>
           </>
         }
       </div>

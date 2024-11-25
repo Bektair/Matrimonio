@@ -27,6 +27,9 @@ function Summary(props: IProps) {
                     src={`https://www.google.com/maps/embed/v1/place?key=${googleApiKey}
                         &q=${props.location.address}`}>
                 </iframe>
+                <div className='mapDirectionsBox'>
+                <img src='https://res.cloudinary.com/dgegmm2pt/image/upload/v1732566981/oytjtzlnw7xiy1setwyg.jpg' className="mapDirectionsImg"></img>
+                </div>
             </div>
             
         </div>
