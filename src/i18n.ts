@@ -35,7 +35,8 @@ i18n.use(initReactI18next).init({
               decline: "Decline",
               accept: "Accept",
               contactOus: "Contact us",
-              contactEmail: "oyvind.reitan3@gmail.com"
+              contactEmail: "oyvind.reitan3@gmail.com",
+              starts_after_ceremony: "Starts after the ceremony"
             },
         },
         IT: {
@@ -71,9 +72,41 @@ i18n.use(initReactI18next).init({
             decline: "Rifiuta",
             accept: "Accetta",
             contactOus: "Contattaci",
-            contactEmail: "carla.arrigo@hotmail.it"
+            contactEmail: "carla.arrigo@hotmail.it",
+            starts_after_ceremony: "inizia dopo la cerimonia"
           },
         },
+        NO: {
+          translation: {
+            posts: "Poster",
+            schedule: "Schedule",
+            profile: "Profil",
+            home: "Hjem!",
+            logIn: "Log Inn",
+            dresscode: "Dresskode",
+            ceremony: "Sermoni",
+            reception: "Bryllupsfest",
+            logOut: "Logg ut",
+            RSVPpending: "Venter på svar",
+            RSVPaccepted: "Du har allerede godtatt denne invitasjonen, ønsker du å endre svaret ditt?",
+            RSVPacceptedPastDue: "Du har allerede sagt ja til invitasjonen, og RSVP-fristen har utløpt. Hvis du velger å avlyse, er det permanent",
+            RSVPdeclined: "Du har svart nei til denne invitasjonen, men det er ikke for sent å endre svaret ditt",
+            RSVPdeclinedPastDue: "Du har allerede sagt nei til invitasjonen, og RSVP-fristen har utløpt",
+            RSVPexpiredInvite: "Du svarte ikke på invitasjonen innen fristen",
+            errorWrongStatus: "Feil status satt på RSVP, kontakt support",
+            enterWedding: "Skriv inn bryllupet du deltar i:",
+            hello: "Hallo",
+            orderMenu: "Bestill middagen din her:",
+            currentOrders: "Bestillinger:",
+            deleteOrder: "Slett bestilling",
+            are_you_sure_you_want_to_select: "Er du sikker på at du vil velge dette alternativet?",
+            decline: "Avslå",
+            accept: "Godta",
+            contactOus: "Kontakt oss",
+            contactEmail: "oyvind.reitan3@gmail.com",
+            starts_after_ceremony: "Starter etter seremonien"
+          },
+        }
       },
     },
 );
